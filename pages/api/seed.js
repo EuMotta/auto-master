@@ -7,6 +7,6 @@ const handler = async (req, res) => {
   await User.deleteMany();
   await User.insertMany(data.users);
   await db.disconnect();
-  res.send({ message: 'Maníaco da Seed, todo jose é!' });
+  res.send({ message: 'Maníaco da Seed' });
 };
 export default handler;

@@ -12,8 +12,8 @@ const data = {
       isAdmin: true,
     },
     {
-      name: 'Milena',
-      lastName: 'Carolina Souza',
+      name: 'Pedrão',
+      lastName: 'Do Carmo',
       image: '/imgUser/user.png',
       email: 'user@example.com',
       password: bcrypt.hashSync('12345678'),

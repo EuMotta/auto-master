@@ -3,8 +3,10 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiFillCar } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
 import { FcUp } from 'react-icons/fc';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { BsCart } from 'react-icons/bs';
+import Cookies from 'js-cookie';
 import { navLinks } from '../constants';
 import Theme from './Theme';
 import { Store } from '@/utils/Store';
@@ -13,7 +15,7 @@ const Navbar = ({ onThemeChange }) => {
   const homeRef = useRef(null);
   const navRef = useRef(null);
   const rocketRef = useRef(null);
-  const { state } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const { status, data: session } = useSession();
@@ -43,6 +45,11 @@ const Navbar = ({ onThemeChange }) => {
     return () => window.removeEventListener('scroll', homeFunc);
   }, []);
 
+  const logoutClickHandler = () => {
+    Cookies.remove('cart');
+    dispatch({ type: 'CART_RESET' });
+    signOut({ callbackUrl: '/login' });
+  };
   return (
     <header ref={homeRef} className="fixed w-full ">
       <nav ref={navRef} className="w-full z-50 container !h-10 navbar mx-auto">
@@ -117,19 +124,39 @@ const Navbar = ({ onThemeChange }) => {
             ))}
           </ul>
         </div>
-        <a href="/" className="p-2">
-          Cart
-          {cartItemsCount > 0 && (
-            <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
-              {cartItemsCount}
-            </span>
-          )}
-        </a>
         <div className="navbar-end">
+          <Link href="/cart" className="btn btn-circle">
+            <div className="indicator">
+              <span className="indicator-item badge badge-secondary">
+                {cartItemsCount}
+              </span>
+              <BsCart />
+            </div>
+          </Link>
           {status === 'loading' ? (
             <span className="loading loading-bars loading-xs" />
           ) : session?.user ? (
-            session.user.name
+            <div className="">
+              {session.user.name}{' '}
+              <div className="dropdown dropdown-bottom dropdown-end">
+                <label tabIndex={0} className="btn m-1">
+                  Click
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link href="/">Perfil</Link>
+                  </li>
+                  <li>
+                    <button type="button" onClick={logoutClickHandler}>
+                      Sair
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
           ) : (
             <Link href="/login" className="btn flex btn-outline">
               <FiLogIn />

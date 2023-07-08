@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import BusinessUseImg from '../../../../public/images/home/BusinessUse.svg';
+import BusinessUseImg from '@/public/images/home/BusinessUse.svg';
 
 const BusinessUse = () => (
   <section className="bg-base-200  flex flex-col justify-center">

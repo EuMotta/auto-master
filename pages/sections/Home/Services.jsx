@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { services } from './constants';
-import ServicesImg from '../../../../public/images/home/Services.svg';
-import ServicesImg2 from '../../../../public/images/home/Services.jpg';
+import ServicesImg from '@/public/images/home/Services.svg';
+import ServicesImg2 from '@/public/images/home/Services.jpg';
 
 const Services = () => {
   const [modalOpen, setModalOpen] = useState(null);

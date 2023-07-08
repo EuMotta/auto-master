@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import React from 'react';
 import { FaCog } from 'react-icons/fa';
-import { themeList } from './constants';
+import { themeList } from '../constants';
 
 const Theme = ({ onThemeChange }) => {
   const handleThemeChange = (e) => {
@@ -20,18 +20,18 @@ const Theme = ({ onThemeChange }) => {
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content z-[1] menu p-2 shadow rounded-box w-32"
+          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
         >
           <select
             id="themeSelect"
-            className="border border-base-300 text-white bg-black rounded p-1"
+            className="border border-base-300 rounded p-1"
             onChange={handleThemeChange}
           >
             {themeList.map((themeOption) => (
               <option
                 key={themeOption}
                 value={themeOption}
-                className="flex items-center text-white"
+                className="flex items-center "
               >
                 {themeOption}
               </option>

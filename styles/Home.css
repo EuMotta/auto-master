@@ -34,7 +34,7 @@
  */
 
 .hero-bg {
-  background-image: url(../../public/images/home/HeroBgTest.png);
+  background-image: url(@/public/images/home/HeroBgTest.png);
   background-position: center;
   background-size: cover;
 }

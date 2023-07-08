@@ -1,17 +1,18 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { AiFillCar } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
 import { FcUp } from 'react-icons/fc';
-import { useSession } from 'next-auth/react';
 import { navLinks } from '../constants';
-import Theme from '../Theme';
+import Theme from './Theme';
+import { Store } from '@/utils/Store';
 
 const Navbar = ({ onThemeChange }) => {
-  const { data: session } = useSession();
   const homeRef = useRef(null);
   const navRef = useRef(null);
   const rocketRef = useRef(null);
+  const { state } = useContext(Store);
+  const { cart } = state;
 
   const homeFunc = () => {
     if (
@@ -36,7 +37,6 @@ const Navbar = ({ onThemeChange }) => {
   return (
     <header ref={homeRef} className="fixed w-full ">
       <nav ref={navRef} className="w-full z-50 container !h-10 navbar mx-auto">
-        {session.user.name}
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -108,7 +108,14 @@ const Navbar = ({ onThemeChange }) => {
             ))}
           </ul>
         </div>
-
+        <a href="/" className="p-2">
+          Cart
+          {cart.cartItems.length > 0 && (
+            <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+              {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+            </span>
+          )}
+        </a>
         <div className="navbar-end">
           <a href="/Login" className="btn flex btn-outline">
             <FiLogIn />

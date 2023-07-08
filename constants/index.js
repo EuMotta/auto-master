@@ -1,33 +1,4 @@
-export const themeList = [
-  'acid',
-  'dark',
-  /*  'cupcake',
-  'bumblebee',
-  'emerald',
-  'corporate', */
-  'synthwave',
-  /*   'retro',
-  'cyberpunk',
-  'valentine',
-  'halloween',
-  'garden',
-  'forest',
-  'aqua',
-  'lofi',
-  'pastel',
-  'fantasy',
-  'wireframe',
-  'black',
-  'luxury',
-  'dracula',
-  'cmyk',
-  'autumn',
-  'business',
-  'lemonade',
-  'night',
-  'coffee',
-  'winter', */
-];
+export const themeList = ['acid', 'dark', 'synthwave'];
 export const navLinks = [
   {
     name: 'Home',

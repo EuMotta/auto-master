@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiFillCar } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
 import { FcUp } from 'react-icons/fc';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { navLinks } from '../constants';
 import Theme from './Theme';
 import { Store } from '@/utils/Store';
@@ -13,6 +15,12 @@ const Navbar = ({ onThemeChange }) => {
   const rocketRef = useRef(null);
   const { state } = useContext(Store);
   const { cart } = state;
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+  const { status, data: session } = useSession();
+
+  useEffect(() => {
+    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
+  }, [cart.cartItems]);
 
   const homeFunc = () => {
     if (
@@ -34,6 +42,7 @@ const Navbar = ({ onThemeChange }) => {
 
     return () => window.removeEventListener('scroll', homeFunc);
   }, []);
+
   return (
     <header ref={homeRef} className="fixed w-full ">
       <nav ref={navRef} className="w-full z-50 container !h-10 navbar mx-auto">
@@ -110,17 +119,23 @@ const Navbar = ({ onThemeChange }) => {
         </div>
         <a href="/" className="p-2">
           Cart
-          {cart.cartItems.length > 0 && (
+          {cartItemsCount > 0 && (
             <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
-              {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+              {cartItemsCount}
             </span>
           )}
         </a>
         <div className="navbar-end">
-          <a href="/Login" className="btn flex btn-outline">
-            <FiLogIn />
-            <p>Entrar</p>
-          </a>
+          {status === 'loading' ? (
+            <span className="loading loading-bars loading-xs" />
+          ) : session?.user ? (
+            session.user.name
+          ) : (
+            <Link href="/login" className="btn flex btn-outline">
+              <FiLogIn />
+              <p>Entrar</p>
+            </Link>
+          )}
         </div>
       </nav>
       <button

@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import bcryptjs from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth from 'next-auth';
 import db from '../../../../utils/db';
@@ -29,7 +28,7 @@ export default NextAuth({
           email: credentials.email,
         });
         await db.disconnect();
-        if (user && bcryptjs.compareSync(credentials.password, user.password)) {
+        if ((user && credentials.password, user.password)) {
           return {
             _id: user._id,
             name: user.name,

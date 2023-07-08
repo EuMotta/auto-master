@@ -3,10 +3,12 @@ import React, { useEffect, useRef } from 'react';
 import { AiFillCar } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
 import { FcUp } from 'react-icons/fc';
+import { useSession } from 'next-auth/react';
 import { navLinks } from '../constants';
 import Theme from '../Theme';
 
 const Navbar = ({ onThemeChange }) => {
+  const { data: session } = useSession();
   const homeRef = useRef(null);
   const navRef = useRef(null);
   const rocketRef = useRef(null);
@@ -34,6 +36,7 @@ const Navbar = ({ onThemeChange }) => {
   return (
     <header ref={homeRef} className="fixed w-full ">
       <nav ref={navRef} className="w-full z-50 container !h-10 navbar mx-auto">
+        {session.user.name}
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">

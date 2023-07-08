@@ -4,7 +4,7 @@
 'use client';
 
 import { React, useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 
 const page = () => {
   const [error, setError] = useState('');
@@ -25,6 +25,7 @@ const page = () => {
       if (response.error) {
         setError(response.error);
         console.log('Deu merda');
+        console.log(response);
       } else {
         console.log('Login bem-sucedido');
       }

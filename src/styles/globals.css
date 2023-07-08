@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+.paddings {
+  @apply sm:p-16 px-6 py-12;
+}
+.yPaddings {
+  @apply sm:py-16 py-12;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-300;
+  border-radius: 40px;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+}
+.glass2 {
+  border: none;
+  backdrop-filter: blur(90px);
+  background-color: transparent;
+  background-image: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0.158) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 0 0 2px rgba(0, 0, 0, 0.05);
+  text-shadow: 0 1px rgba(0, 0, 0, 0.05);
+}
+.glass3 {
+  border: none;
+  backdrop-filter: blur(90px);
+  background-color: transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.158) 0%,
+      rgba(0, 111, 111, 0) 100%
+    );
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 0 0 2px rgba(0, 0, 0, 0.05);
+  text-shadow: 0 1px rgba(0, 0, 0, 0.05);
+}
+.home_nav {
+  width: 100%;
+  background-color: #909197a1;
+  @apply text-white;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  transition: 300ms ease-in-out;
+}
+.nav_fix {
+  position: sticky;
+  transition: 300ms ease-in-out;
+}
+
+.scroll-top {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  position: fixed;
+  bottom: 105%;
+  right: 30px;
+  font-size: 16px;
+  z-index: 999;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  background: #484c5850;
+  transition: 300ms ease;
+  border: none;
+}
+.scroll-top.open {
+  bottom: 15%;
+}

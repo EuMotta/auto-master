@@ -39,8 +39,8 @@ const Plans = () => (
             <hr className="!m-0 !p-0" />
             <div className="flex flex-col py-5 md:gap-5 flex-grow">
               <h3 className="text-center !m-0">O que posso utilizar?</h3>
-              {plan.description.map((item) => (
-                <div className="flex justify-center gap-2 items-center">
+              {plan.description.map((item,index) => (
+                <div   key={index} className="flex justify-center gap-2 items-center">
                   <BsCheck className="md:text-3xl text-green-500" />
                   <p className="!m-0" key={item}>
                     {item}

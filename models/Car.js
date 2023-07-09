@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const carSchema = new mongoose.Schema(
   {
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     brand: { type: String, required: false },
     model: { type: String, required: false },
     fueltype: { type: String, required: false },
@@ -12,20 +13,20 @@ const carSchema = new mongoose.Schema(
     chassis: { type: String, required: false },
     headlights: {
       model: { type: String, required: false },
-      buyDate: { type: String, required: true },
+      buyDate: { type: String, required: false },
     },
     tires: {
-      brand: { type: String, required: true },
-      frontSize: { type: Number, required: true },
-      rearSize: { type: Number, required: true },
+      brand: { type: String, required: false },
+      frontSize: { type: Number, required: false },
+      rearSize: { type: Number, required: false },
     },
     test: [
       {
-        title: { type: String, required: true },
+        title: { type: String, required: false },
         options: [
           {
-            title: { type: String, required: true },
-            value: { type: String, required: true },
+            title: { type: String, required: false },
+            value: { type: String, required: false },
           },
         ],
       },

@@ -21,34 +21,34 @@ const data = {
     },
   ],
   cars: {
-    brand: "BMW",
-    model: "X5",
-    fueltype: "Gasolina",
+    brand: 'BMW',
+    model: 'X5',
+    fueltype: 'Gasolina',
     hodometro: 1000,
-    color: "Verde",
-    year: "2017",
-    licensePlate:  "ABC-1234",
-    chassis:  "",
+    color: 'Verde',
+    year: '2017',
+    licensePlate: 'ABC-1234',
+    chassis: '',
     headlights: {
-        model: "Xenon",
-        buyDate: Date() 
+      model: 'Xenon',
+      buyDate: Date(),
     },
     tires: {
-        brand: "GoodYear",
-        frontSize:  20,
-        rearSize: 22
+      brand: 'GoodYear',
+      frontSize: 20,
+      rearSize: 22,
     },
     test: [
       {
-          title: "farol",
-          options: [
-              {
-                  title: "brightness",
-                  value: "10"
-              }
-          ]
-      }
-  ] 
-  }
+        title: 'farol22',
+        options: [
+          {
+            title: 'brightness',
+            value: '10',
+          },
+        ],
+      },
+    ],
+  },
 };
 export default data;

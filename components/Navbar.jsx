@@ -130,7 +130,7 @@ const Navbar = ({ onThemeChange }) => {
               <span className="indicator-item badge badge-secondary">
                 {cartItemsCount}
               </span>
-              <BsCart />
+              <BsCart className='m-3'/>
             </div>
           </Link>
           {status === 'loading' ? (

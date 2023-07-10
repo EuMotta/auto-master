@@ -1,6 +1,7 @@
 import { getSession } from 'next-auth/react';
 import Car from '../../../../models/Car';
 import db from '../../../../utils/db';
+import { useParams } from 'next/navigation';
 
 const handler = async (req, res) => {
   const session = await getSession({ req });
@@ -8,7 +9,8 @@ const handler = async (req, res) => {
     return res.status(401).send({ message: 'Acesse a sua conta' });
   }
   await db.connect();
-  const car = await Car.findById(req.params.id);
+  const parameters = useParams();
+  const car = await Car.findById(parameters.id);
   await db.disconnect();
   res.send({ car });
 };

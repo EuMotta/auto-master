@@ -6,10 +6,13 @@ import PersonalUse from './sections/Home/PersonalUse';
 import Separator from './sections/Home/Separator';
 import BusinessUse from './sections/Home/BusinessUse';
 import Plans from './sections/Home/Plans';
+import Link from 'next/link';
 
 const index = () => (
   <Layout title="inicio">
+    
     <Hero />
+    <Link className='btn mt-10' href={'http://localhost:3000/car/64ac103a999acfe45185e219'}>Ir ver carro</Link>
     <Services />
     <PersonalUse />
     <Separator />

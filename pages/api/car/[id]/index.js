@@ -11,9 +11,9 @@ const handler = async (req, res) => {
   await db.connect();
   const id = req.query.id;
   console.log('id: ', id);
-  const car = await Car.findById('64ac0f1a999acfe45185e20d');
+  const car = await Car.findById(id);
   await db.disconnect();
-  res.send({ car });
+  res.send(car);
 };
 
 export default handler;

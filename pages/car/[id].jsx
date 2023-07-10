@@ -24,8 +24,6 @@ const ViewCar = () => {
 
   const carId = query.id;
 
-  const [carro, setCarro] = useState({})
-
   const [{ loading, error, car }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -36,9 +34,8 @@ const ViewCar = () => {
     const fetchCar = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/car/${carId}?id=${carId}`);
+        const { data } = await axios.get(`/api/car/${carId}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
-        setCarro(car);
       } catch (err) {
         dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
       }
@@ -61,6 +58,8 @@ const ViewCar = () => {
         ) : (
           <div>
             {car.model}
+            {car.brand}
+            {car.headlights.brightness}
           </div>
         )}
 

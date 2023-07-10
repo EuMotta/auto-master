@@ -17,6 +17,7 @@ const RegisterCar = () => {
 
   const submitHandler = async (formData) => {
     try {
+      formData.owner = session?.user?._id
       const response = await axios.post('/api/car', formData);
       const result = response.data;
       console.log(formData);
@@ -25,9 +26,7 @@ const RegisterCar = () => {
     } catch (err) {
       toast.error(getError(err));
     }
-  };
-
-  const ownerId = session?.user?._id;
+  }
   return (
     <Layout title="Register Car">
       <form
@@ -35,17 +34,6 @@ const RegisterCar = () => {
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl">Register Car</h1>
-        <div className="mb-4">
-          <label htmlFor="owner">Owner</label>
-          <input
-            type="text"
-            {...register('owner')}
-            className="w-full"
-            id="owner"
-            value={ownerId}
-            autoFocus
-          />
-        </div>
         <div className="mb-4">
           <label htmlFor="brand">Brand</label>
           <input

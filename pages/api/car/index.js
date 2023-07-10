@@ -5,7 +5,7 @@ const postHandler = async (req, res) => {
   console.log('test');
   await db.connect();
   const newCar = new CarData({
-    owner: '64ab0f9ccaca93336f866bac',
+    owner: req.body.owner,
     brand: req.body.brand,
     model: req.body.model,
     fueltype: req.body.fueltype,
@@ -43,7 +43,7 @@ const handler = async (req, res) => {
   } if (req.method === 'POST') {
     return postHandler(req, res);
   }
-  return res.status(400).send({ message: 'Deu ruim!' });
+  return res.status(400).send({ message: 'Erro 400' });
 };
 
 export default handler;

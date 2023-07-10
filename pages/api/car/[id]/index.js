@@ -9,8 +9,9 @@ const handler = async (req, res) => {
     return res.status(401).send({ message: 'Acesse a sua conta' });
   }
   await db.connect();
-  const parameters = useParams();
-  const car = await Car.findById(parameters.id);
+  const id = req.query.id;
+  console.log('id: ', id);
+  const car = await Car.findById('64ac0f1a999acfe45185e20d');
   await db.disconnect();
   res.send({ car });
 };

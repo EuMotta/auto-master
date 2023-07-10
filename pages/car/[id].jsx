@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { React, useReducer, useEffect } from 'react';
+import { React, useReducer, useEffect, useState } from 'react';
 import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
 
@@ -24,24 +24,27 @@ const ViewCar = () => {
 
   const carId = query.id;
 
+  const [carro, setCarro] = useState({})
+
   const [{ loading, error, car }, dispatch] = useReducer(reducer, {
     loading: true,
-    car: {},
     error: '',
+    car: {},
   });
 
   useEffect(() => {
     const fetchCar = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/car/${carId}`);
-        dispatch({ type: 'FETCH_SUCESS', payload: data });
+        const { data } = await axios.get(`/api/car/${carId}?id=${carId}`);
+        dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        setCarro(car);
       } catch (err) {
         dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
       }
     };
     fetchCar();
-  }, [car, carId]);
+  }, []);
 
   return (
     <Layout title="Exibindo Carro">
@@ -57,11 +60,7 @@ const ViewCar = () => {
           </div>
         ) : (
           <div>
-            {car.map((item, index) => {
-              <div key={index}>
-                {car.brand}
-              </div>;
-            })}
+            {car.model}
           </div>
         )}
 

@@ -1,79 +1,50 @@
-import Car from '../../../models/Car';
+import CarData from '../../../models/Car';
 import db from '../../../utils/db';
 
 const postHandler = async (req, res) => {
-  try {
-    await db.connect();
-
-    const {
-      owner,
-      brand,
-      model,
-      fueltype,
-      hodometro,
-      color,
-      year,
-      licensePlate,
-      chassis,
-      headlights: { model: headlightsModel, buyDate: headlightsBuyDate },
-      tires: { brand: tiresBrand, frontSize: tiresFrontSize, rearSize: tiresRearSize },
-      test: [{ title: testTitle, options: [{ title: optionTitle, value: optionValue }] }],
-    } = req.body;
-
-    const newCar = new Car({
-      owner,
-      brand,
-      model,
-      fueltype,
-      hodometro,
-      color,
-      year,
-      licensePlate,
-      chassis,
-      headlights: {
-        model: headlightsModel,
-        buyDate: headlightsBuyDate,
+  console.log('test');
+  await db.connect();
+  const newCar = new CarData({
+    owner: '64ab0f9ccaca93336f866bac',
+    brand: req.body.brand,
+    model: req.body.model,
+    fueltype: req.body.fueltype,
+    hodometro: req.body.hodometro,
+    color: req.body.color,
+    year: req.body.year,
+    licensePlate: req.body.licensePlate,
+    chassis: req.body.chassis,
+    headlights: {
+      model: req.body.headlights.model,
+      buyDate: req.body.headlights.buyDate,
+    },
+    tires: {
+      brand: req.body.tires.brand,
+      frontSize: req.body.tires.frontSize,
+      rearSize: req.body.tires.rearSize,
+    },
+    test: [
+      {
+        title: req.body.test[0].title,
+        options: [
+          {
+            title: req.body.test[0].options[0].title,
+            value: req.body.test[0].options[0].value,
+          },
+        ],
       },
-      tires: {
-        brand: tiresBrand,
-        frontSize: tiresFrontSize,
-        rearSize: tiresRearSize,
-      },
-      test: [
-        {
-          title: testTitle,
-          options: [
-            {
-              title: optionTitle,
-              value: optionValue,
-            },
-          ],
-        },
-      ],
-    });
-
-    const car = await newCar.save();
-
-    await db.disconnect();
-
-    res.status(201).send({ message: 'Car added successfully!', car });
-  } catch (error) {
-    res.status(500).send({ message: 'Internal Server Error' });
-  }
+    ],
+  });
+  const car = await newCar.save();
+  await db.disconnect();
+  res.send({ message: 'Car added successfully!', car });
 };
 
 const getHandler = async (req, res) => {
-  try {
-    await db.connect();
-
-    const cars = await Car.find({});
-
-    await db.disconnect();
-
-    res.send(cars);
-  } catch (error) {
-    res.status(500).send({ message: 'Internal Server Error' });
-  }
+  await db.connect();
+  const car = await CarData.find({});
+  await db.disconnect();
+  res.send(car);
 };
 
 const handler = async (req, res) => {
@@ -82,7 +53,7 @@ const handler = async (req, res) => {
   } if (req.method === 'POST') {
     return postHandler(req, res);
   }
-  res.status(400).send({ message: 'Bad Request' });
+  return res.status(400).send({ message: 'Deu ruim!' });
 };
 
 export default handler;

@@ -14,10 +14,8 @@ const RegisterCar = () => {
     register,
     formState: { errors },
   } = useForm();
-  console.log(errors);
 
   const submitHandler = async (formData) => {
-    console.log(formData);
     try {
       const response = await axios.post('/api/car', formData);
       const result = response.data;

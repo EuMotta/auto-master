@@ -23,17 +23,7 @@ const postHandler = async (req, res) => {
       frontSize: req.body.tires.frontSize,
       rearSize: req.body.tires.rearSize,
     },
-    test: [
-      {
-        title: req.body.test[0].title,
-        options: [
-          {
-            title: req.body.test[0].options[0].title,
-            value: req.body.test[0].options[0].value,
-          },
-        ],
-      },
-    ],
+    test: req.body.test,
   });
   const car = await newCar.save();
   await db.disconnect();

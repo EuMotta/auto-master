@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { React, useReducer, useEffect, useState } from 'react';
+import { React, useReducer, useEffect } from 'react';
 import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
 

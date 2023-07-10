@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
@@ -14,10 +15,10 @@ const RegisterCar = () => {
     register,
     formState: { errors },
   } = useForm();
-
+  console.log(errors);
   const submitHandler = async (formData) => {
     try {
-      formData.owner = session?.user?._id
+      formData.owner = session?.user?._id;
       const response = await axios.post('/api/car', formData);
       const result = response.data;
       console.log(formData);
@@ -26,7 +27,7 @@ const RegisterCar = () => {
     } catch (err) {
       toast.error(getError(err));
     }
-  }
+  };
   return (
     <Layout title="Register Car">
       <form

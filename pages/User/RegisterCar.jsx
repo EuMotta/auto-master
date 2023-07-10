@@ -2,7 +2,6 @@ import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 import Layout from '../../components/Layout';
 import { getError } from '../../utils/error';
@@ -10,14 +9,12 @@ import { getError } from '../../utils/error';
 const RegisterCar = () => {
   const { data: session } = useSession();
 
-  const router = useRouter();
-  const { redirect } = router.query;
-
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
+  console.log(errors);
 
   const submitHandler = async (formData) => {
     console.log(formData);

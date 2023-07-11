@@ -29,13 +29,13 @@ const Navbar = ({ onThemeChange }) => {
       document.body.scrollTop > 80
       || document.documentElement.scrollTop > 80
     ) {
-      homeRef.current.classList.add('home_nav');
-      navRef.current.classList.add('nav_fix');
-      rocketRef.current.classList.add('open');
+      homeRef.current?.classList?.add('home_nav');
+      navRef.current?.classList?.add('nav_fix');
+      rocketRef.current?.classList?.add('open');
     } else {
-      homeRef.current.classList.remove('home_nav');
-      navRef.current.classList.remove('nav_fix');
-      rocketRef.current.classList.remove('open');
+      homeRef.current?.classList?.remove('home_nav');
+      navRef.current?.classList?.remove('nav_fix');
+      rocketRef.current?.classList?.remove('open');
     }
   };
 
@@ -148,6 +148,9 @@ const Navbar = ({ onThemeChange }) => {
                 >
                   <li>
                     <Link href="/">Perfil</Link>
+                  </li>
+                  <li>
+                    <Link href="/User/ViewCars">Veículos</Link>
                   </li>
                   <li>
                     <button type="button" onClick={logoutClickHandler}>

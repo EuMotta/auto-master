@@ -19,6 +19,14 @@ const data = {
       password: bcrypt.hashSync('12345678'),
       isAdmin: false,
     },
+    {
+      name: 'Pedrão2',
+      lastName: 'Do Carmo',
+      image: '/imgUser/user.png',
+      email: 'usuario1@example.com',
+      password: bcrypt.hashSync('teste'),
+      isAdmin: false,
+    },
   ],
   cars: {
     owner: '64ab0f9ccaca93336f866bac',

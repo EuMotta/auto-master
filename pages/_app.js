@@ -2,7 +2,7 @@
 
 'use client';
 
-import '../styles/globals.css';
+import '@/styles/globals.css';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { StoreProvider } from '../utils/Store';

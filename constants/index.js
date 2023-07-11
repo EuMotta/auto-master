@@ -183,4 +183,3 @@ export const services = [
     image: followUp,
   },
 ];
-

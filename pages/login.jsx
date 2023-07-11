@@ -70,7 +70,7 @@ const LoginScreen = () => {
             type="password"
             {...register('password', {
               required: 'Please enter password',
-              minLength: { value: 6, message: 'password is more than 5 chars' },
+              minLength: { value: 3, message: 'password is more than 5 chars' },
             })}
             className="w-full"
             id="password"

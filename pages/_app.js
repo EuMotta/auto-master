@@ -6,11 +6,14 @@ import '@/styles/globals.css';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { StoreProvider } from '../utils/Store';
+import ProtectedRoute from '@/utils/ProtectedRoute';
 
 const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => (
   <SessionProvider session={session}>
     <StoreProvider>
-      <Component {...pageProps} />
+      <ProtectedRoute>
+        <Component {...pageProps} />
+      </ProtectedRoute>
     </StoreProvider>
   </SessionProvider>
 );

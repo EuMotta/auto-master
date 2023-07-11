@@ -12,7 +12,7 @@ const index = () => (
   <Layout title="inicio">
 
     <Hero />
-    <Link className="btn mt-10" href="http://localhost:3000/car/64ac103a999acfe45185e219">Ir ver carro</Link>
+    <Link className="btn mt-10" href="http://localhost:3000/car/64acadcfe25db4b04dc47285">Ir ver carro</Link>
     <Services />
     <PersonalUse />
     <Separator />

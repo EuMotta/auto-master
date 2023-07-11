@@ -10,9 +10,15 @@ const handler = async (req, res) => {
   await db.connect();
   const { id } = req.query;
   console.log('id: ', id);
-  const car = await Car.findById(id);
-  await db.disconnect();
-  res.send(car);
+  try {
+    const car = await Car.findById(id);
+    await db.disconnect();
+    res.send(car);
+  } catch (error) {
+    console.error('Ocorreu um erro na busca do carro:', error);
+    await db.disconnect();
+    return res.status(500).send({ message: 'Erro ao buscar o carro' });
+  }
 };
 
 export default handler;

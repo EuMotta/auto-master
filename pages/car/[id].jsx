@@ -1,10 +1,43 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-expressions */
+
+'use client';
+
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { React, useReducer, useEffect } from 'react';
 import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
+import db from '@/utils/db';
+import Car from '@/models/Car';
+
+export async function getStaticPaths() {
+  await db.connect();
+  const cars = await Car.find({}, '_id');
+  await db.disconnect();
+
+  const paths = cars.map((car) => ({
+    params: { id: car._id.toString() },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  await db.connect();
+  const car = await Car.findById(params.id);
+  await db.disconnect();
+
+  return {
+    props: {
+      car: JSON.parse(JSON.stringify(car)),
+    },
+    revalidate: 1,
+  };
+}
 
 function reducer(state, action) {
   switch (action.type) {

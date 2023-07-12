@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import Layout from '@/components/Layout';
 import Hero from './sections/Home/Hero';
 import Services from './sections/Home/Services';
@@ -12,7 +11,6 @@ const index = () => (
   <Layout title="inicio">
 
     <Hero />
-    <Link className="btn mt-10" href="http://localhost:3000/car/64acadcfe25db4b04dc47285">Ir ver carro</Link>
     <Services />
     <PersonalUse />
     <Separator />

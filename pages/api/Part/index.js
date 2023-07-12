@@ -3,10 +3,19 @@ import db from '../../../utils/db';
 
 const postHandler = async (req, res) => {
   await db.connect();
+  console.log(req.body);
+
+  const options = req.body.optionValue.map((option, key) => {
+    option.title = req.body.optionTitle[key].value;
+    return option;
+  })
+
+  console.log(options)
+
   const newPart = new PartData({
-    owner: req.body.owner,
+    carId: req.body.carId,
     title: req.body.title,
-    options: req.body.options,
+    options: options,
   });
   const part = await newPart.save();
   await db.disconnect();

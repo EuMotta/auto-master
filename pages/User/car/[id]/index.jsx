@@ -13,6 +13,7 @@ import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
 import db from '@/utils/db';
 import Car from '@/models/Car';
+import Link from 'next/link';
 
 export async function getStaticPaths() {
   await db.connect();
@@ -70,13 +71,17 @@ const ViewCar = () => {
     const fetchCar = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/car/${carId}`);
+        let { data } = await axios.get(`/api/car/${carId}`);
+        data.parts = await axios.get(`/api/car/${carId}/parts`);
+        data.parts = data.parts.data;
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
       }
     };
     fetchCar();
+
+    console.log('carro', car);
   }, []);
 
   return (
@@ -92,7 +97,7 @@ const ViewCar = () => {
           ) : (
             <div>
               <div>
-                <div className="bg-accent py-40">
+                <div className="bg-primary py-40">
                   <div className="container mx-auto lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <figure className="flex justify-center">
@@ -118,7 +123,7 @@ const ViewCar = () => {
                 </div>
                 <div className="h-96">
                   <div
-                    className="container bg-white mx-auto p-20 rounded-box  mt-[-6rem]"
+                    className="container bg-white mx-auto p-20 rounded-box mt-[-6rem]"
                     id="containerCarro"
                   >
                     <p className="text-black">
@@ -127,7 +132,10 @@ const ViewCar = () => {
                       excepturi quis iure cumque suscipit expedita nostrum quae
                       veritatis, in necessitatibus repellendus? Voluptas porro
                       facere adipisci?
+
                     </p>
+                    <Link href={`${car._id}/RegisterPart`} className='btn'>Adicionar Parte</Link>
+                    {car.parts.map((part) => <h1 className='text-red-900 prose'>{part.title}</h1>)}
                   </div>
                 </div>
               </div>

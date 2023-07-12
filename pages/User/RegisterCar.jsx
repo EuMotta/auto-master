@@ -1,15 +1,32 @@
 /* eslint-disable no-param-reassign */
-import React from 'react';
+import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import Image from 'next/image';
 import Layout from '../../components/Layout';
 import { getError } from '../../utils/error';
+import NoImage from '@/public/images/NoImage.png';
 
 const RegisterCar = () => {
   const { data: session } = useSession();
+  const [image, setImage] = useState(null);
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file.size > 1024 * 1024) {
+      toast.error(
+        'O arquivo selecionado é muito grande. Por favor, selecione um arquivo menor que 1 MB.',
+      );
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
   const {
     handleSubmit,
     register,
@@ -19,6 +36,7 @@ const RegisterCar = () => {
   const submitHandler = async (formData) => {
     try {
       formData.owner = session?.user?._id;
+      formData.image = image;
       const response = await axios.post('/api/car', formData);
       const result = response.data;
       console.log(formData);
@@ -28,6 +46,7 @@ const RegisterCar = () => {
       toast.error(getError(err));
     }
   };
+
   return (
     <Layout title="Register Car">
       <form
@@ -35,6 +54,20 @@ const RegisterCar = () => {
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl">Register Car</h1>
+        <div className="grid grid-cols-2 gap-5">
+          <div className="flex justify-center items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="p-2"
+              onChange={handleImageChange}
+              required
+            />
+          </div>
+          <div className="flex justify-center items-center">
+            <Image src={image || NoImage} width={300} height={113} />
+          </div>
+        </div>
         <div className="mb-4">
           <label htmlFor="brand">Brand</label>
           <input
@@ -102,7 +135,6 @@ const RegisterCar = () => {
             {...register('licensePlate')}
             className="w-full"
             id="licensePlate"
-            value="ABC123"
           />
         </div>
         <div className="mb-4">
@@ -115,7 +147,7 @@ const RegisterCar = () => {
             value="ABCD1234EFG567890"
           />
         </div>
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="headlights.model">Headlights Model</label>
           <input
             type="text"
@@ -194,7 +226,7 @@ const RegisterCar = () => {
             id="test[0].options[0].value"
             value="0-100 km/h em 6 segundos"
           />
-        </div>
+        </div> */}
         <div className="mb-4">
           <button type="submit" className="primary-button">
             Register Car

@@ -3,15 +3,16 @@ import mongoose from 'mongoose';
 const carSchema = new mongoose.Schema(
   {
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    image: { type: String, required: true },
     brand: { type: String, required: false },
     model: { type: String, required: false },
     fueltype: { type: String, required: false },
     hodometro: { type: Number, required: false },
     color: { type: String, required: false },
     year: { type: String, required: false },
-    licensePlate: { type: String, required: false, unique: true},
+    licensePlate: { type: String, required: false, unique: true },
     chassis: { type: String, required: false },
-    headlights: {
+    /* headlights: {
       model: { type: String, required: false },
       buyDate: { type: String, required: false },
     },
@@ -30,7 +31,7 @@ const carSchema = new mongoose.Schema(
           },
         ],
       },
-    ],
+    ], */
   },
   {
     timestamps: true,

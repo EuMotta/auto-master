@@ -11,28 +11,24 @@ module.exports = {
     themes: [
       {
         mytheme: {
-        
-"primary": "#641ae6",
-        
-"secondary": "#d926a9",
-        
-"base-500": "aliceblue",
 
-"neutral": "#2a323c",
-        
-"base-100": "#1d232a",
+          primary: '#1d75de',
 
-"accent": "#0e3575",
-        
-"info": "#3abff8",
-        
-"success": "#36d399",
-        
-"warning": "#fbbd23",
-        
-"error": "#f87272",
+          secondary: '#FFC100',
 
+          accent: '#66ddc9',
 
+          neutral: '#292f38',
+
+          'base-100': '#ECEFF4  ',
+
+          info: '#42b6f5',
+
+          success: '#92E3A9',
+
+          warning: '#ecc518',
+
+          error: '#ea1f4b',
         },
       },
     ],

@@ -2,10 +2,9 @@
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useEffect, useReducer, useState } from 'react';
+import Image from 'next/image';
 import Layout from '@/components/Layout';
 import { getError } from '@/utils/error';
-import imgCarro from '@/public/images/carro.jpg';
-import Image from 'next/image';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -58,33 +57,55 @@ const ViewCars = () => {
         {status === 'loading' ? (
           <span className="loading loading-bars loading-xs" />
         ) : loading ? (
-          <div className="text-lg text-gray-600">Carregando...</div>
+          <div className="flex justify-center items-center">
+            <span className="loading loading-bars loading-lg" />
+          </div>
         ) : error ? (
           <div className="text-lg text-red-600">{error}</div>
         ) : (
           <div className="container mx-auto mt-24 yPaddings">
             <div className="filters w-30 mx-auto bg-base-200 p-3 justify-between items-center rounded-box flex">
               <div>
-                <Link href="RegisterCar" className='btn'>Criar Veículo</Link>
-                <Link href="RegisterCar" className='btn'>Criar Veículo</Link>
+                <Link href="RegisterCar" className="btn">
+                  Criar Veículo
+                </Link>
+                <Link href="RegisterCar" className="btn">
+                  Criar Veículo
+                </Link>
                 <div className="dropdown">
-                  <label tabIndex={0} className="btn m-1">Click</label>
-                  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-52">
-                    <li><a>Item 1</a></li>
-                    <li><a>Item 2</a></li>
+                  <label tabIndex={0} className="btn m-1">
+                    Click
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-52"
+                  >
+                    <li>
+                      <a href="/">Item 1</a>
+                    </li>
+                    <li>
+                      <a href="/">Item 2</a>
+                    </li>
                   </ul>
                 </div>
               </div>
-              <Link href="RegisterCar" className='btn'>Criar Veículo</Link>
+              <Link href="RegisterCar" className="btn">
+                Criar Veículo
+              </Link>
             </div>
             <div className="grid lg:grid-cols-2 md:grid-cols-1 xl:grid-cols-3 gap-5 my-5">
               {cars.map((car, index) => (
-                <div key={index} className="card w-96 shadow-sm shadow-gray-600 mt-3 mx-aut">
-                  <figure><Image src={imgCarro}/></figure>
-                  <div className="card-body prose md:prose-xl">
-                    <div className="text-center">
+                <div
+                  key={index}
+                  className="card overflow-hidden w-96 shadow-sm shadow-gray-600 mt-3 mx-aut"
+                >
+                  <figure>
+                    <Image src={car.image} width={500} height={113} />
+                  </figure>
+                  <div className="card-body bg-base-200 prose md:prose-xl">
+                    <div className="text-center ">
                       <div className="bg-base-300 rounded-md">
-                        <p className='!mt-0'>{car.licensePlate}</p>
+                        <p className="!mt-0">{car.licensePlate}</p>
                       </div>
                       <h4>
                         {car.brand} {car.model}
@@ -102,10 +123,8 @@ const ViewCars = () => {
                   </div>
                 </div>
               ))}
-              </div>
-              
+            </div>
           </div>
-
         )}
       </div>
     </Layout>

@@ -8,12 +8,11 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { React, useReducer, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
 import db from '@/utils/db';
 import Car from '@/models/Car';
-import imgCarro from '@/public/images/carro.jpg'
-import Image from 'next/image';
 
 export async function getStaticPaths() {
   await db.connect();
@@ -95,22 +94,22 @@ const ViewCar = () => {
               <div className="bg-accent py-40">
                 <div className="container mx-auto lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <figure className='flex justify-center'><Image src={imgCarro} className='w-5/6 rounded-box'/></figure>
+                    <figure className="flex justify-center"><Image src={car.image} width={500} height={113} className=" rounded-box" /></figure>
                   </div>
-                  <div className='prose md:prose-xl items-center mx-auto flex-col my-auto'>
-                    <h2 className='text-center block !mb-0'>{car.licensePlate}</h2>
-                    <h5 className='text-center text-yellow-300'>{car.model}</h5>
-                    <hr className='!my-0'/><hr className='!m-2'/>
+                  <div className="prose md:prose-xl items-center mx-auto flex-col my-auto">
+                    <h2 className="text-center block !mb-0">{car.licensePlate}</h2>
+                    <h5 className="text-center text-yellow-300">{car.model}</h5>
+                    <hr className="!my-0" /><hr className="!m-2" />
                   </div>
                 </div>
               </div>
-              <div className='h-96'>
-                <div className="container bg-white mx-auto p-20 rounded-box  mt-[-6rem]" id='containerCarro'>
-                  <p className='text-black'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius nihil reprehenderit dolorum exercitationem, inventore excepturi quis iure cumque suscipit expedita nostrum quae veritatis, in necessitatibus repellendus? Voluptas porro facere adipisci?</p>
+              <div className="h-96">
+                <div className="container bg-white mx-auto p-20 rounded-box  mt-[-6rem]" id="containerCarro">
+                  <p className="text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius nihil reprehenderit dolorum exercitationem, inventore excepturi quis iure cumque suscipit expedita nostrum quae veritatis, in necessitatibus repellendus? Voluptas porro facere adipisci?</p>
                 </div>
               </div>
             </div>
-            
+
           )}
         </div>
       ) : (

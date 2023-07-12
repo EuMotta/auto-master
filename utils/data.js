@@ -30,6 +30,7 @@ const data = {
   ],
   cars: {
     owner: '64ab0f9ccaca93336f866bac',
+    image: 'image',
     brand: 'BMW',
     model: 'X5',
     fueltype: 'Gasolina',

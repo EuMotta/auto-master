@@ -6,6 +6,7 @@ const postHandler = async (req, res) => {
   await db.connect();
   const newCar = new CarData({
     owner: req.body.owner,
+    image: req.body.image,
     brand: req.body.brand,
     model: req.body.model,
     fueltype: req.body.fueltype,
@@ -14,7 +15,7 @@ const postHandler = async (req, res) => {
     year: req.body.year,
     licensePlate: req.body.licensePlate,
     chassis: req.body.chassis,
-    headlights: {
+    /*     headlights: {
       model: req.body.headlights.model,
       buyDate: req.body.headlights.buyDate,
     },
@@ -23,7 +24,7 @@ const postHandler = async (req, res) => {
       frontSize: req.body.tires.frontSize,
       rearSize: req.body.tires.rearSize,
     },
-    test: req.body.test,
+    test: req.body.test, */
   });
   const car = await newCar.save();
   await db.disconnect();

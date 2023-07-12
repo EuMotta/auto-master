@@ -91,25 +91,87 @@ const ViewCar = () => {
             <div className="text-lg text-red-600">{error}</div>
           ) : (
             <div>
-              <div className="bg-accent py-40">
-                <div className="container mx-auto lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <figure className="flex justify-center"><Image src={car.image} width={500} height={113} className=" rounded-box" /></figure>
+              <div>
+                <div className="bg-accent py-40">
+                  <div className="container mx-auto lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <figure className="flex justify-center">
+                        <Image
+                          src={car.image}
+                          width={500}
+                          height={113}
+                          className=" rounded-box"
+                        />
+                      </figure>
+                    </div>
+                    <div className="prose md:prose-xl items-center mx-auto flex-col my-auto">
+                      <h2 className="text-center block !mb-0">
+                        {car.licensePlate}
+                      </h2>
+                      <h5 className="text-center text-yellow-300">
+                        {car.model}
+                      </h5>
+                      <hr className="!my-0" />
+                      <hr className="!m-2" />
+                    </div>
                   </div>
-                  <div className="prose md:prose-xl items-center mx-auto flex-col my-auto">
-                    <h2 className="text-center block !mb-0">{car.licensePlate}</h2>
-                    <h5 className="text-center text-yellow-300">{car.model}</h5>
-                    <hr className="!my-0" /><hr className="!m-2" />
+                </div>
+                <div className="h-96">
+                  <div
+                    className="container bg-white mx-auto p-20 rounded-box  mt-[-6rem]"
+                    id="containerCarro"
+                  >
+                    <p className="text-black">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Eius nihil reprehenderit dolorum exercitationem, inventore
+                      excepturi quis iure cumque suscipit expedita nostrum quae
+                      veritatis, in necessitatibus repellendus? Voluptas porro
+                      facere adipisci?
+                    </p>
                   </div>
                 </div>
               </div>
-              <div className="h-96">
-                <div className="container bg-white mx-auto p-20 rounded-box  mt-[-6rem]" id="containerCarro">
-                  <p className="text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius nihil reprehenderit dolorum exercitationem, inventore excepturi quis iure cumque suscipit expedita nostrum quae veritatis, in necessitatibus repellendus? Voluptas porro facere adipisci?</p>
+              <div className="grid container mx-auto grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="card grid prose  md:prose-xl grid-cols-2 gap-10 flex-col bg-base-300 p-5">
+                  <h2 className=" text-center !m-0 col-span-2">
+                    Informações do carro
+                  </h2>
+                  <p className="text-center !m-0 col-span-2">{`ID: ${carId}`}</p>
+                  <div className="">
+                    <div className="bg-base-200 p-5">
+                      <div className="flex justify-between items-center mb-1">
+                        Marca: <div>{car.brand}</div>
+                      </div>
+                      <div className="flex justify-between items-center mb-1">
+                        Modelo: <div>{car.model}</div>
+                      </div>
+                      <div className="flex justify-between items-center mb-1">
+                        Combustível: <div>{car.fueltype}</div>
+                      </div>
+                      <div className="flex justify-between items-center mb-1">
+                        Hodômetro: <div>{car.hodometro}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="">
+                    <div className="bg-base-200 p-5">
+                      <div className="flex justify-between items-center mb-1">
+                        Cor: <div>{car.color}</div>
+                      </div>
+                      <div className="flex justify-between items-center mb-1">
+                        Ano: <div>{car.year}</div>
+                      </div>
+                      <div className="flex justify-between items-center mb-1">
+                        Placa: <div>{car.licensePlate}</div>
+                      </div>
+                      <div className="flex justify-between items-center mb-1">
+                        Chassi: <div>{car.chassis}</div>
+                      </div>{' '}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
           )}
         </div>
       ) : (

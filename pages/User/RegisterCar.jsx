@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import { getError } from '../../utils/error';
 import NoImage from '@/public/images/NoImage.png';
@@ -12,6 +13,8 @@ import NoImage from '@/public/images/NoImage.png';
 const RegisterCar = () => {
   const { data: session } = useSession();
   const [image, setImage] = useState(null);
+  const router = useRouter();
+  const { redirect } = router.query;
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -42,6 +45,7 @@ const RegisterCar = () => {
       console.log(formData);
       console.log(result);
       toast.success('Carro registrado com Sucesso!');
+      router.push(redirect || '/User/ViewCars');
     } catch (err) {
       toast.error(getError(err));
     }

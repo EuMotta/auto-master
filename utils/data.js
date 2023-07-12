@@ -60,5 +60,15 @@ const data = {
       },
     ],
   },
+  parts: {
+    carId: '64ab0f9ccaca93336f866bac',
+    title: 'farol',
+    options: [
+      {
+        title: 'Força da luz',
+        value: '10',
+      },
+    ],
+  },
 };
 export default data;

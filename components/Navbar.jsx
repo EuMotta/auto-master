@@ -137,10 +137,10 @@ const Navbar = ({ onThemeChange }) => {
             <span className="loading loading-bars loading-xs" />
           ) : session?.user ? (
             <div className="">
-              {session.user.name}{' '}
+              
               <div className="dropdown dropdown-bottom dropdown-end">
                 <label tabIndex={0} className="btn m-1">
-                  Click
+                {session.user.name}
                 </label>
                 <ul
                   tabIndex={0}

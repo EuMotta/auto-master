@@ -31,7 +31,7 @@ const RegisterCar = () => {
   return (
     <Layout title="Register Car">
       <form
-        className="mx-auto max-w-screen-md"
+        className="mx-auto max-w-screen-md bg-base-500"
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl">Register Car</h1>
@@ -42,7 +42,7 @@ const RegisterCar = () => {
             {...register('brand')}
             className="w-full"
             id="brand"
-            value="22"
+            value="Toyota"
           />
         </div>
         <div className="mb-4">
@@ -52,7 +52,7 @@ const RegisterCar = () => {
             {...register('model')}
             className="w-full"
             id="model"
-            value="22"
+            value="Corolla"
           />
         </div>
         <div className="mb-4">
@@ -62,7 +62,7 @@ const RegisterCar = () => {
             {...register('fueltype')}
             className="w-full"
             id="fueltype"
-            value="22"
+            value="Gasolina"
           />
         </div>
         <div className="mb-4">
@@ -72,7 +72,7 @@ const RegisterCar = () => {
             {...register('hodometro')}
             className="w-full"
             id="hodometro"
-            value="22"
+            value={50000}
           />
         </div>
         <div className="mb-4">
@@ -82,7 +82,7 @@ const RegisterCar = () => {
             {...register('color')}
             className="w-full"
             id="color"
-            value="22"
+            value="Prata"
           />
         </div>
         <div className="mb-4">
@@ -92,7 +92,7 @@ const RegisterCar = () => {
             {...register('year')}
             className="w-full"
             id="year"
-            value="22"
+            value="2020"
           />
         </div>
         <div className="mb-4">
@@ -102,7 +102,7 @@ const RegisterCar = () => {
             {...register('licensePlate')}
             className="w-full"
             id="licensePlate"
-            value="22"
+            value="ABC123"
           />
         </div>
         <div className="mb-4">
@@ -112,7 +112,7 @@ const RegisterCar = () => {
             {...register('chassis')}
             className="w-full"
             id="chassis"
-            value="22"
+            value="ABCD1234EFG567890"
           />
         </div>
         <div className="mb-4">
@@ -122,7 +122,7 @@ const RegisterCar = () => {
             {...register('headlights.model')}
             className="w-full"
             id="headlights.model"
-            value="22"
+            value="LED"
           />
         </div>
         <div className="mb-4">
@@ -132,7 +132,7 @@ const RegisterCar = () => {
             {...register('headlights.buyDate')}
             className="w-full"
             id="headlights.buyDate"
-            value="22"
+            value="2022-01-01"
           />
         </div>
         <div className="mb-4">
@@ -142,7 +142,7 @@ const RegisterCar = () => {
             {...register('tires.brand')}
             className="w-full"
             id="tires.brand"
-            value="22"
+            value="Michelin"
           />
         </div>
         <div className="mb-4">
@@ -152,7 +152,7 @@ const RegisterCar = () => {
             {...register('tires.frontSize')}
             className="w-full"
             id="tires.frontSize"
-            value="22"
+            value={205}
           />
         </div>
         <div className="mb-4">
@@ -162,7 +162,7 @@ const RegisterCar = () => {
             {...register('tires.rearSize')}
             className="w-full"
             id="tires.rearSize"
-            value="22"
+            value={205}
           />
         </div>
         <div className="mb-4">
@@ -172,7 +172,7 @@ const RegisterCar = () => {
             {...register('test[0].title')}
             className="w-full"
             id="test[0].title"
-            value="22"
+            value="Teste de desempenho"
           />
         </div>
         <div className="mb-4">
@@ -182,7 +182,7 @@ const RegisterCar = () => {
             {...register('test[0].options[0].title')}
             className="w-full"
             id="test[0].options[0].title"
-            value="22"
+            value="Aceleração"
           />
         </div>
         <div className="mb-4">
@@ -192,7 +192,7 @@ const RegisterCar = () => {
             {...register('test[0].options[0].value')}
             className="w-full"
             id="test[0].options[0].value"
-            value="22"
+            value="0-100 km/h em 6 segundos"
           />
         </div>
         <div className="mb-4">

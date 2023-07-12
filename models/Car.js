@@ -9,7 +9,7 @@ const carSchema = new mongoose.Schema(
     hodometro: { type: Number, required: false },
     color: { type: String, required: false },
     year: { type: String, required: false },
-    licensePlate: { type: String, required: false },
+    licensePlate: { type: String, required: false, unique: true},
     chassis: { type: String, required: false },
     headlights: {
       model: { type: String, required: false },

@@ -32,6 +32,7 @@ module.exports = {
     'react/prop-types': 0,
     'linebreak-style': 0,
     'jsx-a11y/no-noninteractive-tabindex': 0,
+    'no-promise-executor-return': 0,
     'react/state-in-constructor': 0,
     'import/prefer-default-export': 0,
     'import/no-unresolved': 0,

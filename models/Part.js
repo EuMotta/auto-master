@@ -7,11 +7,11 @@ const userSchema = new mongoose.Schema(
       ref: 'Car',
       required: true,
     },
-    title: { type: String, required: false },
+    title: { type: String, required: true },
     options: [
       {
-        title: { type: String, required: false },
-        value: { type: String, required: false },
+        title: { type: String, required: true },
+        value: { type: String, required: true },
       },
     ],
   },

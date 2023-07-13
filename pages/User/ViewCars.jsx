@@ -69,12 +69,9 @@ const ViewCars = () => {
                 <Link href="RegisterCar" className="btn">
                   Criar Veículo
                 </Link>
-                <Link href="RegisterCar" className="btn">
-                  Criar Veículo
-                </Link>
                 <div className="dropdown">
                   <label tabIndex={0} className="btn m-1">
-                    Click
+                    Dropdown
                   </label>
                   <ul
                     tabIndex={0}

@@ -45,6 +45,7 @@ const RegisterCar = () => {
       console.log(formData);
       console.log(result);
       toast.success('Carro registrado com Sucesso!');
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       router.push(redirect || '/User/ViewCars');
     } catch (err) {
       toast.error(getError(err));

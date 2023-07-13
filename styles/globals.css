@@ -82,7 +82,21 @@ html {
   bottom: 15%;
 }
 
-
+.h1{
+  @apply !m-0;
+}
+.h2{
+  @apply !m-0; 
+}
+.h3{
+  @apply !m-0; 
+}
+.h4{
+  @apply !m-0; 
+}
+.h5{
+  @apply !m-0; 
+}
 /*-----------------------*/
 /* Pagina inicial Start */
 /*-----------------------*/

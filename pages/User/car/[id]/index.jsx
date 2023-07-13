@@ -9,11 +9,11 @@ import { useRouter } from 'next/router';
 import { React, useReducer, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
 import db from '@/utils/db';
 import Car from '@/models/Car';
-import Link from 'next/link';
 
 export async function getStaticPaths() {
   await db.connect();
@@ -71,7 +71,7 @@ const ViewCar = () => {
     const fetchCar = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        let { data } = await axios.get(`/api/car/${carId}`);
+        const { data } = await axios.get(`/api/car/${carId}`);
         data.parts = await axios.get(`/api/car/${carId}/parts`);
         data.parts = data.parts.data;
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -80,8 +80,6 @@ const ViewCar = () => {
       }
     };
     fetchCar();
-
-    console.log('carro', car);
   }, []);
 
   return (
@@ -105,7 +103,9 @@ const ViewCar = () => {
                           src={car.image}
                           width={500}
                           height={113}
-                          className=" rounded-box"
+                          className="rounded-box"
+                          alt="carro"
+                          style={{ width: 'auto', height: 'auto' }}
                         />
                       </figure>
                     </div>
@@ -132,10 +132,10 @@ const ViewCar = () => {
                       excepturi quis iure cumque suscipit expedita nostrum quae
                       veritatis, in necessitatibus repellendus? Voluptas porro
                       facere adipisci?
-
                     </p>
-                    <Link href={`${car._id}/RegisterPart`} className='btn'>Adicionar Parte</Link>
-                    {car.parts.map((part) => <h1 className='text-red-900 prose'>{part.title}</h1>)}
+                    <Link href={`${car._id}/RegisterPart`} className="btn">
+                      Adicionar Parte
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -175,6 +175,52 @@ const ViewCar = () => {
                       <div className="flex justify-between items-center mb-1">
                         Chassi: <div>{car.chassis}</div>
                       </div>{' '}
+                    </div>
+                  </div>
+                </div>
+                <div className="card prose h-96 overflow-scroll md:prose-xl flex-col bg-base-200 p-5">
+                  <h2 className=" text-center !m-0 col-span-2">Peças</h2>
+                  <div className="overflow-x-auto">
+                    <div className="table prose  md:prose-lg">
+                      <div>
+                        <div className="grid text-center grid-cols-3">
+                          <div>Nome</div>
+                          <div>Descrição</div>
+                          <div>Preço</div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex flex-col gap-5 ">
+                          {car.parts.map((part, index) => (
+                            <div
+                              key={index}
+                              className="collapse collapse-arrow shadow-lg shadow-base-300 bg-base-100"
+                            >
+                              <input
+                                type="radio"
+                                name="my-accordion-2"
+                                defaultChecked
+                              />
+                              <div className="collapse-title text-center items-center grid grid-cols-3 !p-0 font-medium">
+                                <p className="!m-0">{part.title}</p>
+                                <p className="!m-0">Descrição</p>
+                                <p className="!m-0">R$ 0,00</p>
+                              </div>
+                              <div className="collapse-content !p-0 flex flex-col gap-2">
+                                {part.options.map((option) => (
+                                  <div
+                                    key={option.value}
+                                    className="text-center items-center grid grid-cols-3 !p-0 border-b"
+                                  >
+                                    <p className="!m-0">{option.title}</p>
+                                    <p className="!m-0">{option.value}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

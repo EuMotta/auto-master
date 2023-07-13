@@ -29,7 +29,6 @@ module.exports = {
           warning: '#ecc518',
 
           error: '#ea1f4b',
-          
         },
       },
     ],

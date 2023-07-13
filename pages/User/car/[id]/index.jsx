@@ -70,6 +70,7 @@ const ViewCar = () => {
   const { query } = useRouter();
   const { status, data: session } = useSession();
   const carId = query.id;
+  const router = useRouter();
 
   const [{ loading, error, car }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -100,8 +101,8 @@ const ViewCar = () => {
       dispatch({ type: 'DELETE_REQUEST' });
       await axios.delete(`/api/car/${carId}`);
       dispatch({ type: 'DELETE_SUCCESS' });
-      toast.success('Parte deletada.');
-      window.location.reload();
+      toast.success('Carro deletado.');
+      router.push('/User/ViewCars');
     } catch (err) {
       dispatch({ type: 'DELETE_FAIL' });
     }

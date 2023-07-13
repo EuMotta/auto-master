@@ -99,6 +99,7 @@ const ViewCar = () => {
     }
     try {
       dispatch({ type: 'DELETE_REQUEST' });
+      console.log(carId);
       await axios.delete(`/api/car/${carId}`);
       dispatch({ type: 'DELETE_SUCCESS' });
       toast.success('Carro deletado.');

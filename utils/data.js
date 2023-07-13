@@ -39,30 +39,11 @@ const data = {
     year: '2017',
     licensePlate: 'ABC-1234',
     chassis: '',
-    headlights: {
-      model: 'Xenon',
-      buyDate: Date(),
-    },
-    tires: {
-      brand: 'GoodYear',
-      frontSize: 20,
-      rearSize: 22,
-    },
-    test: [
-      {
-        title: 'farol22',
-        options: [
-          {
-            title: 'brightness',
-            value: '10',
-          },
-        ],
-      },
-    ],
   },
   parts: {
     carId: '64ab0f9ccaca93336f866bac',
     title: 'farol',
+    price: 5,
     options: [
       {
         title: 'Força da luz',

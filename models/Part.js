@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     title: { type: String, required: true },
+    price: { type: Number, required: true },
     options: [
       {
         title: { type: String, required: true },

@@ -16,6 +16,7 @@ const postHandler = async (req, res) => {
   const newPart = new PartData({
     carId: req.body.carId,
     title: req.body.title,
+    price: req.body.price,
     options,
   });
   const part = await newPart.save();

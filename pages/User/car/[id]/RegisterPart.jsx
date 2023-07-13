@@ -45,12 +45,21 @@ const RegisterCar = () => {
       >
         <h1 className="mb-4 text-xl">Registrar Parte</h1>
         <div className="mb-4">
-          <label htmlFor="brand">Title</label>
+          <label htmlFor="title">Nome</label>
           <input
             type="text"
             {...register('title')}
             className="w-full"
             id="title"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="price">Preço</label>
+          <input
+            type="number"
+            {...register('price')}
+            className="w-full"
+            id="price"
           />
         </div>
 

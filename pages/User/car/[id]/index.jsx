@@ -147,6 +147,7 @@ const ViewCar = () => {
                           className="rounded-box"
                           alt="carro"
                           style={{ width: 'auto', height: 'auto' }}
+                          unoptimized
                         />
                       </figure>
                     </div>

@@ -146,7 +146,7 @@ const Navbar = ({ onThemeChange }) => {
                   className="dropdown-content text-black z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <Link href="/">Perfil</Link>
+                    <Link href="/User/Profile">Perfil</Link>
                   </li>
                   <li>
                     <Link href="/User/ViewCars">Veículos</Link>

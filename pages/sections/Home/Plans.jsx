@@ -9,11 +9,11 @@ const Plans = () => (
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       {plans.map((plan) => (
-        <div className=" glass prose sm:prose-sm md:prose-lg lg:prose-lg bg-base-200  card shadow-lg shadow-base-300">
-          <div
-            key={plan.name}
-            className={`card-body ${plan.color} flex h-full `}
-          >
+        <div
+          key={plan.name}
+          className=" glass prose sm:prose-sm md:prose-lg lg:prose-lg bg-base-200  card shadow-lg shadow-base-300"
+        >
+          <div className={`card-body ${plan.color} flex h-full `}>
             <div className="text-center h-40 justify-center items-center flex flex-col gap-5">
               <h2 className="sm:m-0">{plan.name}</h2>
               {plan.price === 'free' ? (
@@ -45,9 +45,7 @@ const Plans = () => (
                   className="flex justify-center gap-2 items-center"
                 >
                   <BsCheck className="md:text-3xl text-green-500" />
-                  <p className="!m-0">
-                    {item}
-                  </p>
+                  <p className="!m-0">{item}</p>
                 </div>
               ))}
             </div>

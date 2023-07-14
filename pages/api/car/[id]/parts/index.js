@@ -11,7 +11,7 @@ const handler = async (req, res) => {
   const { id } = req.query;
   console.log('id: ', id);
   try {
-    const parts = await Part.find({carId: id});
+    const parts = await Part.find({ carId: id });
     await db.disconnect();
     res.send(parts);
   } catch (error) {

@@ -38,7 +38,7 @@ const data = {
     color: 'Verde',
     year: '2017',
     licensePlate: 'ABC-1234',
-    chassis: '',
+    chassis: 'aaaa',
   },
   parts: {
     carId: '64ab0f9ccaca93336f866bac',

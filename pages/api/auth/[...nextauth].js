@@ -17,6 +17,14 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
+      await db.connect();
+      const user = await User.findById(token._id);
+      await db.disconnect();
+
+      if (!user) {
+        return {};
+      }
+
       if (token?._id) session.user._id = token._id;
       if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
       return session;

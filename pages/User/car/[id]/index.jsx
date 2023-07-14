@@ -12,6 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BsPlus } from 'react-icons/bs';
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
 import db from '@/utils/db';
@@ -21,7 +22,8 @@ export async function getStaticPaths() {
   await db.connect();
   const cars = await Car.find({}, '_id');
   await db.disconnect();
-
+  Cookies.remove('session');
+  console.log(Cookies);
   const paths = cars.map((car) => ({
     params: { id: car._id.toString() },
   }));
@@ -109,6 +111,7 @@ const ViewCar = () => {
     }
   };
   const deletePartHandler = async () => {
+    Cookies.remove('session');
     if (!window.confirm('Você tem certeza?')) {
       return;
     }

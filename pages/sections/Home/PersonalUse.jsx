@@ -25,7 +25,13 @@ const PersonalUse = () => (
           </div>
         </div>
         <div className=" hidden md:hidden lg:flex justify-center items-center mx-10">
-          <Image src={PersonalUseImg} width={600} height={600} unoptimized />
+          <Image
+            src={PersonalUseImg}
+            width={600}
+            height={600}
+            unoptimized
+            alt="PersonalUse"
+          />
         </div>
       </div>
     </div>

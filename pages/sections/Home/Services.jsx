@@ -86,7 +86,13 @@ const Services = () => {
           ))}
         </div>
         <div className="hidden md:hidden lg:flex lg:h-[40rem] justify-center items-center">
-          <Image src={ServicesImg} width={500} height={500} unoptimized />
+          <Image
+            src={ServicesImg}
+            width={500}
+            height={500}
+            unoptimized
+            alt="Services"
+          />
         </div>
         <div className="flex flex-col justify-center items-center">
           {services.slice(3, 6).map((service, index) => (
@@ -126,6 +132,7 @@ const Services = () => {
         <Image
           src={ServicesImg2}
           className="rounded-[3rem] shadow-lg shadow-base-300"
+          alt="Services"
         />
       </div>
     </div>

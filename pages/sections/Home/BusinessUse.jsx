@@ -7,7 +7,13 @@ const BusinessUse = () => (
     <div className="container mx-auto">
       <div className="paddings grid lg:grid-cols-2">
         <div className="hidden md:hidden lg:flex justify-center items-center mx-10">
-          <Image src={BusinessUseImg} width={600} height={600} unoptimized />
+          <Image
+            src={BusinessUseImg}
+            width={600}
+            height={600}
+            unoptimized
+            alt="BusinessUse"
+          />
         </div>
         <div className="prose md:prose-xl mx-10 flex flex-col justify-center h-full">
           <h2>Gerêncie sua frota</h2>

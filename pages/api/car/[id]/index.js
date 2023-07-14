@@ -12,6 +12,7 @@ const handler = async (req, res) => {
     return putHandler(req, res);
   }
   const session = await getSession({ req });
+
   if (!session) {
     return res.status(401).send({ message: 'Acesse a sua conta' });
   }
@@ -33,17 +34,16 @@ const deleteHandler = async (req, res) => {
   await db.connect();
   const { id } = req.query;
   console.log(`ID DO CARRO: ${id}`);
-  await Part.deleteMany({carId: id});
+  await Part.deleteMany({ carId: id });
   try {
     await Car.deleteOne({ _id: id });
     await db.disconnect();
     res.send({ message: 'carro deletado.' });
-  } catch(e) {
+  } catch (e) {
     await db.disconnect();
     res.status(404).send({ message: 'Carro não encontrado.' });
   }
 };
-
 
 const putHandler = async (req, res) => {
   await db.connect();
@@ -63,7 +63,7 @@ const putHandler = async (req, res) => {
 
     await db.disconnect();
     res.send({ message: 'carro editado.' });
-  } catch(e) {
+  } catch (e) {
     await db.disconnect();
     res.status(404).send({ message: 'Carro não encontrado.' });
   }

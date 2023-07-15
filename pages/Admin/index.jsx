@@ -21,7 +21,6 @@ function reducer(state, action) {
 
 const ViewCars = () => {
   const { status, data: session } = useSession();
-  const [cars, setCars] = useState([]);
 
   const [{ loading, error }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -34,9 +33,14 @@ const ViewCars = () => {
         dispatch({ type: 'FETCH_REQUEST' });
         try {
           const result = await fetch(`/api/car?model=${session.user._id}`);
-          const data = await result.json()
-          dispatch({ type: 'FETCH_SUCCESS', payload: data });
-          setCars(data);
+          const data = await result.json();
+
+          const filteredCars = data.filter(
+            (car) => car.owner === session.user._id,
+          );
+
+          dispatch({ type: 'FETCH_SUCCESS', payload: filteredCars });
+          setCars(filteredCars);
         } catch (err) {
           dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
         }

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 const ProtectedRoute = ({ children }) => {
-  const { status } = useSession();
+  const { status, data: session } = useSession();
   const router = useRouter();
 
   const isUserRoute = router.pathname.startsWith('/User/');
@@ -11,8 +11,13 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     if (isUserRoute && status === 'unauthenticated') {
       router.push('/login');
+      return <div>Carregando...</div>;
     }
-  }, [isUserRoute, status, router]);
+
+    if (router.pathname === '/Admin' && !session?.user?.isAdmin) {
+      return <div>Carregando...</div>;
+    }
+  }, [isUserRoute, status, session, router]);
 
   if (status === 'loading') {
     return <div>Carregando...</div>;

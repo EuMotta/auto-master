@@ -21,6 +21,9 @@ const handler = async (req, res) => {
   console.log('id: ', id);
   try {
     const car = await Car.findById(id);
+    if (session?.user?._id === car?.owner) {
+      return res.status(401).send({ message: 'Nao autorizado' });
+    }
     await db.disconnect();
     res.send(car);
   } catch (error) {

@@ -33,7 +33,7 @@ const ViewCars = () => {
       if (session?.user?._id) {
         dispatch({ type: 'FETCH_REQUEST' });
         try {
-          const result = await fetch(`/api/car?model=${session.user._id}`);
+          const result = await fetch(`/api/car`);
           const data = await result.json();
           dispatch({ type: 'FETCH_SUCCESS', payload: data });
           setCars(data);
@@ -89,7 +89,7 @@ const ViewCars = () => {
               {cars.map((car, index) => (
                 <div
                   key={index}
-                  className="card overflow-hidden w-96 shadow-sm shadow-gray-600 mt-3 mx-aut"
+                  className="card overflow-hidden w-96 shadow-sm shadow-gray-600 mt-3 mx-auto"
                 >
                   <figure>
                     <Image src={car.image} width={500} height={113} />

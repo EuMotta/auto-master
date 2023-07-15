@@ -11,9 +11,13 @@ import ProtectedRoute from '@/utils/ProtectedRoute';
 const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => (
   <SessionProvider session={session}>
     <StoreProvider>
-      <ProtectedRoute>
+      {Component.auth ? (
+        <Auth adminOnly={Component.auth.adminOnly}>
+          <Component {...pageProps} />
+        </Auth>
+      ) : (
         <Component {...pageProps} />
-      </ProtectedRoute>
+      )}
     </StoreProvider>
   </SessionProvider>
 );
@@ -31,7 +35,7 @@ const Auth = ({ children, adminOnly }) => {
     return <div>Carregando...</div>;
   }
 
-  if (adminOnly && !session.user.isAdmin) {
+  if (adminOnly && !session?.user?.isAdmin) {
     router.push('/unauthorized?message=Acesse a conta de administrador');
   }
 

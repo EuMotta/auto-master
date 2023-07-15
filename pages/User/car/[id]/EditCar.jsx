@@ -177,4 +177,5 @@ const EditCar = () => {
   );
 };
 
+EditCar.auth = true;
 export default EditCar;

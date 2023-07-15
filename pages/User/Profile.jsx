@@ -31,7 +31,7 @@ function reducer(state, action) {
   }
 }
 
-const EditCar = () => {
+const Profile = () => {
   const { query } = useRouter();
   const router = useRouter();
   const { data: session } = useSession();
@@ -50,7 +50,7 @@ const EditCar = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(userId)
+      console.log(userId);
 
       try {
         dispatch({ type: 'FETCH_REQUEST' });
@@ -70,7 +70,7 @@ const EditCar = () => {
       await axios.put(`/api/User/${userId}`, formData);
       dispatch({ type: 'UPDATE_SUCCESS' });
       toast.success('Informações Atualizadas.');
-      router.push(`/User/ViewCars`);
+      router.push('/User/ViewCars');
     } catch (err) {
       dispatch({ type: 'UPDATE_FAIL', payload: getError(err) });
       toast.error(getError(err));
@@ -123,5 +123,5 @@ const EditCar = () => {
     </Layout>
   );
 };
-
-export default EditCar;
+Profile.auth = true;
+export default Profile;

@@ -9,7 +9,7 @@ import { BsPlusLg } from 'react-icons/bs';
 import Layout from '@/components/Layout';
 import { getError } from '@/utils/error';
 
-const RegisterCar = () => {
+const RegisterPart = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -107,5 +107,5 @@ const RegisterCar = () => {
     </Layout>
   );
 };
-
-export default RegisterCar;
+RegisterPart.auth = true;
+export default RegisterPart;

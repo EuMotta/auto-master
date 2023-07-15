@@ -68,12 +68,11 @@ function reducer(state, action) {
   }
 }
 
-const ViewCar = () => {
+const CarScreen = () => {
   const { query } = useRouter();
   const carId = query.id;
   const router = useRouter();
-  const { status, data: session } = useSession();
-
+  const { data: session } = useSession();
 
   const [{ loading, error, car }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -133,7 +132,7 @@ const ViewCar = () => {
         <div className="flex items-center justify-center">
           <span className="loading loading-bars loading-xl" />
         </div>
-        
+
       ) : session?.user?._id === car?.owner ? (
         <div>
           {loading ? (
@@ -297,6 +296,6 @@ const ViewCar = () => {
   );
 };
 
-ViewCar.auth = true;
+CarScreen.auth = true;
 
-export default ViewCar;
+export default CarScreen;

@@ -34,7 +34,7 @@ const ViewCars = () => {
         dispatch({ type: 'FETCH_REQUEST' });
         try {
           const result = await fetch(`/api/car?model=${session.user._id}`);
-          const data = await result.json()
+          const data = await result.json();
           dispatch({ type: 'FETCH_SUCCESS', payload: data });
           setCars(data);
         } catch (err) {
@@ -123,4 +123,5 @@ const ViewCars = () => {
   );
 };
 
+ViewCars.auth = true;
 export default ViewCars;

@@ -242,4 +242,5 @@ const RegisterCar = () => {
   );
 };
 
+RegisterCar.auth = true;
 export default RegisterCar;

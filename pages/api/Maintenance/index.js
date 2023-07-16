@@ -8,6 +8,7 @@ const postHandler = async (req, res) => {
 
   const newMaintenance = new MaintenanceData({
     carId: req.body.carId,
+    partId: req.body.partId,
     title: req.body.title,
     subtitle: req.body.subtitle,
     description: req.body.description,

@@ -2,6 +2,7 @@
 import { getSession } from 'next-auth/react';
 import CarData from '../../../models/Car';
 import db from '../../../utils/db';
+import { getError } from '@/utils/error';
 
 const postHandler = async (req, res) => {
   console.log('test');
@@ -34,16 +35,22 @@ const postHandler = async (req, res) => {
 };
 
 const getHandler = async (req, res) => {
-  const session = await getSession({ req });
-  if (session) {
-    await db.connect();
-    let car;
-    session.user.isAdmin ? (car = await CarData.find({})) : (car = await CarData.find({ owner: session.user._id }));
-    await db.disconnect();
-    res.send(car);
+  try {
+    const session = await getSession({ req });
+    if (session) {
+      await db.connect();
+      let car;
+      session.user.isAdmin ? (car = await CarData.find({})) : (car = await CarData.find({ owner: session.user._id }));
+      await db.disconnect();
+      res.send(car);
+      
+    }
+    res.send({ message: 'Acesse sua conta' });
+  } catch (err) {
+    res.send({ message: getError(err) });
   }
-
-  res.send({ message: 'Acesse sua conta' });
+  
+  
 };
 
 const handler = async (req, res) => {

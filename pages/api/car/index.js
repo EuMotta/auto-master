@@ -43,14 +43,11 @@ const getHandler = async (req, res) => {
       session.user.isAdmin ? (car = await CarData.find({})) : (car = await CarData.find({ owner: session.user._id }));
       await db.disconnect();
       res.send(car);
-      
     }
     res.send({ message: 'Acesse sua conta' });
   } catch (err) {
     res.send({ message: getError(err) });
   }
-  
-  
 };
 
 const handler = async (req, res) => {

@@ -33,7 +33,7 @@ const ViewCars = () => {
       if (session?.user?._id) {
         dispatch({ type: 'FETCH_REQUEST' });
         try {
-          const result = await fetch(`/api/car`);
+          const result = await fetch('/api/car');
           const data = await result.json();
           dispatch({ type: 'FETCH_SUCCESS', payload: data });
           setCars(data);

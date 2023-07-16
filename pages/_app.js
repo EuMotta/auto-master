@@ -27,7 +27,7 @@ const Auth = ({ children, adminOnly }) => {
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push('/unauthorized?message=Por favor acesse a sua conta');
+      router.push('/unauthorizedLogin?message=Por favor acesse a sua conta');
     },
   });
 
@@ -36,7 +36,7 @@ const Auth = ({ children, adminOnly }) => {
   }
 
   if (adminOnly && !session?.user?.isAdmin) {
-    router.push('/unauthorized?message=Acesse a conta de administrador');
+    router.push('/unauthorized?message=Oops! Parece que você está tentando acessar uma página sem autorização. Por favor, faça login em uma conta de administrador para prosseguir.');
   }
 
   return children;

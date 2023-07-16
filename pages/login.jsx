@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
@@ -15,7 +16,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (session?.user) {
-      session.user.isAdmin? router.push(redirect || '/Admin') : router.push(redirect || '/');
+      session.user.isAdmin ? router.push(redirect || '/Admin') : router.push(redirect || '/');
     }
   }, [router, session, redirect]);
 

@@ -38,7 +38,7 @@ const RegisterPart = () => {
   const [optionQuant, setOptionQuant] = useState([[]]);
 
   return (
-    <Layout title="Register Car">
+    <Layout title="Register Part">
       <form
         className="mx-auto max-w-screen-md bg-base-500"
         onSubmit={handleSubmit(submitHandler)}

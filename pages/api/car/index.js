@@ -2,7 +2,6 @@
 import { getSession } from 'next-auth/react';
 import CarData from '../../../models/Car';
 import db from '../../../utils/db';
-import { getError } from '@/utils/error';
 
 const postHandler = async (req, res) => {
   console.log('test');
@@ -35,9 +34,13 @@ const postHandler = async (req, res) => {
 };
 
 const getHandler = async (req, res) => {
+  const session = await getSession({ req });
+  if (!session) {
+    return res.status(401).send('Realize o cadastro');
+  }
+  const { user } = session;
   await db.connect();
-  let car;
-  car = await CarData.find({ owner: session.user._id });
+  const car = await CarData.find({ owner: user._id });
   await db.disconnect();
   res.send(car);
 };

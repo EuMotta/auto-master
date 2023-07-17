@@ -128,13 +128,21 @@ const CarScreen = () => {
       dispatch({ type: 'DELETE_FAIL' });
     }
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate() + 1;
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day < 10 ? '0' : ''}${day}/${
+      month < 10 ? '0' : ''
+    }${month}/${year}`;
+  };
   return (
     <Layout title="Exibindo Carro">
       {loading ? (
         <div className="flex items-center justify-center">
           <span className="loading loading-bars loading-xl" />
         </div>
-
       ) : session?.user?._id === car?.owner ? (
         <div>
           {loading ? (
@@ -287,9 +295,10 @@ const CarScreen = () => {
                   <div className="overflow-x-auto">
                     <div className="table prose  md:prose-lg">
                       <div>
-                        <div className="grid text-center grid-cols-3">
+                        <div className="grid text-center grid-cols-4">
                           <div>Nome</div>
                           <div>Descrição</div>
+                          <div>Data</div>
                           <div>Preço</div>
                         </div>
                       </div>
@@ -305,10 +314,18 @@ const CarScreen = () => {
                                 name="my-accordion-2"
                                 defaultChecked
                               />
-                              <div className="collapse-title text-center items-center grid grid-cols-3 !p-0 font-medium">
+                              <div className="collapse-title text-center items-center grid grid-cols-4 !p-0 font-medium">
                                 <p className="!m-0">{maintenance.title}</p>
-                                <p className="!m-0">{maintenance.description}</p>
+
+                                <p className="!m-0">
+                                  {formatDate(maintenance.date)}
+                                </p>
                                 <p className="!m-0">R$ {maintenance.price}</p>
+                              </div>
+                              <div className="collapse-content !p-0 flex flex-col gap-2">
+                                <p className="!m-0">
+                                  {maintenance.description}
+                                </p>
                               </div>
                               <button type="button" onClick={deletePartHandler}>
                                 Deletar essa maçã

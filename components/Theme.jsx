@@ -11,7 +11,7 @@ const Theme = ({ onThemeChange }) => {
 
   return (
     <div className="py-4  z-50 px-8 flex items-center">
-      <div className="dropdown dropdown-right">
+      <div className="dropdown dropdown-right ">
         <label
           tabIndex={0}
           className=" flex justify-center btn btn-circle items-center"
@@ -20,7 +20,7 @@ const Theme = ({ onThemeChange }) => {
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box"
         >
           <select
             id="themeSelect"

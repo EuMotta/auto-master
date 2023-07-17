@@ -39,6 +39,7 @@ const getHandler = async (req, res) => {
     return res.status(401).send('Realize o cadastro');
   }
   const { user } = session;
+  console.log(user._id);
   await db.connect();
   const car = await CarData.find({ owner: user._id });
   await db.disconnect();

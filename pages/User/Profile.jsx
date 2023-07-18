@@ -51,7 +51,6 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       console.log(userId);
-
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/User/${userId}`);

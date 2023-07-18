@@ -22,10 +22,10 @@ const AdminLayout = ({ children, title }) => (
     </Head>
     <ToastContainer position="top-center" limit={1} />
     <div className="flex min-h-screen flex-col justify-between">
-      <header className="mb-16">
+      <header className="lg:mb-16">
         <AdminNavbar />
       </header>
-      <main className="ml-40">{children}</main>
+      <main className="lg:ml-44 mx-10 sm:mx-0">{children}</main>
       <footer>footer</footer>
     </div>
   </>

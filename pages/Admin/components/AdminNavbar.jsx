@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import React, { useEffect, useRef } from 'react';
 import { FiLogIn } from 'react-icons/fi';
+import { RiAdminLine } from 'react-icons/ri';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { navLinks } from '@/pages/Admin/constants';
@@ -12,8 +13,8 @@ const AdminNavbar = ({ onThemeChange }) => {
 
   const homeFunc = () => {
     if (
-      document.body.scrollTop > 80 ||
-      document.documentElement.scrollTop > 80
+      document.body.scrollTop > 80
+      || document.documentElement.scrollTop > 80
     ) {
       rocketRef.current?.classList?.add('open');
     } else {
@@ -31,7 +32,7 @@ const AdminNavbar = ({ onThemeChange }) => {
     signOut({ callbackUrl: '/login' });
   };
   return (
-    <header className="fixed bg-base-300 lg:p-2">
+    <header className="fixed lg:bg-base-300 lg:p-2">
       <nav className=" z-50">
         <div className="flex yPaddings flex-col !h-screen">
           <div className=" flex flex-col justify-center items-center">
@@ -65,10 +66,7 @@ const AdminNavbar = ({ onThemeChange }) => {
                         <h4 tabIndex={0} className="w-full m-1">
                           {session.user.name}
                         </h4>
-                        <ul
-                          tabIndex={0}
-                          className=" text-black z-[1] p-2"
-                        >
+                        <ul tabIndex={0} className=" text-black z-[1] p-2">
                           <li>
                             <Link href="/Admin/Profile">Perfil</Link>
                           </li>
@@ -113,26 +111,16 @@ const AdminNavbar = ({ onThemeChange }) => {
               <span className="loading loading-bars loading-xs" />
             ) : session?.user ? (
               <div className="">
-                <div className="dropdown dropdown-bottom dropdown-end">
-                  <h4 tabIndex={0} className="w-full hidden lg:flex m-1">
-                    {session.user.name}
-                  </h4>
-                  <ul
+                <div className=" prose md:prose-lg">
+                  <div className="flex justify-center text-3xl items-center">
+                    <RiAdminLine />
+                  </div>
+                  <h3
                     tabIndex={0}
-                    className="dropdown-content  text-black z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                    className="w-full !justify-center hidden lg:flex m-1"
                   >
-                    <li>
-                      <Link href="/Admin/Profile">Perfil</Link>
-                    </li>
-                    <li>
-                      <Link href="/Admin">Dashboard</Link>
-                    </li>
-                    <li>
-                      <button type="button" onClick={logoutClickHandler}>
-                        Sair
-                      </button>
-                    </li>
-                  </ul>
+                    {session.user.name}
+                  </h3>
                 </div>
               </div>
             ) : (
@@ -197,6 +185,15 @@ const AdminNavbar = ({ onThemeChange }) => {
                   )}
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={logoutClickHandler}
+                  className="bg-red-400 flex justify-center items-center  !m-0"
+                >
+                  Sair
+                </button>
+              </li>
             </ul>
           </div>
         </div>

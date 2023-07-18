@@ -17,16 +17,7 @@ const postHandler = async (req, res) => {
     year: req.body.year,
     licensePlate: req.body.licensePlate,
     chassis: req.body.chassis,
-    /*     headlights: {
-      model: req.body.headlights.model,
-      buyDate: req.body.headlights.buyDate,
-    },
-    tires: {
-      brand: req.body.tires.brand,
-      frontSize: req.body.tires.frontSize,
-      rearSize: req.body.tires.rearSize,
-    },
-    test: req.body.test, */
+    createdAt: req.body.createdAt,
   });
   const car = await newCar.save();
   await db.disconnect();

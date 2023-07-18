@@ -12,26 +12,6 @@ const carSchema = new mongoose.Schema(
     year: { type: String, required: true },
     licensePlate: { type: String, required: true, unique: true },
     chassis: { type: String, required: true },
-    /* headlights: {
-      model: { type: String, required: false },
-      buyDate: { type: String, required: false },
-    },
-    tires: {
-      brand: { type: String, required: false },
-      frontSize: { type: Number, required: false },
-      rearSize: { type: Number, required: false },
-    },
-    test: [
-      {
-        title: { type: String, required: false },
-        options: [
-          {
-            title: { type: String, required: false },
-            value: { type: String, required: false },
-          },
-        ],
-      },
-    ], */
   },
   {
     timestamps: true,

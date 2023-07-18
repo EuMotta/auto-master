@@ -66,7 +66,7 @@ const ViewCars = () => {
             <div className="text-lg text-red-600">{error}</div>
           ) : (
             <div className="container mx-auto">
-              <div className="grid grid-cols-4 gap-5">
+              <div className="grid grid-cols-4 yPaddings gap-5">
                 <div className="card w-full flex justify-center items-center bg-base-100 shadow-xl">
                   <div className="card-body">
                     <h2 className="card-title">Usuários registrados</h2>
@@ -114,7 +114,15 @@ const ViewCars = () => {
                 </div>
               </div>
               <div className="grid grid-cols-3">
-                <Graph1 data={carData} />
+                <div className="card w-96 bg-base-100 shadow-xl">
+                  <div className="card-body">
+                    <h2 className="card-title">Carros por marca</h2>
+                    <p>Quantidade de carros de acordo com a sua marca</p>
+                  </div>
+                  <figure>
+                    <Graph1 data={carData} />
+                  </figure>
+                </div>
               </div>
             </div>
           )

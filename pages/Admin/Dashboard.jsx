@@ -1,41 +1,51 @@
-/* eslint-disable no-unused-expressions */
-import React, { useEffect, useReducer, useState } from 'react';
+/* eslint-disable no-shadow */
+import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import axios from 'axios';
 import AdminLayout from './components/AdminLayout';
 import { getError } from '@/utils/error';
 import Graph1 from './components/Graphics';
 
 const ViewCars = () => {
   const { status, data: session } = useSession();
-  const [cars, setCars] = useState([]);
-  function reducer(state, action) {
-    switch (action.type) {
-      case 'FETCH_REQUEST':
-        return { ...state, loading: true, error: '' };
-      case 'FETCH_SUCCESS':
-        return { ...state, loading: false, cars: action.payload, error: '' };
-      case 'FETCH_ERROR':
-        return { ...state, loading: false, error: action.payload };
-      default:
-        return state;
-    }
-  }
-  const [{ loading, error }, dispatch] = useReducer(reducer, {
-    loading: true,
-    error: '',
-    car: {},
-  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [carData, setCarData] = useState([]);
+  const [usersCount, setUsersCount] = useState(0);
+  const [carCount, setCarCount] = useState(0);
+  const [partCount, setPartCount] = useState(0);
+  const [maintenanceCount, setMaintenanceCount] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' });
+      setLoading(true);
+      setError('');
       try {
-        const result = await fetch('/api/car');
-        const data = await result.json();
-        dispatch({ type: 'FETCH_SUCCESS', payload: data });
-        setCars(data);
-        console.log(data);
+        const [carDataResponse, summaryDataResponse] = await Promise.all([
+          axios.get('/api/car'),
+          axios.get('/api/admin/summary'),
+        ]);
+
+        const carData = carDataResponse.data;
+        const carCounts = carData.reduce((acc, car) => {
+          acc[car.brand] = (acc[car.brand] || 0) + 1;
+          return acc;
+        }, []);
+        const chartData = Object.entries(carCounts).map(([brand, count]) => ({
+          name: brand,
+          value: count,
+        }));
+
+        setCarData(chartData);
+        setUsersCount(summaryDataResponse.data.usersCount);
+        setCarCount(summaryDataResponse.data.carCount);
+        setPartCount(summaryDataResponse.data.partCount);
+        setMaintenanceCount(summaryDataResponse.data.maintenanceCount);
+        setLoading(false);
       } catch (err) {
-        dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
+        setError(getError(err));
+        setLoading(false);
       }
     };
 
@@ -45,8 +55,8 @@ const ViewCars = () => {
   return (
     <AdminLayout>
       <div className="">
-        {session.user.isAdmin ? (
-          status === 'loading' ? ( // Added parentheses around status === 'loading'
+        {session.user?.isAdmin ? (
+          status === 'loading' ? (
             <span className="loading loading-bars loading-xs" />
           ) : loading ? (
             <div className="flex justify-center items-center">
@@ -55,14 +65,56 @@ const ViewCars = () => {
           ) : error ? (
             <div className="text-lg text-red-600">{error}</div>
           ) : (
-            <div className="grid grid-cols-3">
-              <div className="card p-5 w-96 bg-base-100 shadow-xl">
-                <div className="card-body">
-                  <h2 className="text-center">Carros criados</h2>
+            <div className="container mx-auto">
+              <div className="grid grid-cols-4 gap-5">
+                <div className="card w-full flex justify-center items-center bg-base-100 shadow-xl">
+                  <div className="card-body">
+                    <h2 className="card-title">Usuários registrados</h2>
+                    <p>{usersCount}</p>
+                    <div className="card-actions justify-end">
+                      <Link href="/" className="">
+                        Ver todos
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-                <figure>
-                  <Graph1 cars={cars} />
-                </figure>
+                <div className="card w-full bg-base-100 shadow-xl">
+                  <div className="card-body">
+                    <h2 className="card-title">Carros Registrados</h2>
+                    <p>{carCount}</p>
+
+                    <div className="card-actions justify-end">
+                      <Link href="/" className="">
+                        Ver todos
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="card w-full bg-base-100 shadow-xl">
+                  <div className="card-body">
+                    <h2 className="card-title">Peças Registradas</h2>
+                    <p>{partCount}</p>
+                    <div className="card-actions justify-end">
+                      <Link href="/" className="">
+                        Ver todos
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="card w-full bg-base-100 shadow-xl">
+                  <div className="card-body">
+                    <h2 className="card-title">Manutenções Registradas</h2>
+                    <p>{maintenanceCount}</p>
+                    <div className="card-actions justify-end">
+                      <Link href="/" className="">
+                        Ver todos
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-3">
+                <Graph1 data={carData} />
               </div>
             </div>
           )

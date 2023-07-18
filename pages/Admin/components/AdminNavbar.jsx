@@ -4,7 +4,7 @@ import { FiLogIn } from 'react-icons/fi';
 import { RiAdminLine } from 'react-icons/ri';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { navLinks } from '@/pages/Admin/constants';
+import { adminNavLinks } from '@/constants';
 import Theme from '@/components/Theme';
 
 const AdminNavbar = ({ onThemeChange }) => {
@@ -88,7 +88,7 @@ const AdminNavbar = ({ onThemeChange }) => {
                     </Link>
                   )}
                 </div>
-                {navLinks.map((link, index) => (
+                {adminNavLinks.map((link, index) => (
                   <li key={index}>
                     <a href={link.url}>{link.name}</a>
                     {link.parent && (
@@ -133,7 +133,7 @@ const AdminNavbar = ({ onThemeChange }) => {
 
           <div className="hidden lg:flex">
             <ul className="menu !p-0 menu-vertical z-10 !w-full prose md:prose-lg">
-              {navLinks.map((link, index) => (
+              {adminNavLinks.map((link, index) => (
                 <li key={index} className="!p-0">
                   {link.parent ? (
                     <div className="dropdown flex !items-center  !p-0 w-full bg-base-100 dropdown-right">

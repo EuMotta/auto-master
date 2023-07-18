@@ -4,13 +4,74 @@ import {
   BsCreditCard,
   BsDropletHalf,
   BsExclamationCircle,
-} from 'react-icons/bs';
+  BsCarFront } from 'react-icons/bs';
+import { AiFillHome } from 'react-icons/ai';
+import { FaUser } from 'react-icons/fa';
+import { LuLayoutDashboard } from 'react-icons/lu';
+import { GoChecklist } from 'react-icons/go';
+import { PiHeadlightsBold } from 'react-icons/pi';
 import DamangeRegister from '@/public/images/PersonalUse/DamangeRegister.svg';
 import Expenses from '@/public/images/PersonalUse/Expenses.svg';
 import Fueling from '@/public/images/PersonalUse/Fueling.svg';
 import Sheduling from '@/public/images/PersonalUse/Scheduling.svg';
 import OtherCosts from '@/public/images/PersonalUse/OtherCosts.svg';
 import followUp from '@/public/images/PersonalUse/followUp.svg';
+
+export const adminNavLinks = [
+  {
+    name: 'Navbar',
+    icon: AiFillHome,
+    parent: [
+      {
+        name: 'Home',
+        url: '/',
+      },
+      {
+        name: 'Serviços',
+        url: '/',
+        parent: [
+          {
+            name: 'Uso pessoal',
+            url: '/PersonalUse',
+          },
+          {
+            name: 'sub2',
+            url: '/',
+          },
+        ],
+      },
+      {
+        name: 'Sobre',
+        url: '/',
+      },
+    ],
+  },
+  {
+    name: 'Dashboard',
+    url: '/Admin/Dashboard',
+    icon: LuLayoutDashboard,
+  },
+  {
+    name: 'Usuários',
+    url: '/Admin/Users',
+    icon: FaUser,
+  },
+  {
+    name: 'Veículos',
+    url: '/Admin/Vehicles',
+    icon: BsCarFront,
+  },
+  {
+    name: 'Peças',
+    url: '/Admin/Parts',
+    icon: PiHeadlightsBold,
+  },
+  {
+    name: 'Manutenções',
+    url: '/Admin/Maintenances',
+    icon: GoChecklist,
+  },
+];
 
 export const themeList = ['acid', 'dark', 'synthwave'];
 export const navLinks = [

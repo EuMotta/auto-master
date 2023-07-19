@@ -30,10 +30,10 @@ function reducer(state, action) {
       state;
   }
 }
-const RegisterMaintenance = () => {
+const RegisterReview = () => {
   const { data: session } = useSession();
   const { query } = useRouter();
-  const [selectedPartId, setSelectedPartId] = useState('');
+  const [selectedPartId, setSelectedPartId] = useState([]);
   const carId = query.id;
   const {
     handleSubmit,
@@ -70,7 +70,7 @@ const RegisterMaintenance = () => {
       formData.partId = selectedPartId;
       formData.carId = carId;
       console.log(formData);
-      const result = await axios.post('/api/Maintenance', formData);
+      const result = await axios.post('/api/Review', formData);
       toast.success('Parte criada com sucesso');
       console.log(result);
       await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -89,7 +89,7 @@ const RegisterMaintenance = () => {
           onSubmit={handleSubmit(submitHandler)}
         >
           {carId}
-          <h1 className="mb-4 text-xl">Registrar Parte</h1>
+          <h1 className="mb-4 text-xl">Registrar Revisão</h1>
           <div className="mb-4">
             <label htmlFor="title">titulo</label>
             <input
@@ -110,20 +110,26 @@ const RegisterMaintenance = () => {
           </div>
           {car.parts && (
             <div className="mb-4">
-              <label htmlFor="partId">Select Part</label>
-              <select
-                id="partId"
-                value={selectedPartId}
-                {...register('partId')}
-                onChange={(e) => setSelectedPartId(e.target.value)}
-              >
-                <option value="">Parte</option>
-                {car.parts.map((part) => (
-                  <option key={part._id} value={part._id}>
-                    {part.title}
-                  </option>
-                ))}
-              </select>
+              <label>Partes</label>
+              {car.parts.map((part) => (
+                <div key={part._id} className="mb-2">
+                  <input
+                    type="checkbox"
+                    value={part._id}
+                    checked={selectedPartId.includes(part._id)}
+                    onChange={(e) => {
+                      const partId = e.target.value;
+                      setSelectedPartId((prevIds) => {
+                        if (prevIds.includes(partId)) {
+                          return prevIds.filter((id) => id !== partId);
+                        }
+                        return [...prevIds, partId];
+                      });
+                    }}
+                  />
+                  <label>{part.title}</label>
+                </div>
+              ))}
             </div>
           )}
           <div className="mb-4">
@@ -166,5 +172,5 @@ const RegisterMaintenance = () => {
     </Layout>
   );
 };
-RegisterMaintenance.auth = true;
-export default RegisterMaintenance;
+RegisterReview.auth = true;
+export default RegisterReview;

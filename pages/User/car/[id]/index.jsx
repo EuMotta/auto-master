@@ -87,6 +87,7 @@ const CarScreen = () => {
         const { data } = await axios.get(`/api/car/${carId}`);
         data.parts = await axios.get(`/api/car/${carId}/parts`);
         data.maintenances = await axios.get(`/api/car/${carId}/maintenances`);
+        data.maintenances = await axios.get(`/api/car/${carId}/maintenances`);
         data.parts = data.parts.data;
         data.maintenances = data.maintenances.data;
         dispatch({ type: 'FETCH_SUCCESS', payload: data });

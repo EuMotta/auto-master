@@ -57,21 +57,25 @@ const RegisterScreen = () => {
       >
         <h1 className="mb-4 text-xl">Login</h1>
         <div className="mb-4">
-
           <label htmlFor="name">Name</label>
 
           <input
             type="name"
             {...register('name', {
               required: 'Please enter your name',
-              minLength: { value: 3, message: 'name needs to have at least 3 letters' },
+              minLength: {
+                value: 3,
+                message: 'name needs to have at least 3 letters',
+              },
             })}
             className="w-full"
             id="name"
             autoFocus
           />
 
-          {errors.name && (<div className="text-sm text-red-500">{errors.name.message}</div>)}
+          {errors.name && (
+            <div className="text-sm text-red-500">{errors.name.message}</div>
+          )}
 
           <label htmlFor="lastName">Last Name</label>
 
@@ -79,14 +83,21 @@ const RegisterScreen = () => {
             type="lastName"
             {...register('lastName', {
               required: 'Please enter your last name',
-              minLength: { value: 3, message: 'last  name needs to have at least 3 letters' },
+              minLength: {
+                value: 3,
+                message: 'last  name needs to have at least 3 letters',
+              },
             })}
             className="w-full"
             id="lastName"
             autoFocus
           />
 
-          {errors.lastName && (<div className="text-sm text-red-500">{errors.lastName.message}</div>)}
+          {errors.lastName && (
+            <div className="text-sm text-red-500">
+              {errors.lastName.message}
+            </div>
+          )}
 
           <label htmlFor="email">Email</label>
           <input
@@ -113,6 +124,10 @@ const RegisterScreen = () => {
             {...register('password', {
               required: 'Please enter password',
               minLength: { value: 6, message: 'password is more than 5 chars' },
+              pattern: {
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+                message: 'A senha deve ter um caractere maiúsculo, minusculo e uma letra.',
+              },
             })}
             className="w-full"
             id="password"

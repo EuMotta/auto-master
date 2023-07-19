@@ -41,7 +41,7 @@ const data = {
     chassis: 'aaaa',
   },
   parts: {
-    carId: '64ab0f9ccaca93336f866bac',
+    carId: '64b7c1b17583eff72e1197e3',
     title: 'farol',
     price: 5,
     options: [
@@ -50,6 +50,25 @@ const data = {
         value: '10',
       },
     ],
+  },
+  maintenances: {
+    carId: '64b7c1b17583eff72e1197e3',
+    partId: '64b56bfc3dad753214f0bb77',
+    title: 'Troca do farol',
+    subtitle: 'Troca do led do farol para neon',
+    description: 'A troca deve ser feita na mecanica xuruta, com neon azul escuro',
+    date: new Date('2023-07-19T10:32:48Z'),
+    price: 55,
+  },
+  reviews: {
+    carId: '64b7c1b17583eff72e1197e3',
+    partId: '64b56bfc3dad753214f0bb77',
+    total: false,
+    title: 'Troca do farol',
+    subtitle: 'Troca do led do farol para neon',
+    description: 'A troca deve ser feita na mecanica xuruta, com neon azul escuro',
+    date: new Date('2023-07-19T10:32:48Z'),
+    price: 55,
   },
 };
 export default data;

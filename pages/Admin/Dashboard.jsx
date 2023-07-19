@@ -23,20 +23,27 @@ const ViewCars = () => {
       setError('');
       try {
         const [carDataResponse, summaryDataResponse] = await Promise.all([
-          axios.get('/api/car'),
+          axios.get('/api/admin/car'),
           axios.get('/api/admin/summary'),
         ]);
 
         const carData = carDataResponse.data;
-        const carCounts = carData.reduce((acc, car) => {
-          acc[car.brand] = (acc[car.brand] || 0) + 1;
-          return acc;
-        }, []);
-        const chartData = Object.entries(carCounts).map(([brand, count]) => ({
+
+        const uniqueBrands = [...new Set(carData.map((car) => car.brand))];
+
+        const brandCounts = await Promise.all(
+          uniqueBrands.map(async (brand) => {
+            const carDataResponse = await axios.get(
+              `/api/admin/car?brand=${brand}`,
+            );
+            return { brand, count: carDataResponse.data.length };
+          }),
+        );
+
+        const chartData = brandCounts.map(({ brand, count }) => ({
           name: brand,
           value: count,
         }));
-
         setCarData(chartData);
         setUsersCount(summaryDataResponse.data.usersCount);
         setCarCount(summaryDataResponse.data.carCount);

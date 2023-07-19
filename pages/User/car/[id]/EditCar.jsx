@@ -88,7 +88,7 @@ const EditCar = () => {
       >
         <h1 className="mb-4 text-xl">Edit Car</h1>
         <div className="mb-4">
-          <label htmlFor="brand">Brand</label>
+          <label htmlFor="brand">Marca</label>
           <input
             type="text"
             {...register('brand')}
@@ -98,7 +98,7 @@ const EditCar = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="model">Model</label>
+          <label htmlFor="model">Modelo</label>
           <input
             type="text"
             {...register('model')}
@@ -108,7 +108,7 @@ const EditCar = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="fueltype">Fuel Type</label>
+          <label htmlFor="fueltype">Tipo de Combustível</label>
           <input
             type="text"
             {...register('fueltype')}
@@ -169,7 +169,7 @@ const EditCar = () => {
         </div>
         <div className="mb-4">
           <button type="submit" className="primary-button">
-            Edit Car
+            Editar Carro
           </button>
         </div>
       </form>

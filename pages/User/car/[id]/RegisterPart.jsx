@@ -100,7 +100,7 @@ const RegisterPart = () => {
 
         <div className="mb-4">
           <button type="submit" className="primary-button">
-            Register Car
+            Registrar Parte
           </button>
         </div>
       </form>

@@ -200,7 +200,7 @@ const CarScreen = () => {
               <div className="grid container mx-auto grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="card grid prose  md:prose-xl grid-cols-2 gap-10 flex-col bg-base-300 p-5">
                   <h2 className=" text-center !m-0 col-span-2">
-                    Informações do carro
+                    Informações do Veículo
                   </h2>
                   <p className="text-center !m-0 col-span-2">{`ID: ${carId}`}</p>
                   <div className="">
@@ -432,7 +432,7 @@ const CarScreen = () => {
                 </div>
               </div>
               <button type="button" onClick={deleteCarHandler}>
-                Deletar Carro
+                Deletar Veículo
               </button>
             </div>
           )}

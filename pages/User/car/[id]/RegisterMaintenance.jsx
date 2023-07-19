@@ -89,9 +89,9 @@ const RegisterMaintenance = () => {
           onSubmit={handleSubmit(submitHandler)}
         >
           {carId}
-          <h1 className="mb-4 text-xl">Registrar Parte</h1>
+          <h1 className="mb-4 text-xl">Registrar Manutenção</h1>
           <div className="mb-4">
-            <label htmlFor="title">titulo</label>
+            <label htmlFor="title">Título</label>
             <input
               type="text"
               {...register('title')}
@@ -100,7 +100,7 @@ const RegisterMaintenance = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="subtitle">subtitulo</label>
+            <label htmlFor="subtitle">Subtitulo</label>
             <input
               type="text"
               {...register('subtitle')}
@@ -110,7 +110,7 @@ const RegisterMaintenance = () => {
           </div>
           {car.parts && (
             <div className="mb-4">
-              <label htmlFor="partId">Select Part</label>
+              <label htmlFor="partId">Selecione a Parte</label>
               <select
                 id="partId"
                 value={selectedPartId}
@@ -156,7 +156,7 @@ const RegisterMaintenance = () => {
 
           <div className="mb-4">
             <button type="submit" className="primary-button">
-              Register Car
+              Registrar Manutenção
             </button>
           </div>
         </form>

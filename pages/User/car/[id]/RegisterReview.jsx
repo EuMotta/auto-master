@@ -91,7 +91,7 @@ const RegisterReview = () => {
           {carId}
           <h1 className="mb-4 text-xl">Registrar Revisão</h1>
           <div className="mb-4">
-            <label htmlFor="title">titulo</label>
+            <label htmlFor="title">Título</label>
             <input
               type="text"
               {...register('title')}
@@ -100,7 +100,7 @@ const RegisterReview = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="subtitle">subtitulo</label>
+            <label htmlFor="subtitle">Subtitulo</label>
             <input
               type="text"
               {...register('subtitle')}
@@ -162,7 +162,7 @@ const RegisterReview = () => {
 
           <div className="mb-4">
             <button type="submit" className="primary-button">
-              Register Car
+              Registrar Revisão
             </button>
           </div>
         </form>

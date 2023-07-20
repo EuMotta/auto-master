@@ -7,6 +7,9 @@ const handler = async (req, res) => {
   if (req.method === 'DELETE') {
     return deleteHandler(req, res);
   }
+  if (req.method === 'PUT') {
+    return putHandler(req, res);
+  }
   const session = await getSession({ req });
   if (!session) {
     return res.status(401).send({ message: 'Acesse a sua conta' });
@@ -37,6 +40,32 @@ const deleteHandler = async (req, res) => {
     await db.disconnect();
     res.send({ message: 'Parte deletada.' });
   } else {
+    await db.disconnect();
+    res.status(404).send({ message: 'Parte não encontrada.' });
+  }
+};
+
+const putHandler = async (req, res) => {
+  await db.connect();
+  const { id } = req.query;
+  const options = req.body.optionValue.map((option, key) => {
+    option.title = req.body.optionTitle[key].value;
+    return option;
+  });
+  console.log(`ID DA PARTE: ${id}`);
+  try {
+    await Part.updateOne(
+      { _id: id },
+      {
+        title: req.body.title,
+        price: req.body.price,
+        options,
+      },
+    );
+
+    await db.disconnect();
+    res.send({ message: 'Parte editada.' });
+  } catch (e) {
     await db.disconnect();
     res.status(404).send({ message: 'Parte não encontrada.' });
   }

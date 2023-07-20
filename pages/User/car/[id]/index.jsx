@@ -265,6 +265,11 @@ const CarScreen = () => {
                                 <p className="!m-0">Descrição</p>
                                 <p className="!m-0">R$ {part.price}</p>
                               </div>
+                              <Link
+                                href={`/User/car/${car._id}/EditPart/${part._id}`}
+                              >
+                                editar
+                              </Link>
                               <div className="collapse-content !p-0 flex flex-col gap-2">
                                 {part.options.map((option) => (
                                   <div

@@ -32,17 +32,17 @@ function reducer(state, action) {
   }
 }
 
-const EditMaintenance = () => {
+const EditReview = () => {
   const router = useRouter();
-  const { id: carId, maintenanceId } = router.query;
+  const { id: carId, reviewId } = router.query;
   const { data: session } = useSession();
   const [formData, setFormData] = useState(null);
-  const [selectedPartId, setSelectedPartId] = useState('');
+  const [selectedPartIds, setSelectedPartIds] = useState([]); // Changed selectedPartId to selectedPartIds
   const [state, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
   });
-  const [maintenanceData, setMaintenanceData] = useState({});
+  const [reviewData, setReviewData] = useState({});
   const [carParts, setCarParts] = useState([]);
   const {
     handleSubmit,
@@ -57,8 +57,8 @@ const EditMaintenance = () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
 
-        const { data } = await axios.get(`/api/Maintenance/${maintenanceId}`);
-        setMaintenanceData(data);
+        const { data } = await axios.get(`/api/Review/${reviewId}`);
+        setReviewData(data);
         setValue('title', data.title);
         setValue('subtitle', data.subtitle);
         setValue('description', data.description);
@@ -75,17 +75,14 @@ const EditMaintenance = () => {
       }
     };
     fetchPartData();
-  }, [maintenanceId, carId]);
+  }, [reviewId, carId]);
 
   const submitHandler = async (formData) => {
     try {
       formData.carId = carId;
       console.log(formData);
       dispatch({ type: 'UPDATE_REQUEST' });
-      const result = await axios.put(
-        `/api/Maintenance/${maintenanceId}`,
-        formData,
-      );
+      const result = await axios.put(`/api/Review/${reviewId}`, formData);
       dispatch({ type: 'UPDATE_SUCCESS' });
       toast.success('Parte atualizada com sucesso');
       console.log(result);
@@ -96,23 +93,23 @@ const EditMaintenance = () => {
       toast.error(getError(err));
     }
   };
-  console.log(maintenanceData);
+  console.log(reviewData);
 
   return (
-    <Layout title="Register Maintenance">
+    <Layout title="Register Review">
       {session?.user ? (
         <form
           className="mx-auto max-w-screen-md bg-base-500"
           onSubmit={handleSubmit(submitHandler)}
         >
-          {maintenanceId}
+          {reviewId}
           <h1 className="mb-4 text-xl">Editar Manutenção</h1>
           <div className="mb-4">
             <label htmlFor="title">Título</label>
             <input
               type="text"
               {...register('title')}
-              defaultValue={maintenanceData.title}
+              defaultValue={reviewData.title}
               className="w-full"
               id="title"
             />
@@ -122,7 +119,7 @@ const EditMaintenance = () => {
             <input
               type="text"
               {...register('subtitle')}
-              defaultValue={maintenanceData.subtitle}
+              defaultValue={reviewData.subtitle}
               className="w-full"
               id="subtitle"
             />
@@ -131,27 +128,33 @@ const EditMaintenance = () => {
             <label htmlFor="description">Descrição</label>
             <textarea
               {...register('description')}
-              defaultValue={maintenanceData.description}
+              defaultValue={reviewData.description}
               className="w-full"
               id="description"
             />
           </div>
-          {carParts && (
+          {carParts.length > 0 && ( // Check if there are car parts available
             <div className="mb-4">
-              <label htmlFor="partId">Selecione a Parte</label>
-              <select
-                id="partId"
-                value={selectedPartId}
-                {...register('partId')}
-                onChange={(e) => setSelectedPartId(e.target.value)}
-              >
-                <option value="">Parte</option>
-                {carParts.map((part) => (
-                  <option key={part._id} value={part._id}>
-                    {part.title}
-                  </option>
-                ))}
-              </select>
+              <label>Partes</label>
+              {carParts.map((part) => ( // Use carParts directly
+                <div key={part._id} className="mb-2">
+                  <input
+                    type="checkbox"
+                    value={part._id}
+                    checked={selectedPartIds.includes(part._id)} // Use selectedPartIds instead of selectedPartId
+                    onChange={(e) => {
+                      const partId = e.target.value;
+                      setSelectedPartIds((prevIds) => {
+                        if (prevIds.includes(partId)) {
+                          return prevIds.filter((id) => id !== partId);
+                        }
+                        return [...prevIds, partId];
+                      });
+                    }}
+                  />
+                  <label>{part.title}</label>
+                </div>
+              ))}
             </div>
           )}
           <div className="mb-4">
@@ -159,7 +162,7 @@ const EditMaintenance = () => {
             <input
               type="Date"
               {...register('date')}
-              defaultValue={maintenanceData.date}
+              defaultValue={reviewData.date}
               className="w-full"
               id="date"
             />
@@ -169,7 +172,7 @@ const EditMaintenance = () => {
             <input
               type="Number"
               {...register('price')}
-              defaultValue={maintenanceData.price}
+              defaultValue={reviewData.price}
               className="w-full"
               id="price"
             />
@@ -188,5 +191,5 @@ const EditMaintenance = () => {
   );
 };
 
-EditMaintenance.auth = true;
-export default EditMaintenance;
+EditReview.auth = true;
+export default EditReview;

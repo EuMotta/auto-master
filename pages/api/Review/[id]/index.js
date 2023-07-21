@@ -7,6 +7,9 @@ const handler = async (req, res) => {
   if (req.method === 'DELETE') {
     return deleteHandler(req, res);
   }
+  if (req.method === 'PUT') {
+    return putHandler(req, res);
+  }
   const session = await getSession({ req });
   if (!session) {
     return res.status(401).send({ message: 'Acesse a sua conta' });
@@ -39,6 +42,33 @@ const deleteHandler = async (req, res) => {
   } else {
     await db.disconnect();
     res.status(404).send({ message: 'Revisão não encontrada.' });
+  }
+};
+
+const putHandler = async (req, res) => {
+  await db.connect();
+  const { id } = req.query;
+  console.log(`ID DA MANUTENÇÃO: ${id}`);
+  try {
+    await Review.updateOne(
+      { _id: id },
+      {
+        carId: req.body.carId,
+        total: req.body.total,
+        partId: req.body.partId,
+        title: req.body.title,
+        subtitle: req.body.subtitle,
+        description: req.body.description,
+        date: req.body.date,
+        price: req.body.price,
+      },
+    );
+
+    await db.disconnect();
+    res.send({ message: 'Manutenção editada.' });
+  } catch (e) {
+    await db.disconnect();
+    res.status(404).send({ message: 'Manutenção não encontrada.' });
   }
 };
 

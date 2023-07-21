@@ -92,6 +92,14 @@ const CarScreen = () => {
         data.parts = data.parts.data;
         data.maintenances = data.maintenances.data;
         data.reviews = data.reviews.data;
+
+        data.maintenances = data.maintenances.map((maintenance) => ({
+          ...maintenance,
+          partTitle:
+            data.parts.find((part) => part._id === maintenance.partId)?.title
+            || 'Peça não encontrada',
+        }));
+
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
@@ -266,7 +274,7 @@ const CarScreen = () => {
                                 <p className="!m-0">R$ {part.price}</p>
                               </div>
                               <Link
-                                href={`/User/car/${car._id}/EditPart/${part._id}`}
+                                href={`/User/car/${carId}/EditPart?partId=${part._id}`}
                               >
                                 editar
                               </Link>
@@ -324,16 +332,21 @@ const CarScreen = () => {
                               />
                               <div className="collapse-title text-center items-center grid grid-cols-4 !p-0 font-medium">
                                 <p className="!m-0">{maintenance.title}</p>
-
                                 <p className="!m-0">
                                   {formatDate(maintenance.date)}
                                 </p>
                                 <p className="!m-0">R$ {maintenance.price}</p>
                               </div>
+                              <Link
+                                href={`/User/car/${carId}/EditMaintenance?maintenanceId=${maintenance._id}`}
+                              >
+                                editar
+                              </Link>
                               <div className="collapse-content !p-0 flex flex-col gap-2">
                                 <p className="!m-0">
                                   {maintenance.description}
                                 </p>
+                                <p className="!m-0"> Parte manutenida: {maintenance.partTitle}</p>
                               </div>
                               <button type="button" onClick={deletePartHandler}>
                                 Deletar essa maçã

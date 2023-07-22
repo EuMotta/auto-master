@@ -97,6 +97,7 @@ const RegisterMaintenance = () => {
               {...register('title')}
               className="w-full"
               id="title"
+              value="Trocar câmbio"
             />
           </div>
           <div className="mb-4">
@@ -106,6 +107,7 @@ const RegisterMaintenance = () => {
               {...register('subtitle')}
               className="w-full"
               id="subtitle"
+              value="Folga muito grande"
             />
           </div>
           {car.parts && (
@@ -132,6 +134,7 @@ const RegisterMaintenance = () => {
               {...register('description')}
               className="w-full"
               id="description"
+              value="O câmbio apresenta uma folga muito grande, necessitando a troca."
             />
           </div>
 
@@ -151,6 +154,7 @@ const RegisterMaintenance = () => {
               {...register('price')}
               className="w-full"
               id="price"
+              value={100}
             />
           </div>
 

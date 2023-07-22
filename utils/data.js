@@ -70,5 +70,15 @@ const data = {
     date: new Date('2023-07-19T10:32:48Z'),
     price: 55,
   },
+  refuels: {
+    carId: '64b7c1b17583eff72e1197e3',
+    title: 'Abastecido no posto do Ipiranga',
+    type: 'Gasolina',
+    description: 'Abastecimento de gasolina aditivada',
+    quantity: 200,
+    local: 'Posto Ipiranga da rua do OZE',
+    date: new Date('2023-07-19T10:32:48Z'),
+    price: 55,
+  },
 };
 export default data;

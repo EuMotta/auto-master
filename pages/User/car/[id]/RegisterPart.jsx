@@ -51,6 +51,7 @@ const RegisterPart = () => {
             {...register('title')}
             className="w-full"
             id="title"
+            value="Câmbio"
           />
         </div>
         <div className="mb-4">
@@ -60,6 +61,7 @@ const RegisterPart = () => {
             {...register('price')}
             className="w-full"
             id="price"
+            value={150}
           />
         </div>
 
@@ -74,6 +76,7 @@ const RegisterPart = () => {
                 {...register(`optionTitle[${key}].value`)}
                 id={`optionTitle[${key}].value`}
                 className="w-full"
+                value="5 marchas"
               />
             </div>
             <div className="mb-4">
@@ -85,6 +88,7 @@ const RegisterPart = () => {
                 {...register(`optionValue[${key}].value`)}
                 id={`optionValue[${key}].value`}
                 className="w-full"
+                value="Novo"
               />
             </div>
           </div>

@@ -30,10 +30,10 @@ function reducer(state, action) {
       state;
   }
 }
-const RegisterReview = () => {
+const RegisterRefuek = () => {
   const { data: session } = useSession();
   const { query } = useRouter();
-  const [selectedPartId, setSelectedPartId] = useState([]);
+  const [selectedPartId, setSelectedPartId] = useState('');
   const carId = query.id;
   const {
     handleSubmit,
@@ -53,10 +53,10 @@ const RegisterReview = () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/car/${carId}`);
-        data.parts = await axios.get(`/api/car/${carId}/parts`);
-        data.parts = data.parts.data;
+        data.refuels = await axios.get(`/api/car/${carId}/refuels`);
+        data.refuels = data.refuels.data;
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
-        console.log(data.parts);
+        console.log(data.refuels);
       } catch (err) {
         dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
       }
@@ -70,8 +70,8 @@ const RegisterReview = () => {
       formData.partId = selectedPartId;
       formData.carId = carId;
       console.log(formData);
-      const result = await axios.post('/api/Review', formData);
-      toast.success('Revisão criada com sucesso');
+      const result = await axios.post('/api/Refuel', formData);
+      toast.success('Abastecimento criado com sucesso');
       console.log(result);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       router.push(`/User/car/${query.id}`);
@@ -89,7 +89,7 @@ const RegisterReview = () => {
           onSubmit={handleSubmit(submitHandler)}
         >
           {carId}
-          <h1 className="mb-4 text-xl">Registrar Revisão</h1>
+          <h1 className="mb-4 text-xl">Registrar Manutenção</h1>
           <div className="mb-4">
             <label htmlFor="title">Título</label>
             <input
@@ -97,50 +97,38 @@ const RegisterReview = () => {
               {...register('title')}
               className="w-full"
               id="title"
+              value="Abastecido para viagem"
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="subtitle">Subtitulo</label>
-            <input
-              type="text"
-              {...register('subtitle')}
-              className="w-full"
-              id="subtitle"
-            />
-          </div>
-          {car.parts && (
-            <div className="mb-4">
-              <label>Partes</label>
-              {car.parts.map((part) => (
-                <div key={part._id} className="mb-2">
-                  <input
-                    type="checkbox"
-                    value={part._id}
-                    checked={selectedPartId.includes(part._id)}
-                    onChange={(e) => {
-                      const partId = e.target.value;
-                      setSelectedPartId((prevIds) => {
-                        if (prevIds.includes(partId)) {
-                          return prevIds.filter((id) => id !== partId);
-                        }
-                        return [...prevIds, partId];
-                      });
-                    }}
-                  />
-                  <label>{part.title}</label>
-                </div>
-              ))}
-            </div>
-          )}
           <div className="mb-4">
             <label htmlFor="description">Descrição</label>
             <textarea
               {...register('description')}
               className="w-full"
               id="description"
+              value="O câmbio apresenta uma folga muito grande, necessitando a troca."
             />
           </div>
-
+          <div className="mb-4">
+            <label htmlFor="type">Tipo</label>
+            <input
+              type="text"
+              {...register('type')}
+              className="w-full"
+              id="type"
+              value="Gasolina"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="local">Local</label>
+            <input
+              type="text"
+              {...register('local')}
+              className="w-full"
+              id="local"
+              value="Posto Ipiranga"
+            />
+          </div>
           <div className="mb-4">
             <label htmlFor="date">Data</label>
             <input
@@ -151,18 +139,29 @@ const RegisterReview = () => {
             />
           </div>
           <div className="mb-4">
+            <label htmlFor="quantity">Quantidade</label>
+            <input
+              type="Number"
+              {...register('quantity')}
+              className="w-full"
+              id="quantity"
+              value={100}
+            />
+          </div>
+          <div className="mb-4">
             <label htmlFor="price">Preço</label>
             <input
               type="Number"
               {...register('price')}
               className="w-full"
               id="price"
+              value={100}
             />
           </div>
 
           <div className="mb-4">
             <button type="submit" className="primary-button">
-              Registrar Revisão
+              Registrar Manutenção
             </button>
           </div>
         </form>
@@ -172,5 +171,5 @@ const RegisterReview = () => {
     </Layout>
   );
 };
-RegisterReview.auth = true;
-export default RegisterReview;
+RegisterRefuek.auth = true;
+export default RegisterRefuek;

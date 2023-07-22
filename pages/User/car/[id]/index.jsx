@@ -10,15 +10,16 @@ import { useRouter } from 'next/router';
 import { React, useReducer, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { BsPlus } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
 import db from '@/utils/db';
 import Car from '@/models/Car';
+import ShowPart from '@/pages/sections/User/car/index/ShowPart';
+import ShowMaintenance from '@/pages/sections/User/car/index/ShowMaintenance';
+import ShowReview from '@/pages/sections/User/car/index/ShowReview';
+import ShowRefuel from '@/pages/sections/User/car/index/ShowRefuel';
 
 export async function getStaticPaths() {
   await db.connect();
@@ -109,7 +110,7 @@ const CarScreen = () => {
       }
     };
     fetchCar();
-  }, []);
+  }, [carId]);
 
   const deleteCarHandler = async () => {
     if (!window.confirm('Você tem certeza?')) {
@@ -168,7 +169,7 @@ const CarScreen = () => {
       const reviewId = car.reviews[0]._id;
       await axios.delete(`/api/Review/${reviewId}`);
       dispatch({ type: 'DELETE_SUCCESS' });
-      toast.success('Parte deletada.');
+      toast.success('Revisão deletada.');
       window.location.reload();
     } catch (err) {
       dispatch({ type: 'DELETE_FAIL' });
@@ -279,350 +280,29 @@ const CarScreen = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card prose h-96 overflow-scroll md:prose-xl flex-col bg-base-200 p-5">
-                  <div className="grid grid-cols-2">
-                    <h2 className=" text-center !m-0">Peças</h2>
-                    <div className="flex justify-center">
-                      <Link
-                        href={`${car._id}/RegisterPart`}
-                        className="text-xl btn btn-primary hover:shadow-md transition-all font-mono !p-2"
-                      >
-                        Adicionar Peça <BsPlus className="text-3xl" />
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="items-end" />
-                  <div className="overflow-x-auto">
-                    <div className="table prose  md:prose-lg">
-                      {/*  <div>
-                        <div className="grid text-center grid-cols-3">
-                          <div>Nome</div>
-                          <div>Descrição</div>
-                          <div>Preço</div>
-                        </div>
-                      </div> */}
-                      <div>
-                        <div className="flex flex-col gap-5 ">
-                          {car.parts.map((part, index) => (
-                            <div
-                              key={index}
-                              className="collapse  collapse-arrow shadow-lg shadow-base-300 rounded-lg bg-base-100"
-                            >
-                              <input
-                                type="radio"
-                                name="my-accordion-2"
-                                defaultChecked
-                              />
-                              <div className="collapse-title !p-0 bg-red-200 grid grid-cols-3 text-center justify-center items-center font-medium">
-                                <p className="!m-0">{part.title}</p>
-                                <p className="!m-0">R$ {part.price}</p>
-                                <div className="flex gap-5">
-                                  <Link
-                                    href={`/User/car/${carId}/EditPart?partId=${part._id}`}
-                                    className="btn !p-2 z-10 "
-                                  >
-                                    <AiFillEdit className="md:text-2xl" />
-                                  </Link>
-                                  <button
-                                    type="button"
-                                    onClick={deletePartHandler}
-                                    className="btn !p-2 z-10 btn-error"
-                                  >
-                                    <AiFillDelete className="md:text-2xl" />
-                                  </button>
-                                </div>
-                              </div>
-
-                              <div className="collapse-content !p-0 flex flex-col gap-2">
-                                {part.options.map((option) => (
-                                  <div
-                                    key={option.value}
-                                    className="text-center items-center grid grid-cols-3 !p-0 border-b"
-                                  >
-                                    <p className="!m-0">{option.title}</p>
-                                    <p className="!m-0">{option.value}</p>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card prose h-96 overflow-scroll md:prose-xl flex-col bg-base-200 p-5">
-                  <div className="grid grid-cols-2">
-                    <h2 className=" text-center !m-0">Manutenções</h2>
-                    <div className="flex justify-center">
-                      <Link
-                        href={`${car._id}/RegisterMaintenance`}
-                        className="text-xl btn btn-primary hover:shadow-md transition-all font-mono !p-2"
-                      >
-                        Adicionar Manutenção <BsPlus className="text-3xl" />
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="items-end" />
-                  <div className="overflow-x-auto">
-                    <div className="table prose  md:prose-lg">
-                      <div>
-                        <div className="grid text-center grid-cols-4">
-                          <div>Nome</div>
-                          <div>Data</div>
-                          <div>Preço</div>
-                          <div>Opções</div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex flex-col gap-5 ">
-                          {car.maintenances.map((maintenance, index) => (
-                            <div
-                              key={index}
-                              className="collapse collapse-arrow shadow-lg shadow-base-300 bg-base-100"
-                            >
-                              <input
-                                type="radio"
-                                name="my-accordion-2"
-                                defaultChecked
-                              />
-                              <div className="collapse-title !p-0 bg-red-200 grid grid-cols-4 text-center justify-center items-center font-medium">
-                                <p className="!m-0">{maintenance.title}</p>
-                                <p className="!m-0">
-                                  {formatDate(maintenance.date)}
-                                </p>
-                                <p className="!m-0">R$ {maintenance.price}</p>
-                                <div className="flex gap-5">
-                                  <Link
-                                    href={`/User/car/${carId}/EditMaintenance?maintenanceId=${maintenance._id}`}
-                                    className="btn !p-2 z-10 "
-                                  >
-                                    <AiFillEdit className="md:text-2xl" />
-                                  </Link>
-                                  <button
-                                    type="button"
-                                    onClick={deleteMaintenanceHandler}
-                                    className="btn !p-2 z-10 btn-error"
-                                  >
-                                    <AiFillDelete className="md:text-2xl" />
-                                  </button>
-                                </div>
-                              </div>
-                              <div className="collapse-content !p-0 flex flex-col gap-2">
-                                <h4 className="text-center !m-0">
-                                  {maintenance.subtitle}
-                                </h4>
-                                <p className="!m-0">
-                                  {maintenance.description}
-                                </p>
-                                <p className="!m-0">
-                                  {' '}
-                                  Parte manutenida: {maintenance.partTitle}
-                                </p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card prose h-96 overflow-scroll md:prose-xl flex-col bg-base-200 p-5">
-                  <div className="grid grid-cols-2">
-                    <h2 className=" text-center !m-0">Revisões</h2>
-                    <div className="flex justify-center">
-                      <Link
-                        href={`${car._id}/RegisterPart`}
-                        className="text-xl btn btn-primary hover:shadow-md transition-all font-mono !p-2"
-                      >
-                        Adicionar Revisão <BsPlus className="text-3xl" />
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="items-end" />
-                  <div className="overflow-x-auto">
-                    <div className="table prose  md:prose-lg">
-                      <div>
-                        <div className="grid text-center grid-cols-4">
-                          <div>Nome</div>
-                          <div>Data</div>
-                          <div>Preço</div>
-                          <div>Opções</div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex flex-col gap-5 ">
-                          {car.reviews.map((review, index) => (
-                            <div
-                              key={index}
-                              className="collapse collapse-arrow shadow-lg shadow-base-300 bg-base-100"
-                            >
-                              <input
-                                type="radio"
-                                name="my-accordion-2"
-                                defaultChecked
-                              />
-                              <div className="collapse-title text-center items-center grid grid-cols-4 !p-0 font-medium">
-                                <p className="!m-0">{review.title}</p>
-
-                                <p className="!m-0">
-                                  {formatDate(review.date)}
-                                </p>
-                                <p className="!m-0">R$ {review.price}</p>
-                                <div className="flex gap-5">
-                                  <Link
-                                    href={`/User/car/${carId}/EditMaintenance?reviewId=${review._id}`}
-                                    className="btn !p-2 z-10 "
-                                  >
-                                    <AiFillEdit className="md:text-2xl" />
-                                  </Link>
-                                  <button
-                                    type="button"
-                                    onClick={deleteReviewHandler}
-                                    className="btn !p-2 z-10 btn-error"
-                                  >
-                                    <AiFillDelete className="md:text-2xl" />
-                                  </button>
-                                </div>
-                              </div>
-
-                              <div className="collapse-content !p-0 flex flex-col gap-2">
-                                <div className="table border w-full">
-                                  <div className="table-row-group">
-                                    <div className="table-row">
-                                      <div className="table-cell">Peça</div>
-                                      <div className="table-cell">Titulo</div>
-                                      <div className="table-cell">Preço</div>
-                                    </div>
-                                    {review.partId.map((partId, index) => {
-                                      const part = car.parts.find(
-                                        (part) => part._id === partId,
-                                      );
-                                      if (part) {
-                                        return (
-                                          <div
-                                            key={part._id}
-                                            className="table-row border"
-                                          >
-                                            <div className="table-cell">
-                                              {index + 1}
-                                            </div>
-                                            <div className="table-cell">
-                                              {part.title}
-                                            </div>
-                                            <div className="table-cell">
-                                              {part.price}
-                                            </div>
-                                          </div>
-                                        );
-                                      }
-                                      return null;
-                                    })}
-                                  </div>
-                                </div>
-                              </div>
-                              <button
-                                type="button"
-                                onClick={deleteReviewHandler}
-                              >
-                                Deletar essa maçã
-                              </button>
-                            </div>
-                          ))}
-                          <Link
-                            href={`${car._id}/RegisterReview`}
-                            className="text-3xl font btn btn-primary !p-2"
-                          >
-                            <BsPlus />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card prose h-96 overflow-scroll md:prose-xl flex-col bg-base-200 p-5">
-                  <div className="grid grid-cols-2">
-                    <h2 className=" text-center !m-0">Abastecimentos</h2>
-                    <div className="flex justify-center">
-                      <Link
-                        href={`${car._id}/RegisterPart`}
-                        className="text-xl btn btn-primary hover:shadow-md transition-all font-mono !p-2"
-                      >
-                        Adicionar Revisão <BsPlus className="text-3xl" />
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="items-end" />
-                  <div className="overflow-x-auto">
-                    <div className="table prose  md:prose-lg">
-                      <div>
-                        <div className="grid text-center grid-cols-4">
-                          <div>Nome</div>
-                          <div>Data</div>
-                          <div>Preço</div>
-                          <div>Opções</div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex flex-col gap-5 ">
-                          {car.refuels.map((refuel, index) => (
-                            <div
-                              key={index}
-                              className="collapse collapse-arrow shadow-lg shadow-base-300 bg-base-100"
-                            >
-                              <input
-                                type="radio"
-                                name="my-accordion-2"
-                                defaultChecked
-                              />
-                              <div className="collapse-title text-center items-center grid grid-cols-4 !p-0 font-medium">
-                                <p className="!m-0">{refuel.title}</p>
-
-                                <p className="!m-0">
-                                  {formatDate(refuel.date)}
-                                </p>
-                                <p className="!m-0">R$ {refuel.price}</p>
-                                <div className="flex gap-5">
-                                  <Link
-                                    href={`/User/car/${carId}/EditMaintenance?refuelId=${refuel._id}`}
-                                    className="btn !p-2 z-10 "
-                                  >
-                                    <AiFillEdit className="md:text-2xl" />
-                                  </Link>
-                                  <button
-                                    type="button"
-                                    onClick={deleteReviewHandler}
-                                    className="btn !p-2 z-10 btn-error"
-                                  >
-                                    <AiFillDelete className="md:text-2xl" />
-                                  </button>
-                                </div>
-                              </div>
-                              <div className="collapse-content !p-0 flex flex-col gap-2">
-                                <p> Quantidade:{refuel.quantity}</p>
-                                <p> Local:{refuel.local}</p>
-                                <p> Tipo:{refuel.quantity}</p>
-                                <p> {refuel.description}</p>
-                              </div>
-                              <button
-                                type="button"
-                                onClick={deleteReviewHandler}
-                              >
-                                Deletar essa maçã
-                              </button>
-                            </div>
-                          ))}
-                          <Link
-                            href={`${car._id}/RegisterReview`}
-                            className="text-3xl font btn btn-primary !p-2"
-                          >
-                            <BsPlus />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <ShowPart
+                  data={car}
+                  carId={carId}
+                  deletePartHandler={deletePartHandler}
+                />
+                <ShowMaintenance
+                  data={car}
+                  carId={carId}
+                  deleteMaintenanceHandler={deleteMaintenanceHandler}
+                  formatDate={formatDate}
+                />
+                <ShowReview
+                  data={car}
+                  carId={carId}
+                  deleteReviewHandler={deleteReviewHandler}
+                  formatDate={formatDate}
+                />
+                <ShowRefuel
+                  data={car}
+                  carId={carId}
+                  deleteRefuelHandler={deleteReviewHandler}
+                  formatDate={formatDate}
+                />
               </div>
               <button type="button" onClick={deleteCarHandler}>
                 Deletar Veículo

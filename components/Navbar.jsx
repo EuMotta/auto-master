@@ -26,8 +26,8 @@ const Navbar = ({ onThemeChange }) => {
 
   const homeFunc = () => {
     if (
-      document.body.scrollTop > 80
-      || document.documentElement.scrollTop > 80
+      document.body.scrollTop > 80 ||
+      document.documentElement.scrollTop > 80
     ) {
       homeRef.current?.classList?.add('home_nav');
       navRef.current?.classList?.add('nav_fix');
@@ -51,8 +51,8 @@ const Navbar = ({ onThemeChange }) => {
     signOut({ callbackUrl: '/login' });
   };
   return (
-    <header ref={homeRef} className="fixed w-full ">
-      <nav ref={navRef} className="w-full z-50 container !h-10 navbar mx-auto">
+    <header ref={homeRef} className="fixed bg-secondary text-base-100 w-full ">
+      <nav ref={navRef} className="w-full z-50 container !h-10  navbar mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -94,7 +94,7 @@ const Navbar = ({ onThemeChange }) => {
           <div>
             <a
               href="/"
-              className="normal-case flex justify-center gap-2 items-center text-2xl"
+              className="normal-case text-primary flex justify-center gap-2 items-center text-2xl"
             >
               <AiFillCar />
               <p>AutoMaster</p>
@@ -103,34 +103,38 @@ const Navbar = ({ onThemeChange }) => {
           <Theme onThemeChange={onThemeChange} />
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal z-10 text-xl px-1">
+          <ul className="menu menu-horizontal z-10 gap-5 text-xl px-1">
             {navLinks.map((link, index) => (
               <li key={index}>
                 {link.parent ? (
                   <details>
-                    <summary>{link.name}</summary>
-                    <ul className="p-2 bg-base-300">
+                    <summary className="hover:btn-primary">{link.name}</summary>
+                    <ul className="p-2 bg-secondary">
                       {link.parent.map((sublink, subindex) => (
                         <li key={subindex}>
-                          <a href={sublink.url}>{sublink.name}</a>
+                          <a className="hover:btn-primary" href={sublink.url}>
+                            {sublink.name}
+                          </a>
                         </li>
                       ))}
                     </ul>
                   </details>
                 ) : (
-                  <a href={link.url}>{link.name}</a>
+                  <Link className="hover:btn-primary" href={link.url}>
+                    {link.name}
+                  </Link>
                 )}
               </li>
             ))}
           </ul>
         </div>
         <div className="navbar-end">
-          <Link href="/cart" className="btn btn-circle">
+          <Link href="/cart" className=" hover:btn-primary rounded-full">
             <div className="indicator">
-              <span className="indicator-item badge badge-secondary">
+              <span className="indicator-item bg-primary text-secondary badge badge-secondary">
                 {cartItemsCount}
               </span>
-              <BsCart className="m-3" />
+              <BsCart className="m-3 " />
             </div>
           </Link>
           {status === 'loading' ? (
@@ -138,21 +142,31 @@ const Navbar = ({ onThemeChange }) => {
           ) : session?.user ? (
             <div className="">
               <div className="dropdown dropdown-bottom dropdown-end">
-                <label tabIndex={0} className="btn m-1">
-                  {session.user.name}
+                <label tabIndex={0}>
+                  <button type="button" className="p-5 hover:btn-primary">
+                    {session.user.name}
+                  </button>
                 </label>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content text-black z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                  className="dropdown-content text-base-100 z-[1] menu p-2 shadow bg-secondary rounded-box w-52"
                 >
                   <li>
-                    <Link href="/User/Profile">Perfil</Link>
+                    <Link className="hover:btn-primary" href="/User/Profile">
+                      Perfil
+                    </Link>
                   </li>
                   <li>
-                    <Link href="/User/ViewCars">Veículos</Link>
+                    <Link className="hover:btn-primary" href="/User/ViewCars">
+                      Veículos
+                    </Link>
                   </li>
                   <li>
-                    <button type="button" onClick={logoutClickHandler}>
+                    <button
+                      className="hover:btn-primary"
+                      type="button"
+                      onClick={logoutClickHandler}
+                    >
                       Sair
                     </button>
                   </li>

@@ -59,13 +59,14 @@ const ViewCars = () => {
           <div className="text-lg text-red-600">{error}</div>
         ) : (
           <div className="container mx-auto mt-24 yPaddings">
-            <div className="filters w-30 mx-auto bg-base-200 p-3 justify-between items-center rounded-box flex">
+            <p className="text-teste">a</p>
+            <div className="filters w-30 top-0 mx-auto bg-primary p-3 justify-between items-center rounded flex">
               <div>
-                <Link href="RegisterCar" className="btn">
+                <Link href="RegisterCar" className="btn btn-secondary">
                   Criar Veículo
                 </Link>
                 <div className="dropdown">
-                  <label tabIndex={0} className="btn m-1">
+                  <label tabIndex={0} className="btn btn-secondary m-1">
                     Dropdown
                   </label>
                   <ul
@@ -81,9 +82,6 @@ const ViewCars = () => {
                   </ul>
                 </div>
               </div>
-              <Link href="RegisterCar" className="btn">
-                Criar Veículo
-              </Link>
             </div>
             <div className="grid lg:grid-cols-2 md:grid-cols-1 xl:grid-cols-3 gap-5 my-5">
               {cars.map((car, index) => (

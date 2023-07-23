@@ -1,10 +1,27 @@
 import Image from 'next/image';
 import React from 'react';
-import { FaDashcube, FaMoneyBillWave } from 'react-icons/fa';
-import { AiFillSetting } from 'react-icons/ai';
-import { BsFuelPump } from 'react-icons/bs';
+import { AiOutlineControl, AiOutlineFieldTime, AiOutlineUnorderedList } from 'react-icons/ai';
+import { BsSpeedometer } from 'react-icons/bs';
 import fleet from '@/public/images/home/fleet.jpeg';
 
+const businessList = [
+  {
+    title: 'Controle total',
+    icon: AiOutlineControl,
+  },
+  {
+    title: 'Aumente a eficiência',
+    icon: BsSpeedometer,
+  },
+  {
+    title: 'Economize tempo',
+    icon: AiOutlineFieldTime,
+  },
+  {
+    title: 'Frota organizada',
+    icon: AiOutlineUnorderedList,
+  },
+];
 const PersonalUse = () => (
   <section className="bg-secondary flex flex-col justify-center">
     <div className="container mx-auto">
@@ -17,37 +34,24 @@ const PersonalUse = () => (
             </h2>
           </div>
           <hr />
-          <div className="grid md:grid-cols-2 gap-40">
+          <div className="grid md:grid-cols-2 gap-20">
+            <div className="flex justify-center items-center">
+              <Image src={fleet} />
+            </div>
             <div className="texto">
               <div className="yPaddings flex flex-col gap-10 uppercase">
-                <div className="flex gap-5 items-center justify-center md:justify-end">
-                  <h2 className="text-base-100">Controle total</h2>
-                  <div className="bg-primary text-white p-5 rounded-full">
-                    <AiFillSetting className="text-4xl" />
+                {businessList.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex gap-5 items-center justify-center md:justify-start"
+                  >
+                    <div className="bg-primary text-white p-5 rounded-full">
+                      <item.icon className="text-4xl" />
+                    </div>
+                    <h2 className="text-base-100">{item.title}</h2>
                   </div>
-                </div>
-                <div className="flex gap-5 items-center justify-center md:justify-end">
-                  <h2 className="text-base-100">Aumente a eficiência</h2>
-                  <div className="bg-primary text-white p-5 rounded-full">
-                    <FaMoneyBillWave className="text-4xl" />
-                  </div>
-                </div>
-                <div className="flex gap-5 items-center justify-center md:justify-end">
-                  <h2 className="text-base-100">Economize tempo</h2>
-                  <div className="bg-primary text-white p-5 rounded-full">
-                    <FaDashcube className="text-4xl" />
-                  </div>
-                </div>
-                <div className="flex gap-5 items-center justify-center md:justify-end">
-                  <h2 className="text-base-100">Frota organizada e lucrativa</h2>
-                  <div className="bg-primary text-white p-5 rounded-full">
-                    <BsFuelPump className="text-4xl" />
-                  </div>
-                </div>
+                ))}
               </div>
-            </div>
-            <div className="">
-              <Image src={fleet} />
             </div>
           </div>
         </div>

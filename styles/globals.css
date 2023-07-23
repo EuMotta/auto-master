@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;1,300;1,400;1,700&display=swap');
 html {
   scroll-behavior: smooth;
 }
@@ -82,29 +82,35 @@ html {
   bottom: 15%;
 }
 
-.h1{
+h1{
   @apply !m-0;
+  font-family: 'Roboto Condensed', sans-serif;
 }
-.h2{
+h2{
   @apply !m-0; 
 }
-.h3{
+h3{
   @apply !m-0; 
 }
-.h4{
+h4{
   @apply !m-0; 
 }
-.h5{
+h5{
   @apply !m-0; 
+}
+p{
+  @apply !m-0; 
+  font-family: 'Roboto Condensed', sans-serif;
 }
 /*-----------------------*/
 /* Pagina inicial Start */
 /*-----------------------*/
 
 .hero-bg {
-  background-image: url(../public/images/home/HeroBgTest.png);
+  background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(../public/images/home/HeroBgTest.jpg);
   background-position: center;
   background-size: cover;
+  background-attachment: fixed;
 }
 .bg-gold {
   border: 4px solid transparent;

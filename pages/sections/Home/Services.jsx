@@ -1,25 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import React, { useState } from 'react';
 import { services } from '@/constants';
-import ServicesImg from '@/public/images/home/Services.svg';
-import ServicesImg2 from '@/public/images/home/Services.jpg';
 
 const Services = () => {
-  const [modalOpen, setModalOpen] = useState(null);
-
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (modalOpen && !event.target.closest('.modal-box')) {
-        setModalOpen(null);
-      }
-    };
-
-    document.addEventListener('click', handleOutsideClick);
-
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [modalOpen]);
+  const [modalOpen, setModalOpen] = useState(-1);
 
   const openModal = (index) => {
     setModalOpen(index);
@@ -51,26 +34,23 @@ const Services = () => {
           </button>
         </div>
       </div>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2">
-        <div className="flex flex-col justify-center items-center">
-          {services.slice(0, 3).map((service, index) => (
-            <div key={index} className="card prose md:prose-lg py-5">
-              <figure className="!m-0 text-orange-500">
-                <service.icon className="lg:text-5xl text-4xl" />
-              </figure>
-              <div className="mx-10 mt-5 text-center">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-10">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className="card bg-white shadow-lg !rounded-sm border border-base-300 prose md:prose-lg py-5"
+          >
+            <figure className="!m-0 p-5">
+              <div className="bg-base-100 rounded-full p-5 text-primary hover:text-white hover:bg-primary">
+                <service.icon className="lg:text-5xl text-4xl " />
+              </div>
+            </figure>
+            <div className="mx-5 mt-5 text-center flex flex-col justify-between h-full">
+              <div>
                 <h3 className="!m-0">{service.title}</h3>
                 <p className="!m-0">{service.subtitle}</p>
               </div>
-              <div className="flex mt-5 justify-center">
-                <button
-                  type="button"
-                  className="underline md:text-xl"
-                  onClick={() => openModal(index)}
-                >
-                  Ver mais
-                </button>
-              </div>
+
               {modalOpen === index && (
                 <div className="modal modal-open">
                   <form method="dialog" className="modal-box">
@@ -82,28 +62,6 @@ const Services = () => {
                   </form>
                 </div>
               )}
-            </div>
-          ))}
-        </div>
-        <div className="hidden md:hidden lg:flex lg:h-[40rem] justify-center items-center">
-          <Image
-            src={ServicesImg}
-            width={500}
-            height={500}
-            unoptimized
-            alt="Services"
-          />
-        </div>
-        <div className="flex flex-col justify-center items-center">
-          {services.slice(3, 6).map((service, index) => (
-            <div key={index} className="card prose md:prose-lg py-5">
-              <figure className="!m-0 text-orange-500">
-                <service.icon className="lg:text-5xl text-4xl" />
-              </figure>
-              <div className="mx-10 mt-5 text-center">
-                <h3 className="!m-0">{service.title}</h3>
-                <p className="!m-0">{service.subtitle}</p>
-              </div>
               <div className="flex mt-5 justify-center">
                 <button
                   type="button"
@@ -113,27 +71,9 @@ const Services = () => {
                   Ver mais
                 </button>
               </div>
-              {modalOpen === index && (
-                <div className="modal modal-open">
-                  <form method="dialog" className="modal-box">
-                    <h3 className="font-bold text-lg">{service.title}</h3>
-                    <p className="py-4">{service.description}</p>
-                    <button type="button" className="btn" onClick={closeModal}>
-                      Fechar
-                    </button>
-                  </form>
-                </div>
-              )}
             </div>
-          ))}
-        </div>
-      </div>
-      <div className="w-full">
-        <Image
-          src={ServicesImg2}
-          className="rounded-[3rem] shadow-lg shadow-base-300"
-          alt="Services"
-        />
+          </div>
+        ))}
       </div>
     </div>
   );

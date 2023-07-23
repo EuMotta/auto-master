@@ -20,6 +20,13 @@ const ShowPart = ({ data, carId, deletePartHandler }) => (
     <div className="overflow-x-auto">
       <div className="table prose  md:prose-lg">
         <div>
+          <div className="grid text-center grid-cols-3">
+            <div>Nome</div>
+            <div>Preço</div>
+            <div>Opções</div>
+          </div>
+        </div>
+        <div>
           <div className="flex flex-col gap-5 ">
             {data.parts.map((part, index) => (
               <div

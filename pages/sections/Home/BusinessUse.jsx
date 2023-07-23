@@ -1,36 +1,59 @@
 import Image from 'next/image';
 import React from 'react';
-import BusinessUseImg from '@/public/images/home/BusinessUse.svg';
+import { FaDashcube, FaMoneyBillWave } from 'react-icons/fa';
+import { AiFillSetting } from 'react-icons/ai';
+import { BsFuelPump } from 'react-icons/bs';
+import fleet from '@/public/images/home/fleet.jpeg';
 
-const BusinessUse = () => (
-  <section className="bg-base-200  flex flex-col justify-center">
+const PersonalUse = () => (
+  <section className="bg-secondary flex flex-col justify-center">
     <div className="container mx-auto">
-      <div className="paddings grid lg:grid-cols-2">
-        <div className="hidden md:hidden lg:flex justify-center items-center mx-10">
-          <Image
-            src={BusinessUseImg}
-            width={600}
-            height={600}
-            unoptimized
-            alt="BusinessUse"
-          />
-        </div>
-        <div className="prose md:prose-xl mx-10 flex flex-col justify-center h-full">
-          <h2>Gerêncie sua frota</h2>
-          <h4>
-            Simplifique a gestão da frota de veículos da sua empresa e acompanhe
-            todas as manutenções realizadas!
-          </h4>
-          <p>
-            Aumente a eficiência e reduza os custos ao administrar sua frota de
-            veículos com o AutoMaster. Nossa ferramenta intuitiva simplifica a
-            gestão, permitindo que você monitore e controle todas as atividades
-            de manutenção em um só lugar.
-          </p>
+      <div className="yPaddings prose md:prose-xl !max-w-full text-center">
+        <div className="">
+          <div className="flex flex-col justify-center items-center h-full">
+            <h2 className="text-base-100 uppercase">
+              Saiba os gastos do seu veículo, acompanhe na palma da mão tudo que
+              ocorre pelo seu aplicativo.
+            </h2>
+          </div>
+          <hr />
+          <div className="grid md:grid-cols-2 gap-40">
+            <div className="texto">
+              <div className="yPaddings flex flex-col gap-10 uppercase">
+                <div className="flex gap-5 items-center justify-center md:justify-end">
+                  <h2 className="text-base-100">Controle total</h2>
+                  <div className="bg-primary text-white p-5 rounded-full">
+                    <AiFillSetting className="text-4xl" />
+                  </div>
+                </div>
+                <div className="flex gap-5 items-center justify-center md:justify-end">
+                  <h2 className="text-base-100">Aumente a eficiência</h2>
+                  <div className="bg-primary text-white p-5 rounded-full">
+                    <FaMoneyBillWave className="text-4xl" />
+                  </div>
+                </div>
+                <div className="flex gap-5 items-center justify-center md:justify-end">
+                  <h2 className="text-base-100">Economize tempo</h2>
+                  <div className="bg-primary text-white p-5 rounded-full">
+                    <FaDashcube className="text-4xl" />
+                  </div>
+                </div>
+                <div className="flex gap-5 items-center justify-center md:justify-end">
+                  <h2 className="text-base-100">Frota organizada e lucrativa</h2>
+                  <div className="bg-primary text-white p-5 rounded-full">
+                    <BsFuelPump className="text-4xl" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="">
+              <Image src={fleet} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 );
 
-export default BusinessUse;
+export default PersonalUse;

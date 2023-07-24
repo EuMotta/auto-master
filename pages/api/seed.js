@@ -15,7 +15,7 @@ const handler = async (req, res) => {
   await Review.deleteMany();
   await Refuel.deleteMany();
   await Car.deleteMany();
-  await User.insertMany(data.users);
+  await User.insertMany(data.usersFast);
   await Part.insertMany(data.parts);
   await Refuel.insertMany(data.refuels);
   await Maintenance.insertMany(data.maintenances);

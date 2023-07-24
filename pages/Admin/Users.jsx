@@ -12,17 +12,15 @@ const ViewCars = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [userData, setUserData] = useState([]);
-  const [pag, setPag] = useState(0);
   const [pages, setPages] = useState(0);
 
   const fetchData = async (page) => {
     setLoading(true);
     setError('');
     try {
-      setPag(page);
-      const userDataResponse = await axios.get(`/api/admin/user?pag=${pag}`);
-      const userData = userDataResponse.data.users;
-      const pages = userDataResponse.data.pages;
+      const userDataResponse = await axios.get(`/api/admin/user?pag=${page}`);
+      const userData = await userDataResponse.data.users;
+      const pages = await userDataResponse.data.pages;
       setUserData(userData);
       setLoading(false);
       setPages(pages);
@@ -33,7 +31,7 @@ const ViewCars = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(0);
   }, []);
 
   return (
@@ -62,14 +60,13 @@ const ViewCars = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {userData.map((usuario, key) => {
-                      return (
-                        <tr>
+                    {userData.map((usuario, key) => (
+                        <tr key={key}>
                           <td>
                             <div className="flex items-center space-x-3">
                               <div>
                                 <div className="font-bold">{usuario.name}</div>
-                                <div className="text-sm opacity-50">United States</div>
+                                <div className="text-sm opacity-50">{usuario.email}</div>
                               </div>
                             </div>
                           </td>
@@ -80,23 +77,21 @@ const ViewCars = () => {
                           </td>
                           <td>Purple</td>
                           <th>
-                            <button className="btn btn-ghost btn-xs">details</button>
+                            <Link href={`/Admin/User/${usuario._id}`} className="btn btn-ghost btn-xs">details</Link>
                           </th>
                         </tr>
-                      )
-                    })}
+                      
+                    ))}
 
                   </tbody>
                 </table>
                 <div className="join">
-                  <button className="join-item btn">1</button>
-                  <button className="join-item btn btn-active">2</button>
-                  <button className="join-item btn">3</button>
-                  <button className="join-item btn">4</button>
+                  {Array(pages).fill(0).map((_,key) => (
+                    <button className="join-item btn btn-active" onClick={() => {
+                      fetchData(key);
+                    }}>{key+1}</button>
+                  ))}
                 </div>
-                <button type="button" onClick={() => {
-                  fetchData(3);
-                }}>{pages}</button>
               </div>
             </div>
           </AdminLayout>

@@ -16,7 +16,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (session?.user) {
-      session.user.isAdmin ? router.push(redirect || '/Admin') : router.push(redirect || '/');
+      session.user.isAdmin ? router.push(redirect || '/Admin/Dashboard') : router.push(redirect || '/User/ViewCars');
     }
   }, [router, session, redirect]);
 

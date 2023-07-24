@@ -3,8 +3,11 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useEffect, useReducer, useState } from 'react';
 import Image from 'next/image';
-import Layout from '@/components/Layout';
+import { AiFillCar } from 'react-icons/ai';
+import { RiMotorbikeLine } from 'react-icons/ri';
+import { BsTruck } from 'react-icons/bs';
 import { getError } from '@/utils/error';
+import Layout from '@/components/Layout';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -21,12 +24,12 @@ function reducer(state, action) {
 
 const ViewCars = () => {
   const { status, data: session } = useSession();
-  const [cars, setCars] = useState([]);
-
-  const [{ loading, error }, dispatch] = useReducer(reducer, {
+  const [selectedFilter, setSelectedFilter] = useState('');
+  const [{ loading, error, cars }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
-    car: {},
+    cars: [],
+    filter: '',
   });
   useEffect(() => {
     const fetchData = async () => {
@@ -35,8 +38,12 @@ const ViewCars = () => {
         try {
           const result = await fetch('/api/car');
           const data = await result.json();
-          dispatch({ type: 'FETCH_SUCCESS', payload: data });
-          setCars(data);
+
+          const filteredCars = selectedFilter
+            ? data.filter((car) => car.type === parseInt(selectedFilter, 10))
+            : data;
+
+          dispatch({ type: 'FETCH_SUCCESS', payload: filteredCars });
         } catch (err) {
           dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
         }
@@ -44,11 +51,16 @@ const ViewCars = () => {
     };
 
     fetchData();
-  }, [session]);
+  }, [session, selectedFilter]);
+
+  const handleFilterChange = (event) => {
+    const { value } = event.target;
+    setSelectedFilter(value);
+  };
 
   return (
     <Layout>
-      <div className="container mx-auto">
+      <div className="container  mx-auto">
         {status === 'loading' ? (
           <span className="loading loading-bars loading-xs" />
         ) : loading ? (
@@ -58,10 +70,9 @@ const ViewCars = () => {
         ) : error ? (
           <div className="text-lg text-red-600">{error}</div>
         ) : (
-          <div className="container mx-auto mt-24 yPaddings">
-            <p className="text-teste">a</p>
+          <div className="container mx-auto yPaddings">
             <div className="filters w-30 top-0 mx-auto bg-primary p-3 justify-between items-center rounded flex">
-              <div>
+              <div className="flex items-center justify-center">
                 <Link href="RegisterCar" className="btn btn-secondary">
                   Criar Veículo
                 </Link>
@@ -81,32 +92,69 @@ const ViewCars = () => {
                     </li>
                   </ul>
                 </div>
+                <div className="p-3 rounded-lg btn-secondary">
+                  <label htmlFor="type">Filtrar por:</label>
+                  <select
+                    onChange={handleFilterChange}
+                    value={selectedFilter}
+                    id="type"
+                    className="btn-secondary"
+                  >
+                    <option value="">Todos</option>
+                    <option value={1}>Carro</option>
+                    <option value={2}>Moto</option>
+                    <option value={3}>Caminhão</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div className="grid lg:grid-cols-2 md:grid-cols-1 xl:grid-cols-3 gap-5 my-5">
+            <div className="grid lg:grid-cols-2 md:grid-cols-1 xl:grid-cols-5 gap-3 my-5">
               {cars.map((car, index) => (
                 <div
                   key={index}
-                  className="card overflow-hidden w-96 shadow-sm shadow-gray-600 mt-3 mx-auto"
+                  className="card !rounded-sm w-72 bg-base-200 overflow-hidden shadow-sm shadow-gray-600 mt-3 mx-auto"
                 >
-                  <figure>
-                    <Image src={car.image} width={500} height={113} />
-                  </figure>
-                  <div className="card-body bg-base-200 prose md:prose-xl">
-                    <div className="text-center ">
-                      <div className="bg-base-300 rounded-md">
-                        <p className="!mt-0">{car.licensePlate}</p>
+                  <figure className="h-40 bg-base-100">
+                    {car.image ? (
+                      <Image
+                        src={car.image}
+                        width={500}
+                        height={113}
+                        className="object-contain"
+                      />
+                    ) : (
+                      <div>
+                        {car.type === 1 && <AiFillCar className="text-8xl" />}
+                        {car.type === 2 && (
+                          <RiMotorbikeLine className="text-8xl" />
+                        )}
+                        {car.type === 3 && <BsTruck className="text-8xl" />}
                       </div>
-                      <h4>
-                        {car.brand} {car.model}
-                      </h4>
-                      <div className="card-actions justify-end">
+                    )}
+                  </figure>
+                  <div className="card-body prose md:prose-xl">
+                    <div className="text-center ">
+                      <div className="flex flex-col gap-5">
+                        <h4>
+                          {car.brand} {car.model}
+                        </h4>
+                        <div className="bg-base-300 shadow-md rounded-md">
+                          <p className="!mt-0">{car.licensePlate}</p>
+                        </div>
+                      </div>
+
+                      <div className="card-actions mt-5 justify-between items-center">
+                        <div>
+                          {car.type === 1 && 'Carro'}
+                          {car.type === 2 && 'Moto'}
+                          {car.type === 3 && 'Caminhão'}
+                        </div>
                         <Link
                           href={`/User/car/${car._id}`}
                           type="button"
-                          className="btn"
+                          className="btn hover:btn-primary"
                         >
-                          Ver Carro
+                          Ver Mais
                         </Link>
                       </div>
                     </div>

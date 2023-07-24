@@ -15,6 +15,7 @@ const postHandler = async (req, res) => {
     hodometro: req.body.hodometro,
     color: req.body.color,
     year: req.body.year,
+    type: req.body.type,
     licensePlate: req.body.licensePlate,
     chassis: req.body.chassis,
     createdAt: req.body.createdAt,

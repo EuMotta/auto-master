@@ -36,6 +36,7 @@ const data = {
     fueltype: 'Gasolina',
     hodometro: 1000,
     color: 'Verde',
+    type: 3,
     year: '2017',
     licensePlate: 'ABC-1234',
     chassis: 'aaaa',

@@ -12,6 +12,9 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
+import { AiFillCar } from 'react-icons/ai';
+import { RiMotorbikeLine } from 'react-icons/ri';
+import { BsTruck } from 'react-icons/bs';
 import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
 import db from '@/utils/db';
@@ -203,15 +206,24 @@ const CarScreen = () => {
                   <div className="container mx-auto lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <figure className="flex justify-center">
-                        <Image
-                          src={car.image}
-                          width={500}
-                          height={113}
-                          className="rounded-box"
-                          alt="carro"
-                          style={{ width: 'auto', height: 'auto' }}
-                          unoptimized
-                        />
+                        {car.image ? (
+                          <Image
+                            src={car.image}
+                            width={500}
+                            height={113}
+                            className="object-contain"
+                          />
+                        ) : (
+                          <div>
+                            {car.type === 1 && (
+                              <AiFillCar className="text-8xl" />
+                            )}
+                            {car.type === 2 && (
+                              <RiMotorbikeLine className="text-8xl" />
+                            )}
+                            {car.type === 3 && <BsTruck className="text-8xl" />}
+                          </div>
+                        )}
                       </figure>
                     </div>
                     <div className="prose md:prose-xl items-center mx-auto flex-col my-auto">

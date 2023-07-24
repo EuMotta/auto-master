@@ -66,13 +66,22 @@ const RegisterCar = () => {
               accept="image/*"
               className="p-2"
               onChange={handleImageChange}
-              required
             />
           </div>
           <div className="flex justify-center items-center">
             <Image src={image || NoImage} width={300} height={113} />
           </div>
         </div>
+        <div className="mb-4">
+          <label htmlFor="type">Selecione o tipo de veículo</label>
+          <select id="type" {...register('type')}>
+            <option value="">Selecionar</option>
+            <option value={1}>Carro</option>
+            <option value={2}>Moto</option>
+            <option value={3}>Caminhão</option>
+          </select>
+        </div>
+
         <div className="mb-4">
           <label htmlFor="brand">Brand</label>
           <input
@@ -152,86 +161,6 @@ const RegisterCar = () => {
             value="ABCD1234EFG567890"
           />
         </div>
-        {/* <div className="mb-4">
-          <label htmlFor="headlights.model">Headlights Model</label>
-          <input
-            type="text"
-            {...register('headlights.model')}
-            className="w-full"
-            id="headlights.model"
-            value="LED"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="headlights.buyDate">Headlights Buy Date</label>
-          <input
-            type="text"
-            {...register('headlights.buyDate')}
-            className="w-full"
-            id="headlights.buyDate"
-            value="2022-01-01"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="tires.brand">Tires Brand</label>
-          <input
-            type="text"
-            {...register('tires.brand')}
-            className="w-full"
-            id="tires.brand"
-            value="Michelin"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="tires.frontSize">Tires Front Size</label>
-          <input
-            type="number"
-            {...register('tires.frontSize')}
-            className="w-full"
-            id="tires.frontSize"
-            value={205}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="tires.rearSize">Tires Rear Size</label>
-          <input
-            type="number"
-            {...register('tires.rearSize')}
-            className="w-full"
-            id="tires.rearSize"
-            value={205}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="test[0].title">Test Title</label>
-          <input
-            type="text"
-            {...register('test[0].title')}
-            className="w-full"
-            id="test[0].title"
-            value="Teste de desempenho"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="test[0].options[0].title">Option Title</label>
-          <input
-            type="text"
-            {...register('test[0].options[0].title')}
-            className="w-full"
-            id="test[0].options[0].title"
-            value="Aceleração"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="test[0].options[0].value">Option Value</label>
-          <input
-            type="text"
-            {...register('test[0].options[0].value')}
-            className="w-full"
-            id="test[0].options[0].value"
-            value="0-100 km/h em 6 segundos"
-          />
-        </div> */}
         <div className="mb-4">
           <button type="submit" className="primary-button">
             Register Car

@@ -60,18 +60,18 @@ const ViewCars = () => {
   }, []);
 
   return (
-    <AdminLayout>
-      <div className="">
-        {session.user?.isAdmin ? (
-          status === 'loading' ? (
-            <span className="loading loading-bars loading-xs" />
-          ) : loading ? (
-            <div className="flex justify-center items-center">
-              <span className="loading loading-bars loading-lg" />
-            </div>
-          ) : error ? (
-            <div className="text-lg text-red-600">{error}</div>
-          ) : (
+    <div className="">
+      {session.user?.isAdmin ? (
+        status === 'loading' ? (
+          <span className="loading loading-bars loading-xs" />
+        ) : loading ? (
+          <div className="flex justify-center items-center">
+            <span className="loading loading-bars loading-lg" />
+          </div>
+        ) : error ? (
+          <div className="text-lg text-red-600">{error}</div>
+        ) : (
+          <AdminLayout>
             <div className="container mx-auto">
               <div className="grid grid-cols-4 yPaddings gap-5">
                 <div className="card w-full flex justify-center items-center bg-base-100 shadow-xl">
@@ -132,12 +132,12 @@ const ViewCars = () => {
                 </div>
               </div>
             </div>
-          )
-        ) : (
-          ''
-        )}
-      </div>
-    </AdminLayout>
+          </AdminLayout>
+        )
+      ) : (
+        ''
+      )}
+    </div>
   );
 };
 

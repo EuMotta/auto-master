@@ -34,11 +34,16 @@ const getHandler = async (req, res) => {
 
   await db.connect();
   let cars;
-
+  const { pag } = req.query;
   if (brand) {
     cars = await CarData.find({ brand }).select('brand');
   } else {
-    cars = await CarData.find({});
+    let pages = await CarData.countDocuments({}) / 20;
+    pages = Math.ceil(pages);
+    await db.connect();
+    cars = await CarData.find({}).skip(20 * pag).limit(20);
+    await db.disconnect();
+    res.send({ cars, pages });
   }
 
   await db.disconnect();

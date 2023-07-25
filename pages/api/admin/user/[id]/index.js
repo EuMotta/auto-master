@@ -11,8 +11,6 @@ const putHandler = async (req, res) => {
       name: req.body.name,
       lastName: req.body.lastName,
       email: req.body.email,
-      createdAt: req.body.createdAt,
-      updatedAt: req.body.updatedAt,
     });
 
     await db.disconnect();

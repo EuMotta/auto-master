@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import axios from 'axios';
+import { BsInfoCircle } from 'react-icons/bs';
 import AdminLayout from './components/AdminLayout';
 import { getError } from '@/utils/error';
-import Graph1 from './components/Graphics';
 
 const ViewCars = () => {
   const { status, data: session } = useSession();
@@ -13,7 +13,7 @@ const ViewCars = () => {
   const [error, setError] = useState('');
   const [userData, setUserData] = useState([]);
   const [pages, setPages] = useState(0);
-
+  const [currentPage, setCurrentPage] = useState(0);
   const fetchData = async (page) => {
     setLoading(true);
     setError('');
@@ -33,7 +33,15 @@ const ViewCars = () => {
   useEffect(() => {
     fetchData(0);
   }, []);
-
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate() + 1;
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day < 10 ? '0' : ''}${day}/${
+      month < 10 ? '0' : ''
+    }${month}/${year}`;
+  };
   return (
     <div className="">
       {session.user?.isAdmin ? (
@@ -47,50 +55,89 @@ const ViewCars = () => {
           <div className="text-lg text-red-600">{error}</div>
         ) : (
           <AdminLayout>
-            <div className="container mx-auto">
-              <div className="overflow-x-auto">
-                <table className="table">
-
+            <div className="container yPaddings mx-auto">
+              <div>
+                <table className="table ">
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Job</th>
-                      <th>Favorite Color</th>
-                      <th></th>
+                      <th>Data</th>
+                      <th>Tipo</th>
+                      <th className="flex justify-center">Detalhes</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="max-h-96 overflow-y-scroll">
                     {userData.map((usuario, key) => (
-                        <tr key={key}>
-                          <td>
-                            <div className="flex items-center space-x-3">
-                              <div>
-                                <div className="font-bold">{usuario.name}</div>
-                                <div className="text-sm opacity-50">{usuario.email}</div>
+                      <tr
+                        key={key}
+                        className="hover:bg-base-200 transition-all hover:-translate-y-1 hover:shadow-sm"
+                      >
+                        <td>
+                          <div className="flex items-center space-x-3">
+                            <div>
+                              <div className="font-bold">
+                                {usuario.name} {usuario.lastName}
+                              </div>
+                              <div className="text-sm opacity-50">
+                                {usuario.email}
                               </div>
                             </div>
-                          </td>
-                          <td>
-                            Zemlak, Daniel and Leannon
-                            <br />
-                            <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                          </td>
-                          <td>Purple</td>
-                          <th>
-                            <Link href={`/Admin/User/${usuario._id}`} className="btn btn-ghost btn-xs">details</Link>
-                          </th>
-                        </tr>
-                      
+                          </div>
+                        </td>
+                        <td>
+                          Criada: {formatDate(usuario.createdAt)}
+                          <br />
+                          Atualizada: {formatDate(usuario.updatedAt)}
+                        </td>
+                        <td>
+                          {usuario.isAdmin ? (
+                            <span className="badge badge-error badge-sm">
+                              Admin
+                            </span>
+                          ) : (
+                            <span className="badge badge-success badge-sm">
+                              Usuário
+                            </span>
+                          )}
+                        </td>
+                        <th className="flex justify-center">
+                          <Link href={`/Admin/User/EditUser?userId=${usuario._id}`}>
+                            <button
+                              type="button"
+                              className="text-info rounded-full !p-2"
+                            >
+                              <BsInfoCircle className="text-3xl" />
+                            </button>
+                          </Link>
+                        </th>
+                      </tr>
                     ))}
-
                   </tbody>
                 </table>
-                <div className="join">
-                  {Array(pages).fill(0).map((_,key) => (
-                    <button className="join-item btn btn-active" onClick={() => {
-                      fetchData(key);
-                    }}>{key+1}</button>
-                  ))}
+                <div className="flex justify-center items-center">
+                  <div className="join">
+                    {Array.from(
+                      { length: 5 },
+                      (_, index) => currentPage - 2 + index,
+                    ).map(
+                      (page) => page >= 0 &&
+                        page < pages && (
+                          <button
+                            key={page}
+                            type="button"
+                            className={`join-item btn ${
+                              page === currentPage ? 'btn-active' : ''
+                            }`}
+                            onClick={() => {
+                              fetchData(page);
+                              setCurrentPage(page);
+                            }}
+                          >
+                            {page + 1}
+                          </button>
+                      ),
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

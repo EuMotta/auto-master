@@ -82,10 +82,10 @@ const RegisterScreen = () => {
           <input
             type="lastName"
             {...register('lastName', {
-              required: 'Please enter your last name',
+              required: 'Por favor, digite seu sobrenome',
               minLength: {
                 value: 3,
-                message: 'last  name needs to have at least 3 letters',
+                message: 'O sobrenome deve ter pelo menos três letras',
               },
             })}
             className="w-full"
@@ -103,10 +103,10 @@ const RegisterScreen = () => {
           <input
             type="email"
             {...register('email', {
-              required: 'Please enter email',
+              required: 'Por favor, digite o e-mail',
               pattern: {
                 value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/i,
-                message: 'Please enter valid email',
+                message: 'Por favor, digite um e-mail válido',
               },
             })}
             className="w-full"
@@ -122,11 +122,11 @@ const RegisterScreen = () => {
           <input
             type="password"
             {...register('password', {
-              required: 'Please enter password',
-              minLength: { value: 6, message: 'password is more than 5 chars' },
+              required: 'Por favor, digite a senha',
+              minLength: { value: 6, message: 'A senha deve ter 6 ou mais caracteres' },
               pattern: {
                 value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
-                message: 'A senha deve ter um caractere maiúsculo, minusculo e uma letra.',
+                message: 'A senha deve ter um caractere maiúsculo, um minúsculo e um número.',
               },
             })}
             className="w-full"

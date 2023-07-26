@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import axios from 'axios';
-import { BsInfoCircle } from 'react-icons/bs';
+import { BsInfoCircle, BsTruck } from 'react-icons/bs';
+import { AiFillCar } from 'react-icons/ai';
+import { RiMotorbikeLine } from 'react-icons/ri';
 import AdminLayout from './components/AdminLayout';
 import { getError } from '@/utils/error';
 
@@ -56,17 +58,20 @@ const ViewCars = () => {
         ) : (
           <AdminLayout>
             <div className="container yPaddings mx-auto">
-              <div>
-                <table className="table ">
+              <div className="overflow-x-auto">
+                <table className="table">
                   <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Data</th>
+                    <tr className="prose md:prose-md">
+                      <th>Nome</th>
+                      <th>Placa</th>
+                      <th className="hidden md:table-cell">Criado</th>
+                      <th className="hidden md:table-cell">Atualizado</th>
                       <th>Tipo</th>
                       <th className="flex justify-center">Detalhes</th>
                     </tr>
                   </thead>
-                  <tbody className="max-h-96 overflow-y-scroll">
+
+                  <tbody className="max-h-96 prose md:prose-md overflow-y-scroll">
                     {carData.map((car, key) => (
                       <tr
                         key={key}
@@ -76,33 +81,32 @@ const ViewCars = () => {
                           <div className="flex items-center space-x-3">
                             <div>
                               <div className="font-bold">
-                                {car.licensePlate} 
-                              </div>
-                              <div className="text-sm opacity-50">
-                                {car.model}
+                                <p>
+                                  {car.brand} {car.model}
+                                </p>
                               </div>
                             </div>
                           </div>
                         </td>
                         <td>
-                          Criada: {formatDate(car.createdAt)}
-                          <br />
-                          Atualizada: {formatDate(car.updatedAt)}
+                          <div className="flex items-center space-x-3">
+                            <div>
+                              <p>{car.licensePlate}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="hidden md:table-cell">
+                          <p>{formatDate(car.createdAt)}</p>
+                        </td>
+                        <td className="hidden md:table-cell">
+                          <p>{formatDate(car.updatedAt)}</p>
                         </td>
                         <td>
-                          {car.type === 1 ? (
-                            <span className="badge badge-error badge-sm">
-                              Carro
-                            </span>
-                          ) : car.type === 2 ? (
-                            <span className="badge badge-success badge-sm">
-                              Moto
-                            </span>
-                          ) : (
-                            <span className="badge badge-success badge-sm">
-                              Caminhão
-                            </span>
+                          {car.type === 1 && <AiFillCar className="text-3xl" />}
+                          {car.type === 2 && (
+                            <RiMotorbikeLine className="text-3xl" />
                           )}
+                          {car.type === 3 && <BsTruck className="text-3xl" />}
                         </td>
                         <th className="flex justify-center">
                           <Link href={`/Admin/Car/EditCar?carId=${car._id}`}>

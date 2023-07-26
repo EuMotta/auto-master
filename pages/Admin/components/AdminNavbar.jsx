@@ -35,7 +35,7 @@ const AdminNavbar = ({ onThemeChange }) => {
   return (
     <header className="fixed lg:bg-secondary lg:p-2">
       <nav className=" px-3 z-50">
-        <div className="flex flex-col !h-screen">
+        <div className="flex flex-col lg:!h-screen">
           <div className=" flex flex-col justify-center items-center">
             <div className="dropdown dropdown-right">
               <label tabIndex={0} className="btn btn-ghost   lg:hidden">

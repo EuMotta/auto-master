@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import React, { useEffect, useReducer, useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -39,10 +41,7 @@ const ViewCars = () => {
     loading: true,
     error: '',
   });
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     const fetchData = async () => {

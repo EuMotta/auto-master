@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import axios from 'axios';
-import { BsInfoCircle, BsTruck } from 'react-icons/bs';
-import { AiFillCar } from 'react-icons/ai';
-import { RiMotorbikeLine } from 'react-icons/ri';
+import { BsInfoCircle } from 'react-icons/bs';
 import AdminLayout from './components/AdminLayout';
 import { getError } from '@/utils/error';
 
@@ -13,17 +11,18 @@ const ViewCars = () => {
   const { status, data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [carData, setCarData] = useState([]);
+  const [partData, setPartData] = useState([]);
   const [pages, setPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
+
   const fetchData = async (page) => {
     setLoading(true);
     setError('');
     try {
-      const carDataResponse = await axios.get(`/api/admin/car?pag=${page}`);
-      const carData = await carDataResponse.data.cars;
-      const pages = await carDataResponse.data.pages;
-      setCarData(carData);
+      const partDataResponse = await axios.get(`/api/admin/part?pag=${page}`);
+      const partData = await partDataResponse.data.parts;
+      const pages = await partDataResponse.data.pages;
+      setPartData(partData);
       setLoading(false);
       setPages(pages);
     } catch (err) {
@@ -62,17 +61,16 @@ const ViewCars = () => {
                 <table className="table ">
                   <thead>
                     <tr className="prose md:prose-md">
-                      <th>Nome</th>
-                      <th>Placa</th>
+                      <th>Titulo</th>
+                      <th>Preço</th>
                       <th className="hidden md:table-cell">Criado</th>
                       <th className="hidden md:table-cell">Atualizado</th>
-                      <th>Tipo</th>
                       <th className="flex justify-center">Detalhes</th>
                     </tr>
                   </thead>
 
                   <tbody className="max-h-96 prose md:prose-md overflow-y-scroll">
-                    {carData.map((car, key) => (
+                    {partData.map((part, key) => (
                       <tr
                         key={key}
                         className="hover:bg-base-200 transition-all hover:-translate-y-1 hover:shadow-sm"
@@ -81,35 +79,32 @@ const ViewCars = () => {
                           <div className="flex items-center space-x-3">
                             <div>
                               <div className="font-bold">
-                                <p>
-                                  {car.brand} {car.model}
-                                </p>
+                                <p>{part.title}</p>
                               </div>
+                              <p className="text-sm" title={part.carId}>
+                                Veículo:
+                                <span className="badge text-sm opacity-50">
+                                  {part.carId.substring(18, 24)}
+                                </span>
+                              </p>
                             </div>
                           </div>
                         </td>
                         <td>
                           <div className="flex items-center space-x-3">
                             <div>
-                              <p>{car.licensePlate}</p>
+                              <p>R$ {part.price}</p>
                             </div>
                           </div>
                         </td>
                         <td className="hidden md:table-cell">
-                          <p>{formatDate(car.createdAt)}</p>
+                          <p>{formatDate(part.createdAt)}</p>
                         </td>
                         <td className="hidden md:table-cell">
-                          <p>{formatDate(car.updatedAt)}</p>
-                        </td>
-                        <td>
-                          {car.type === 1 && <AiFillCar className="text-3xl" />}
-                          {car.type === 2 && (
-                            <RiMotorbikeLine className="text-3xl" />
-                          )}
-                          {car.type === 3 && <BsTruck className="text-3xl" />}
+                          <p>{formatDate(part.updatedAt)}</p>
                         </td>
                         <th className="flex justify-center">
-                          <Link href={`/Admin/Car/EditCar?carId=${car._id}`}>
+                          <Link href={`/Admin/Car/EditCar?partId=${part._id}`}>
                             <button
                               type="button"
                               className="text-info rounded-full !p-2"

@@ -33,7 +33,7 @@ const AdminNavbar = ({ onThemeChange }) => {
     signOut({ callbackUrl: '/login' });
   };
   return (
-    <header className="fixed lg:bg-secondary lg:p-2">
+    <header className="fixed z-50 lg:bg-secondary lg:p-2">
       <nav className=" px-3 z-50">
         <div className="flex flex-col lg:!h-screen">
           <div className=" flex flex-col justify-center items-center">
@@ -114,7 +114,7 @@ const AdminNavbar = ({ onThemeChange }) => {
               <div className="prose md:prose-lg">
                 <Link
                   href="/"
-                  className="normal-case no-underline text-primary flex justify-center gap-2 items-center text-2xl"
+                  className="normal-case no-underline hidden text-primary lg:flex justify-center gap-2 items-center text-2xl"
                 >
                   <AiFillCar />
                   <p>AutoMaster</p>

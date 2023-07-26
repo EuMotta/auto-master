@@ -32,11 +32,17 @@ const Auth = ({ children, adminOnly }) => {
   });
 
   if (status === 'loading') {
-    return <div>Carregando...</div>;
+    return (
+      <div className="flex justify-center items-center">
+        <span className="loading loading-bars loading-lg" />
+      </div>
+    );
   }
 
   if (adminOnly && !session?.user?.isAdmin) {
-    router.push('/unauthorized?message=Oops! Parece que você está tentando acessar uma página sem autorização. Por favor, faça login em uma conta de administrador para prosseguir.');
+    router.push(
+      '/unauthorized?message=Oops! Parece que você está tentando acessar uma página sem autorização. Por favor, faça login em uma conta de administrador para prosseguir.',
+    );
   }
 
   return children;

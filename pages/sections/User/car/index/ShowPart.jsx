@@ -28,45 +28,49 @@ const ShowPart = ({ data, carId, deletePartHandler }) => (
         </div>
         <div>
           <div className="flex flex-col gap-5 ">
-            {data.parts.map((part, index) => (
-              <div
-                key={index}
-                className="collapse  collapse-arrow shadow-lg shadow-base-300 rounded-lg bg-base-100"
-              >
-                <input type="radio" name="my-accordion-2" defaultChecked />
-                <div className="collapse-title !p-0 bg-red-200 grid grid-cols-3 text-center justify-center items-center font-medium">
-                  <p className="!m-0">{part.title}</p>
-                  <p className="!m-0">R$ {part.price}</p>
-                  <div className="flex gap-5">
-                    <Link
-                      href={`/User/car/${carId}/EditPart?partId=${part._id}`}
-                      className="btn !p-2 z-10 "
-                    >
-                      <AiFillEdit className="md:text-2xl" />
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={deletePartHandler}
-                      className="btn !p-2 z-10 btn-error"
-                    >
-                      <AiFillDelete className="md:text-2xl" />
-                    </button>
+            {data && data.parts ? (
+              data.parts.map((part, index) => (
+                <div
+                  key={index}
+                  className="collapse  collapse-arrow shadow-lg shadow-base-300 rounded-lg bg-base-100"
+                >
+                  <input type="radio" name="my-accordion-2" defaultChecked />
+                  <div className="collapse-title !p-0 bg-red-200 grid grid-cols-3 text-center justify-center items-center font-medium">
+                    <p className="!m-0">{part.title}</p>
+                    <p className="!m-0">R$ {part.price}</p>
+                    <div className="flex gap-5">
+                      <Link
+                        href={`/User/car/${carId}/EditPart?partId=${part._id}`}
+                        className="btn !p-2 z-10 "
+                      >
+                        <AiFillEdit className="md:text-2xl" />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={deletePartHandler}
+                        className="btn !p-2 z-10 btn-error"
+                      >
+                        <AiFillDelete className="md:text-2xl" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="collapse-content !p-0 flex flex-col gap-2">
+                    {part.options.map((option) => (
+                      <div
+                        key={option.value}
+                        className="text-center items-center grid grid-cols-3 !p-0 border-b"
+                      >
+                        <p className="!m-0">{option.title}</p>
+                        <p className="!m-0">{option.value}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-
-                <div className="collapse-content !p-0 flex flex-col gap-2">
-                  {part.options.map((option) => (
-                    <div
-                      key={option.value}
-                      className="text-center items-center grid grid-cols-3 !p-0 border-b"
-                    >
-                      <p className="!m-0">{option.title}</p>
-                      <p className="!m-0">{option.value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>Carregando peças...</p>
+            )}
           </div>
         </div>
       </div>

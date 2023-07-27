@@ -3,7 +3,7 @@ import React from 'react';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
 
-const ShowRefuel = ({ data, carId, deleteReviewHandler, formatDate }) => (
+const ShowRefuel = ({ data, carId, deleteRefuelHandler, formatDate }) => (
   <div className="card prose h-96 overflow-scroll md:prose-xl flex-col bg-base-200 p-5">
     <div className="grid grid-cols-2">
       <h2 className=" text-center !m-0">Abastecimentos</h2>
@@ -12,7 +12,7 @@ const ShowRefuel = ({ data, carId, deleteReviewHandler, formatDate }) => (
           href={`${carId}/RegisterRefuel`}
           className="text-xl btn btn-primary hover:shadow-md transition-all font-mono !p-2"
         >
-          Adicionar Revisão <BsPlus className="text-3xl" />
+          Adicionar Abastecimento <BsPlus className="text-3xl" />
         </Link>
       </div>
     </div>
@@ -43,14 +43,14 @@ const ShowRefuel = ({ data, carId, deleteReviewHandler, formatDate }) => (
                     <p className="!m-0">R$ {refuel.price}</p>
                     <div className="flex gap-5">
                       <Link
-                        href={`/User/car/${carId}/EditMaintenance?refuelId=${refuel._id}`}
+                        href={`/User/car/${carId}/EditRefuel?refuelId=${refuel._id}`}
                         className="btn !p-2 z-10 "
                       >
                         <AiFillEdit className="md:text-2xl" />
                       </Link>
                       <button
                         type="button"
-                        onClick={deleteReviewHandler}
+                        onClick={deleteRefuelHandler}
                         className="btn !p-2 z-10 btn-error"
                       >
                         <AiFillDelete className="md:text-2xl" />
@@ -63,7 +63,7 @@ const ShowRefuel = ({ data, carId, deleteReviewHandler, formatDate }) => (
                     <p> Tipo:{refuel.quantity}</p>
                     <p> {refuel.description}</p>
                   </div>
-                  <button type="button" onClick={deleteReviewHandler}>
+                  <button type="button" onClick={deleteRefuelHandler}>
                     Deletar essa maçã
                   </button>
                 </div>

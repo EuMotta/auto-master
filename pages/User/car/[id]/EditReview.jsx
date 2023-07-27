@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import React, { useState, useEffect, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
@@ -7,7 +5,6 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { BsPlusLg } from 'react-icons/bs';
 import Layout from '@/components/Layout';
 import { getError } from '@/utils/error';
 
@@ -28,7 +25,7 @@ function reducer(state, action) {
     case 'UPDATE_RESET':
       return { ...state, loadingUpdate: false, successUpdate: false };
     default:
-      state;
+      return state;
   }
 }
 
@@ -36,9 +33,8 @@ const EditReview = () => {
   const router = useRouter();
   const { id: carId, reviewId } = router.query;
   const { data: session } = useSession();
-  const [formData, setFormData] = useState(null);
-  const [selectedPartIds, setSelectedPartIds] = useState([]); // Changed selectedPartId to selectedPartIds
-  const [state, dispatch] = useReducer(reducer, {
+  const [selectedPartIds, setSelectedPartIds] = useState([]);
+  const [, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
   });
@@ -64,8 +60,6 @@ const EditReview = () => {
         setValue('description', data.description);
         setValue('date', data.date);
         setValue('price', data.price);
-
-        const { data: carData } = await axios.get(`/api/car/${carId}`);
         const { data: carPartsData } = await axios.get(
           `/api/car/${carId}/parts`,
         );

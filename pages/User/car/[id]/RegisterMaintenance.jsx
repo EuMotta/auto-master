@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import React, { useEffect, useReducer, useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -27,7 +25,7 @@ function reducer(state, action) {
     case 'DELETE_RESET':
       return { ...state, loadingDelete: false, successDelete: false };
     default:
-      state;
+      return state;
   }
 }
 const RegisterMaintenance = () => {
@@ -38,10 +36,9 @@ const RegisterMaintenance = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
   } = useForm();
 
-  const [{ loading, error, car }, dispatch] = useReducer(reducer, {
+  const [{ car }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
     car: {},
@@ -71,11 +68,10 @@ const RegisterMaintenance = () => {
       formData.carId = carId;
       console.log(formData);
       const result = await axios.post('/api/Maintenance', formData);
-      toast.success('Parte criada com sucesso');
+      toast.success('Manutenção criada com sucesso');
       console.log(result);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       router.push(`/User/car/${query.id}`);
-      /*       router.push(`/User/car/${query.id}`); */
     } catch (err) {
       toast.error(getError(err));
     }

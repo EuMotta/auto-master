@@ -1,12 +1,9 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import React, { useState, useEffect, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
 import { BsPlusLg } from 'react-icons/bs';
 import Layout from '@/components/Layout';
 import { getError } from '@/utils/error';
@@ -28,16 +25,15 @@ function reducer(state, action) {
     case 'UPDATE_RESET':
       return { ...state, loadingUpdate: false, successUpdate: false };
     default:
-      state;
+      return state;
   }
 }
 
 const EditPart = () => {
   const router = useRouter();
   const { id: carId, partId } = router.query;
-  const { data: session } = useSession();
   const [formData, setFormData] = useState(null);
-  const [state, dispatch] = useReducer(reducer, {
+  const [, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
   });
@@ -46,7 +42,6 @@ const EditPart = () => {
     handleSubmit,
     setValue,
     register,
-    formState: { errors },
   } = useForm();
 
   useEffect(() => {
@@ -153,7 +148,7 @@ const EditPart = () => {
 
         <div className="mb-4">
           <button type="submit" className="primary-button">
-            Registrar Parte
+            Editar Parte
           </button>
         </div>
       </form>

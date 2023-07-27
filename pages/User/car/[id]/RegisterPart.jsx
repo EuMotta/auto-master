@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';

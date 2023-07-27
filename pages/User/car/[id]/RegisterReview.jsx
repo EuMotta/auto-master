@@ -75,7 +75,6 @@ const RegisterReview = () => {
       console.log(result);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       router.push(`/User/car/${query.id}`);
-      /*       router.push(`/User/car/${query.id}`); */
     } catch (err) {
       toast.error(getError(err));
     }

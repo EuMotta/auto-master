@@ -26,24 +26,21 @@ function reducer(state, action) {
     case 'UPDATE_RESET':
       return { ...state, loadingUpdate: false, successUpdate: false };
     default:
-      return state;
+      state;
   }
 }
 
-const EditMaintenance = () => {
+const EditReview = () => {
   const router = useRouter();
-  const { id: carId, maintenanceId } = router.query;
+  const { id: carId, refuelId } = router.query;
   const { data: session } = useSession();
-  const [selectedPartId, setSelectedPartId] = useState('');
   const [, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
   });
-  const [maintenanceData, setMaintenanceData] = useState({});
-  const [carParts, setCarParts] = useState([]);
+  const [refuelData, setRefuelData] = useState({});
   const {
     handleSubmit,
-    setValue,
     register,
     formState: { errors },
   } = useForm();
@@ -54,36 +51,23 @@ const EditMaintenance = () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
 
-        const { data } = await axios.get(`/api/Maintenance/${maintenanceId}`);
-        setMaintenanceData(data);
-        setValue('title', data.title);
-        setValue('subtitle', data.subtitle);
-        setValue('description', data.description);
-        setValue('date', data.date);
-        setValue('price', data.price);
-
-        const { data: carPartsData } = await axios.get(
-          `/api/car/${carId}/parts`,
-        );
-        setCarParts(carPartsData);
+        const { data } = await axios.get(`/api/Refuel/${refuelId}`);
+        setRefuelData(data);
       } catch (err) {
         dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
       }
     };
     fetchPartData();
-  }, [maintenanceId, carId]);
+  }, [refuelId, carId]);
 
   const submitHandler = async (formData) => {
     try {
       formData.carId = carId;
       console.log(formData);
       dispatch({ type: 'UPDATE_REQUEST' });
-      const result = await axios.put(
-        `/api/Maintenance/${maintenanceId}`,
-        formData,
-      );
+      const result = await axios.put(`/api/Refuel/${refuelId}`, formData);
       dispatch({ type: 'UPDATE_SUCCESS' });
-      toast.success('Parte atualizada com sucesso');
+      toast.success('Abastecimento atualizado com sucesso');
       console.log(result);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       router.push(`/User/car/${carId}`);
@@ -92,70 +76,66 @@ const EditMaintenance = () => {
       toast.error(getError(err));
     }
   };
-  console.log(maintenanceData);
-
+  console.log(refuelData);
+  /*   type: { type: String, required: true },
+  quantity: { type: Number, required: true },
+  local: { type: String, required: true },
+  price: { type: Number, required: true },
+  date: { type: Date, required: true }, */
   return (
-    <Layout title="Register Maintenance">
+    <Layout title="Editar Abastecimento">
       {session?.user ? (
         <form
           className="mx-auto max-w-screen-md bg-base-500"
           onSubmit={handleSubmit(submitHandler)}
         >
-          {maintenanceId}
-          <h1 className="mb-4 text-xl">Editar Manutenção</h1>
+          {refuelId}
+          <h1 className="mb-4 text-xl">Editar Revisão</h1>
           <div className="mb-4">
             <label htmlFor="title">Título</label>
             <input
               type="text"
               {...register('title')}
-              defaultValue={maintenanceData.title}
+              defaultValue={refuelData.title}
               className="w-full"
               id="title"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="subtitle">Subtitulo</label>
-            <input
-              type="text"
-              {...register('subtitle')}
-              defaultValue={maintenanceData.subtitle}
-              className="w-full"
-              id="subtitle"
             />
           </div>
           <div className="mb-4">
             <label htmlFor="description">Descrição</label>
             <textarea
               {...register('description')}
-              defaultValue={maintenanceData.description}
+              defaultValue={refuelData.description}
               className="w-full"
               id="description"
             />
           </div>
-          {carParts && (
-            <div className="mb-4">
-              <label htmlFor="partId">Selecione a Parte</label>
-              <select
-                id="partId"
-                value={selectedPartId}
-                {...register('partId')}
-                onChange={(e) => setSelectedPartId(e.target.value)}
-              >
-                <option value="">Parte</option>
-                {carParts.map((part) => (
-                  <option key={part._id} value={part._id}>
-                    {part.title}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
+          <div className="mb-4">
+            <label htmlFor="type">Tipo</label>
+            <input
+              type="text"
+              {...register('type')}
+              defaultValue={refuelData.type}
+              className="w-full"
+              id="type"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="quantity">Quantidade</label>
+            <input
+              type="Number"
+              {...register('quantity')}
+              defaultValue={refuelData.quantity}
+              className="w-full"
+              id="quantity"
+            />
+          </div>
           <div className="mb-4">
             <label htmlFor="date">Data</label>
             <input
               type="Date"
               {...register('date')}
-              defaultValue={maintenanceData.date}
+              defaultValue={refuelData.date}
               className="w-full"
               id="date"
             />
@@ -165,15 +145,14 @@ const EditMaintenance = () => {
             <input
               type="Number"
               {...register('price')}
-              defaultValue={maintenanceData.price}
+              defaultValue={refuelData.price}
               className="w-full"
               id="price"
             />
           </div>
-
           <div className="mb-4">
             <button type="submit" className="primary-button">
-              Registrar Manutenção
+              Editar
             </button>
           </div>
         </form>
@@ -184,5 +163,5 @@ const EditMaintenance = () => {
   );
 };
 
-EditMaintenance.auth = true;
-export default EditMaintenance;
+EditReview.auth = true;
+export default EditReview;

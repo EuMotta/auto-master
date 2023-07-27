@@ -30,7 +30,7 @@ function reducer(state, action) {
       state;
   }
 }
-const RegisterRefuek = () => {
+const RegisterRefuel = () => {
   const { data: session } = useSession();
   const { query } = useRouter();
   const [selectedPartId, setSelectedPartId] = useState('');
@@ -89,7 +89,7 @@ const RegisterRefuek = () => {
           onSubmit={handleSubmit(submitHandler)}
         >
           {carId}
-          <h1 className="mb-4 text-xl">Registrar Manutenção</h1>
+          <h1 className="mb-4 text-xl">Registrar Abastecimento</h1>
           <div className="mb-4">
             <label htmlFor="title">Título</label>
             <input
@@ -161,7 +161,7 @@ const RegisterRefuek = () => {
 
           <div className="mb-4">
             <button type="submit" className="primary-button">
-              Registrar Manutenção
+              Registrar Abastecimento
             </button>
           </div>
         </form>
@@ -171,5 +171,5 @@ const RegisterRefuek = () => {
     </Layout>
   );
 };
-RegisterRefuek.auth = true;
-export default RegisterRefuek;
+RegisterRefuel.auth = true;
+export default RegisterRefuel;

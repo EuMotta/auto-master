@@ -178,6 +178,22 @@ const CarScreen = () => {
       dispatch({ type: 'DELETE_FAIL' });
     }
   };
+  const deleteRefuelHandler = async () => {
+    Cookies.remove('session');
+    if (!window.confirm('Você tem certeza?')) {
+      return;
+    }
+    try {
+      dispatch({ type: 'DELETE_REQUEST' });
+      const refuelId = car.refuels[0]._id;
+      await axios.delete(`/api/Refuel/${refuelId}`);
+      dispatch({ type: 'DELETE_SUCCESS' });
+      toast.success('Abastecimento deletado.');
+      window.location.reload();
+    } catch (err) {
+      dispatch({ type: 'DELETE_FAIL' });
+    }
+  };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate() + 1;
@@ -312,7 +328,7 @@ const CarScreen = () => {
                 <ShowRefuel
                   data={car}
                   carId={carId}
-                  deleteRefuelHandler={deleteReviewHandler}
+                  deleteRefuelHandler={deleteRefuelHandler}
                   formatDate={formatDate}
                 />
               </div>

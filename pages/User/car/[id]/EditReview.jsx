@@ -103,26 +103,28 @@ const EditReview = () => {
           onSubmit={handleSubmit(submitHandler)}
         >
           {reviewId}
-          <h1 className="mb-4 text-xl">Editar Manutenção</h1>
-          <div className="mb-4">
-            <label htmlFor="title">Título</label>
-            <input
-              type="text"
-              {...register('title')}
-              defaultValue={reviewData.title}
-              className="w-full"
-              id="title"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="subtitle">Subtitulo</label>
-            <input
-              type="text"
-              {...register('subtitle')}
-              defaultValue={reviewData.subtitle}
-              className="w-full"
-              id="subtitle"
-            />
+          <h1 className="mb-4 text-xl">Editar Revisão</h1>
+          <div className="grid md:grid-cols-2 gap-5">
+            <div className="mb-4">
+              <label htmlFor="title">Título</label>
+              <input
+                type="text"
+                {...register('title')}
+                defaultValue={reviewData.title}
+                className="w-full"
+                id="title"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="subtitle">Subtitulo</label>
+              <input
+                type="text"
+                {...register('subtitle')}
+                defaultValue={reviewData.subtitle}
+                className="w-full"
+                id="subtitle"
+              />
+            </div>
           </div>
           <div className="mb-4">
             <label htmlFor="description">Descrição</label>
@@ -133,15 +135,15 @@ const EditReview = () => {
               id="description"
             />
           </div>
-          {carParts.length > 0 && ( // Check if there are car parts available
+          {carParts.length > 0 && (
             <div className="mb-4">
               <label>Partes</label>
-              {carParts.map((part) => ( // Use carParts directly
+              {carParts.map((part) => (
                 <div key={part._id} className="mb-2">
                   <input
                     type="checkbox"
                     value={part._id}
-                    checked={selectedPartIds.includes(part._id)} // Use selectedPartIds instead of selectedPartId
+                    checked={selectedPartIds.includes(part._id)}
                     onChange={(e) => {
                       const partId = e.target.value;
                       setSelectedPartIds((prevIds) => {
@@ -180,7 +182,7 @@ const EditReview = () => {
 
           <div className="mb-4">
             <button type="submit" className="primary-button">
-              Registrar Manutenção
+              Editar
             </button>
           </div>
         </form>

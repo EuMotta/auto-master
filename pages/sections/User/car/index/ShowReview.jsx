@@ -44,7 +44,7 @@ const ShowReview = ({ data, carId, deleteReviewHandler, formatDate }) => (
                     <p className="!m-0">R$ {review.price}</p>
                     <div className="flex gap-5">
                       <Link
-                        href={`/User/car/${carId}/EditMaintenance?reviewId=${review._id}`}
+                        href={`/User/car/${carId}/EditReview?reviewId=${review._id}`}
                         className="btn !p-2 z-10 "
                       >
                         <AiFillEdit className="md:text-2xl" />

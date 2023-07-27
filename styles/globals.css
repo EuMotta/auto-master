@@ -102,6 +102,9 @@ p{
   @apply !m-0; 
   font-family: 'Roboto Condensed', sans-serif;
 }
+.card{
+  @apply !rounded-md
+}
 /*-----------------------*/
 /* Pagina inicial Start */
 /*-----------------------*/

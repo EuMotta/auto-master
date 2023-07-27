@@ -3,8 +3,8 @@ import React from 'react';
 import { FaDashcube, FaMoneyBillWave } from 'react-icons/fa';
 import { AiFillSetting } from 'react-icons/ai';
 import { BsFuelPump } from 'react-icons/bs';
-import frame1 from '@/public/images/home/frame1.png';
-import frame2 from '@/public/images/home/frame2.png';
+import frame1 from '@/public/images/home/Frame1.png';
+import frame2 from '@/public/images/home/Frame2.png';
 
 const businessList = [
   {

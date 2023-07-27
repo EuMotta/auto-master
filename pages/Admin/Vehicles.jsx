@@ -109,7 +109,7 @@ const ViewCars = () => {
                           {car.type === 3 && <BsTruck className="text-3xl" />}
                         </td>
                         <th className="flex justify-center">
-                          <Link href={`/Admin/Car/EditCar?carId=${car._id}`}>
+                          <Link href={`/Admin/Vehicle/EditVehicle?carId=${car._id}`}>
                             <button
                               type="button"
                               className="text-info rounded-full !p-2"

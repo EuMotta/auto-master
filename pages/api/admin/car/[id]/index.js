@@ -21,9 +21,6 @@ const handler = async (req, res) => {
   console.log('id: ', id);
   try {
     const car = await Car.findById(id);
-    if (session?.user?._id === car?.owner) {
-      return res.status(401).send({ message: 'Nao autorizado' });
-    }
     await db.disconnect();
     res.send(car);
   } catch (error) {
@@ -59,6 +56,7 @@ const putHandler = async (req, res) => {
       fueltype: req.body.fueltype,
       hodometro: req.body.hodometro,
       color: req.body.color,
+      type: req.body.type,
       year: req.body.year,
       licensePlate: req.body.licensePlate,
       chassis: req.body.chassis,

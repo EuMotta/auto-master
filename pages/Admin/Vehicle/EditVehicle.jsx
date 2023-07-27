@@ -30,12 +30,13 @@ function reducer(state, action) {
       return state;
   }
 }
-const ViewCars = () => {
+
+const EditVehicle = () => {
   const { status, data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const router = useRouter();
-  const { userId } = router.query;
+  const { carId } = router.query;
   const [formData, setFormData] = useState(null);
   const [state, dispatch] = useReducer(reducer, {
     loading: true,
@@ -45,11 +46,11 @@ const ViewCars = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(userId);
+      console.log(carId);
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/admin/user/${userId}`);
-        setFormData(data[0]);
+        const { data } = await axios.get(`/api/admin/car/${carId}`);
+        setFormData(data);
         setLoading(false);
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
@@ -59,18 +60,17 @@ const ViewCars = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [carId]);
 
   const submitHandler = async (formData) => {
     try {
-      await axios.put(`/api/admin/user/${userId}`, formData);
+      await axios.put(`/api/admin/car/${carId}`, formData);
       toast.success('Informações Atualizadas.');
     } catch (err) {
       setError(getError(err));
       toast.error(getError(err));
     }
   };
-
   return (
     <div className="">
       {session.user?.isAdmin ? (
@@ -88,38 +88,102 @@ const ViewCars = () => {
               className="mx-auto max-w-screen-md bg-base-500"
               onSubmit={handleSubmit(submitHandler)}
             >
-              <h1 className="mb-4 text-xl">Edite suas informações</h1>
+              <h1 className="mb-4 text-xl">Edite as informações do veículo</h1>
               <div className="mb-4">
-                <label htmlFor="name">Nome</label>
+                <label htmlFor="type">Selecione o tipo de veículo</label>
+                <select id="type" {...register('type')}>
+                  <option value="">Selecionar</option>
+                  <option value={1}>Carro</option>
+                  <option value={2}>Moto</option>
+                  <option value={3}>Caminhão</option>
+                </select>
+              </div>
+              <div className="mb-4">
+                <label htmlFor="brand">Marca</label>
                 <input
                   type="text"
-                  {...register('name')}
+                  {...register('brand')}
                   className="w-full"
-                  id="name"
+                  id="brand"
                   required
-                  defaultValue={formData?.name || ''}
+                  defaultValue={formData?.brand || ''}
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="lastName">Sobrenome</label>
+                <label htmlFor="model">Modelo</label>
                 <input
                   type="text"
-                  {...register('lastName')}
+                  {...register('model')}
                   required
                   className="w-full"
-                  id="lastName"
-                  defaultValue={formData?.lastName || ''}
+                  id="model"
+                  defaultValue={formData?.model || ''}
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="licensePlate">Placa</label>
                 <input
                   type="text"
-                  {...register('email')}
+                  {...register('licensePlate')}
                   required
                   className="w-full"
-                  id="email"
-                  defaultValue={formData?.email || ''}
+                  id="licensePlate"
+                  defaultValue={formData?.licensePlate || ''}
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="fueltype">Tipo de combustivel</label>
+                <input
+                  type="text"
+                  {...register('fueltype')}
+                  required
+                  className="w-full"
+                  id="fueltype"
+                  defaultValue={formData?.fueltype || ''}
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="hodometro">Hodometro</label>
+                <input
+                  type="Number"
+                  {...register('hodometro')}
+                  required
+                  className="w-full"
+                  id="hodometro"
+                  defaultValue={formData?.hodometro || ''}
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="color">Cor</label>
+                <input
+                  type="text"
+                  {...register('color')}
+                  required
+                  className="w-full"
+                  id="color"
+                  defaultValue={formData?.color || ''}
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="year">Ano</label>
+                <input
+                  type="text"
+                  {...register('year')}
+                  required
+                  className="w-full"
+                  id="year"
+                  defaultValue={formData?.year || ''}
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="chassis">Chassi</label>
+                <input
+                  type="text"
+                  {...register('chassis')}
+                  required
+                  className="w-full"
+                  id="chassis"
+                  defaultValue={formData?.chassis || ''}
                 />
               </div>
               <div className="mb-4">
@@ -137,5 +201,5 @@ const ViewCars = () => {
   );
 };
 
-ViewCars.auth = { adminOnly: true };
-export default ViewCars;
+EditVehicle.auth = { adminOnly: true };
+export default EditVehicle;

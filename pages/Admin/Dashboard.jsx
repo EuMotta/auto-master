@@ -58,6 +58,28 @@ const ViewCars = () => {
     fetchData();
   }, []);
 
+  const cardmap = [
+    {
+      title: 'Usuários cadastrados',
+      value: usersCount,
+      link: '/',
+    },
+    {
+      title: 'Carros Registrados',
+      value: carCount,
+      link: '/',
+    },
+    {
+      title: 'Manutenções registradas',
+      value: maintenanceCount,
+      link: '/',
+    },
+    {
+      title: 'Peças registradas',
+      value: partCount,
+      link: '/',
+    },
+  ];
   return (
     <div className="">
       {session.user?.isAdmin ? (
@@ -73,51 +95,22 @@ const ViewCars = () => {
           <AdminLayout>
             <div className="container mx-auto">
               <div className="grid grid-cols-4 yPaddings gap-5">
-                <div className="card w-full flex justify-center items-center bg-base-100 shadow-xl">
-                  <div className="card-body">
-                    <h2 className="card-title">Usuários registrados</h2>
-                    <p>{usersCount}</p>
-                    <div className="card-actions justify-end">
-                      <Link href="/" className="">
-                        Ver todos
-                      </Link>
+                {cardmap.map((item, index) => (
+                  <div
+                    key={index}
+                    className="card w-full  !rounded-sm flex justify-center items-center bg-base-100 shadow-xl"
+                  >
+                    <div className="card-body">
+                      <h2 className="card-title">{item.title}</h2>
+                      <p>{item.value}</p>
+                      <div className="card-actions justify-end">
+                        <Link href="/" className="">
+                          Ver todos
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="card w-full bg-base-100 shadow-xl">
-                  <div className="card-body">
-                    <h2 className="card-title">Carros Registrados</h2>
-                    <p>{carCount}</p>
-
-                    <div className="card-actions justify-end">
-                      <Link href="/" className="">
-                        Ver todos
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="card w-full bg-base-100 shadow-xl">
-                  <div className="card-body">
-                    <h2 className="card-title">Peças Registradas</h2>
-                    <p>{partCount}</p>
-                    <div className="card-actions justify-end">
-                      <Link href="/" className="">
-                        Ver todos
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="card w-full bg-base-100 shadow-xl">
-                  <div className="card-body">
-                    <h2 className="card-title">Manutenções Registradas</h2>
-                    <p>{maintenanceCount}</p>
-                    <div className="card-actions justify-end">
-                      <Link href="/" className="">
-                        Ver todos
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
               <div className="grid grid-cols-3">
                 <div className="card w-96 bg-base-100 shadow-xl">

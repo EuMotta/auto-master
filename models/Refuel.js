@@ -12,6 +12,7 @@ const refuelSchema = new mongoose.Schema(
     type: { type: String, required: true },
     quantity: { type: Number, required: true },
     local: { type: String, required: true },
+    distance: { type: String, required: false },
     price: { type: Number, required: true },
     date: { type: Date, required: true },
   },

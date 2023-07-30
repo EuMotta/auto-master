@@ -57,6 +57,7 @@ const putHandler = async (req, res) => {
         type: req.body.type,
         quantity: req.body.quantity,
         local: req.body.local,
+        distance: req.body.distance,
         date: req.body.date,
         price: req.body.price,
       },

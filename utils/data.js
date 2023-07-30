@@ -903,8 +903,9 @@ const data = {
     type: 'Gasolina',
     description: 'Abastecimento de gasolina aditivada',
     quantity: 200,
+    distance: 150,
     local: 'Posto Ipiranga da rua do OZE',
-    date: new Date('2023-07-19T10:32:48Z'),
+    date: new Date(),
     price: 55,
   },
 };

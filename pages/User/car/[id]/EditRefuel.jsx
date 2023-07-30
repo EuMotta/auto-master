@@ -121,6 +121,16 @@ const EditReview = () => {
             />
           </div>
           <div className="mb-4">
+            <label htmlFor="distance">Distância percorrida</label>
+            <input
+              type="text"
+              {...register('distance')}
+              defaultValue={refuelData.distance}
+              className="w-full"
+              id="distance"
+            />
+          </div>
+          <div className="mb-4">
             <label htmlFor="quantity">Quantidade</label>
             <input
               type="Number"

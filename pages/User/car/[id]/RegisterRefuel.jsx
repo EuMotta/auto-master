@@ -80,7 +80,12 @@ const RegisterRefuel = () => {
       toast.error(getError(err));
     }
   };
+  const [currentDate, setCurrentDate] = useState('');
 
+  useEffect(() => {
+    const formattedDate = new Date().toISOString().split('T')[0];
+    setCurrentDate(formattedDate);
+  }, []);
   return (
     <Layout title="Register Maintenance">
       {session?.user ? (
@@ -106,7 +111,7 @@ const RegisterRefuel = () => {
               {...register('description')}
               className="w-full"
               id="description"
-              value="O câmbio apresenta uma folga muito grande, necessitando a troca."
+              value="abastecimento"
             />
           </div>
           <div className="mb-4">
@@ -117,6 +122,15 @@ const RegisterRefuel = () => {
               className="w-full"
               id="type"
               value="Gasolina"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="distance">Distância percorrida</label>
+            <input
+              type="text"
+              {...register('distance')}
+              className="w-full"
+              id="distance"
             />
           </div>
           <div className="mb-4">
@@ -136,6 +150,7 @@ const RegisterRefuel = () => {
               {...register('date')}
               className="w-full"
               id="date"
+              defaultValue={currentDate}
             />
           </div>
           <div className="mb-4">
@@ -145,7 +160,7 @@ const RegisterRefuel = () => {
               {...register('quantity')}
               className="w-full"
               id="quantity"
-              value={100}
+              defaultValue={100}
             />
           </div>
           <div className="mb-4">
@@ -155,7 +170,7 @@ const RegisterRefuel = () => {
               {...register('price')}
               className="w-full"
               id="price"
-              value={100}
+              defaultValue={100}
             />
           </div>
 

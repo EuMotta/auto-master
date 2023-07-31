@@ -100,7 +100,9 @@ const Navbar = ({ onThemeChange }) => {
               <p>AutoMaster</p>
             </a>
           </div>
-          <Theme onThemeChange={onThemeChange} />
+          <div className="hidden">
+            <Theme onThemeChange={onThemeChange}/>
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal z-10 gap-5 text-xl px-1">

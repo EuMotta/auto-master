@@ -64,7 +64,6 @@ const LoginScreen = () => {
                     message: 'Please enter valid email',
                   },
                 })}
-                className="w-full focus:text-white focus:shadow-md focus:shadow-slate-500 focus:bg-secondary focus:border-blue-600  block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:outline-none"
                 id="email"
                 autoFocus
               />
@@ -80,7 +79,6 @@ const LoginScreen = () => {
                   required: 'Please enter password',
                   minLength: { value: 3, message: 'password is more than 5 chars' },
                 })}
-                className="w-full focus:text-white focus:shadow-md focus:shadow-slate-500 focus:bg-secondary focus:border-blue-600  block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:outline-none"
                 id="password"
                 autoFocus
               />

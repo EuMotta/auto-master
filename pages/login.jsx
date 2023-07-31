@@ -54,7 +54,7 @@ const LoginScreen = () => {
           >
             <h3 className="!mb-5">Login</h3>
             <div className="mb-4">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">E-mail</label>
               <input
                 type="email"
                 {...register('email', {
@@ -73,7 +73,7 @@ const LoginScreen = () => {
               )}
             </div>
             <div className="mb-4">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Senha</label>
               <input
                 type="password"
                 {...register('password', {
@@ -94,8 +94,8 @@ const LoginScreen = () => {
               </button>
             </div>
             <div className="mb-4 ">
-              Don&apos;t have an account? &nbsp;
-              <Link href="register">Register</Link>
+              Não tem uma conta? &nbsp;
+              <Link href="register">Cadastre-se</Link>
             </div>
           </form>
         </div>

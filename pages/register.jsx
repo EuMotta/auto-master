@@ -57,15 +57,15 @@ const RegisterScreen = () => {
       >
         <h1 className="mb-4 text-xl">Login</h1>
         <div className="mb-4">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">Nome</label>
 
           <input
             type="name"
             {...register('name', {
-              required: 'Please enter your name',
+              required: 'Por favor, digite seu nome',
               minLength: {
                 value: 3,
-                message: 'name needs to have at least 3 letters',
+                message: 'O nome precisa ter pelo menos três letras',
               },
             })}
             className="w-full"
@@ -77,7 +77,7 @@ const RegisterScreen = () => {
             <div className="text-sm text-red-500">{errors.name.message}</div>
           )}
 
-          <label htmlFor="lastName">Last Name</label>
+          <label htmlFor="lastName">Sobrenome</label>
 
           <input
             type="lastName"
@@ -118,7 +118,7 @@ const RegisterScreen = () => {
           )}
         </div>
         <div className="mb-4">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Senha</label>
           <input
             type="password"
             {...register('password', {
@@ -139,12 +139,12 @@ const RegisterScreen = () => {
         </div>
         <div className="mb-4 ">
           <button type="submit" className="primary-button">
-            register
+            Cadastrar
           </button>
         </div>
         <div className="mb-4 ">
-          already have an account? &nbsp;
-          <Link href="login">Login</Link>
+          Já tem uma conta? &nbsp;
+          <Link href="login">Faça login</Link>
         </div>
       </form>
     </Layout>

@@ -26,7 +26,7 @@ const ViewCars = () => {
           axios.get('/api/admin/car'),
           axios.get('/api/admin/summary'),
         ]);
-        const carData = carDataResponse.data.cars;
+        const carData = carDataResponse.data;
 
         const uniqueBrands = [...new Set(carData.map((car) => car.brand))];
 

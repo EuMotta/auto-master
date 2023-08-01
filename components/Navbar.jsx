@@ -106,28 +106,32 @@ const Navbar = ({ onThemeChange }) => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal z-10 gap-5 text-xl px-1">
-            {!session?.user ? (navLinks.map((link, index) => (
-              <li key={index}>
-                {link.parent ? (
-                  <details>
-                    <summary className="hover:btn-primary">{link.name}</summary>
-                    <ul className="p-2 bg-secondary">
-                      {link.parent.map((sublink, subindex) => (
-                        <li key={subindex}>
-                          <a className="hover:btn-primary" href={sublink.url}>
-                            {sublink.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                ) : (
-                  <Link className="hover:btn-primary" href={link.url}>
-                    {link.name}
-                  </Link>
-                )}
-              </li>
-            ))) : (
+            {!session?.user ? (
+              navLinks.map((link, index) => (
+                <li key={index}>
+                  {link.parent ? (
+                    <details>
+                      <summary className="hover:btn-primary">
+                        {link.name}
+                      </summary>
+                      <ul className="p-2 bg-secondary">
+                        {link.parent.map((sublink, subindex) => (
+                          <li key={subindex}>
+                            <a className="hover:btn-primary" href={sublink.url}>
+                              {sublink.name}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  ) : (
+                    <Link className="hover:btn-primary" href={link.url}>
+                      {link.name}
+                    </Link>
+                  )}
+                </li>
+              ))
+            ) : (
               <>
                 <li>
                   <Link className="hover:btn-primary" href="/User/ViewCars">
@@ -135,7 +139,10 @@ const Navbar = ({ onThemeChange }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="hover:btn-primary" href="/User/ViewSchedules">
+                  <Link
+                    className="hover:btn-primary"
+                    href="/User/ViewSchedules"
+                  >
                     Agendamentos
                   </Link>
                 </li>
@@ -144,15 +151,16 @@ const Navbar = ({ onThemeChange }) => {
                     Relatórios
                   </Link>
                 </li>
-                {session?.user?.isAdmin? (
+                {session?.user?.isAdmin ? (
                   <li>
-                   <Link className="hover:btn-primary" href="/Admin/Dashboard">
-                     Dashboard
-                   </Link>
-                 </li>
-                ) : ""}
+                    <Link className="hover:btn-primary" href="/Admin/Dashboard">
+                      Dashboard
+                    </Link>
+                  </li>
+                ) : (
+                  ''
+                )}
               </>
-
             )}
           </ul>
         </div>

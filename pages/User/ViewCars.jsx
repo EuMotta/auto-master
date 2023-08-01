@@ -110,7 +110,7 @@ const ViewCars = () => {
             </div>
             <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 xl:grid-cols-4 gap-3 my-5">
               {cars.map((car, index) => (
-                <Link href={`/User/car/${car._id}`} className='mb-5'>
+                <Link href={`/User/car/${car._id}`} className="mb-5">
                   <div
                     key={index}
                     className="card className='border-yellow-400 hover:border-4 transition-all !rounded-sm w-72 bg-base-200 overflow-hidden shadow-sm shadow-gray-600 mx-auto"

@@ -36,7 +36,8 @@ const Profile = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const userId = session.user._id;
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [userData, setUserData] = useState({});
   const [state, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -54,8 +55,9 @@ const Profile = () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/User/${userId}`);
-        dispatch({ type: 'FETCH_SUCCESS' });
         setFormData(data);
+        setUserData(data);
+        dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
@@ -75,7 +77,6 @@ const Profile = () => {
       toast.error(getError(err));
     }
   };
-
   return (
     <Layout title="Profile">
       <form
@@ -91,6 +92,7 @@ const Profile = () => {
             className="w-full"
             id="name"
             required
+            defaultValue={userData.name}
           />
         </div>
         <div className="mb-4">
@@ -101,6 +103,7 @@ const Profile = () => {
             required
             className="w-full"
             id="lastName"
+            defaultValue={userData.lastName}
           />
         </div>
         <div className="mb-4">
@@ -111,6 +114,7 @@ const Profile = () => {
             required
             className="w-full"
             id="email"
+            defaultValue={userData.email}
           />
         </div>
         <div className="mb-4">

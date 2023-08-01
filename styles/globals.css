@@ -20,6 +20,10 @@ html {
   width: 4px;
 }
 
+.primary-button {
+  @apply btn btn-primary;
+}
+
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0);
 }
@@ -86,24 +90,16 @@ h1{
   @apply !m-0;
   font-family: 'Roboto Condensed', sans-serif;
 }
-h2{
+h2, h3, h4, h5{
   @apply !m-0; 
 }
-h3{
-  @apply !m-0; 
-}
-h4{
-  @apply !m-0; 
-}
-h5{
-  @apply !m-0; 
-}
+
 p{
   @apply !m-0; 
   font-family: 'Roboto Condensed', sans-serif;
 }
 .card{
-  @apply !rounded-md
+  @apply !rounded-md !border-indigo-300
 }
 /*-----------------------*/
 /* Pagina inicial Start */

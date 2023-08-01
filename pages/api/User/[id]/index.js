@@ -25,7 +25,7 @@ const putHandler = async (req, res) => {
 
 const getHandler = async (req, res) => {
   await db.connect();
-  const user = await User.find({ _id: req.query.id });
+  const user = await User.findOne({ _id: req.query.id });
   await db.disconnect();
   res.send(user);
 };

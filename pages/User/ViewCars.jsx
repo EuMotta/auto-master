@@ -108,58 +108,53 @@ const ViewCars = () => {
                 </div>
               </div>
             </div>
-            <div className="grid lg:grid-cols-2 md:grid-cols-1 xl:grid-cols-5 gap-3 my-5">
+            <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 xl:grid-cols-4 gap-3 my-5">
               {cars.map((car, index) => (
-                <div
-                  key={index}
-                  className="card !rounded-sm w-72 bg-base-200 overflow-hidden shadow-sm shadow-gray-600 mt-3 mx-auto"
-                >
-                  <figure className="h-40 bg-base-100">
-                    {car.image ? (
-                      <Image
-                        src={car.image}
-                        width={500}
-                        height={113}
-                        className="object-contain"
-                      />
-                    ) : (
-                      <div>
-                        {car.type === 1 && <AiFillCar className="text-8xl" />}
-                        {car.type === 2 && (
-                          <RiMotorbikeLine className="text-8xl" />
-                        )}
-                        {car.type === 3 && <BsTruck className="text-8xl" />}
-                      </div>
-                    )}
-                  </figure>
-                  <div className="card-body prose md:prose-xl">
-                    <div className="text-center ">
-                      <div className="flex flex-col gap-5">
-                        <h4>
-                          {car.brand} {car.model}
-                        </h4>
-                        <div className="bg-base-300 shadow-md rounded-md">
-                          <p className="!mt-0">{car.licensePlate}</p>
-                        </div>
-                      </div>
-
-                      <div className="card-actions mt-5 justify-between items-center">
+                <Link href={`/User/car/${car._id}`} className='mb-5'>
+                  <div
+                    key={index}
+                    className="card className='border-yellow-400 hover:border-4 transition-all !rounded-sm w-72 bg-base-200 overflow-hidden shadow-sm shadow-gray-600 mx-auto"
+                  >
+                    <figure className="h-40 bg-base-100">
+                      {car.image ? (
+                        <Image
+                          src={car.image}
+                          width={500}
+                          height={113}
+                          className="object-contain"
+                        />
+                      ) : (
                         <div>
-                          {car.type === 1 && 'Carro'}
-                          {car.type === 2 && 'Moto'}
-                          {car.type === 3 && 'Caminhão'}
+                          {car.type === 1 && <AiFillCar className="text-8xl" />}
+                          {car.type === 2 && (
+                            <RiMotorbikeLine className="text-8xl" />
+                          )}
+                          {car.type === 3 && <BsTruck className="text-8xl" />}
                         </div>
-                        <Link
-                          href={`/User/car/${car._id}`}
-                          type="button"
-                          className="btn hover:btn-primary"
-                        >
-                          Ver Mais
-                        </Link>
+                      )}
+                    </figure>
+                    <div className="card-body prose md:prose-xl">
+                      <div className="text-center ">
+                        <div className="flex flex-col gap-5">
+                          <h4>
+                            {car.brand} {car.model}
+                          </h4>
+                          <div className="bg-base-300 shadow-md rounded-md">
+                            <p className="!mt-0">{car.licensePlate}</p>
+                          </div>
+                        </div>
+
+                        <div className="card-actions mt-5 justify-between items-center">
+                          <div>
+                            {car.type === 1 && 'Carro'}
+                            {car.type === 2 && 'Moto'}
+                            {car.type === 3 && 'Caminhão'}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

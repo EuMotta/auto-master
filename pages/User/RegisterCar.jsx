@@ -58,7 +58,7 @@ const RegisterCar = () => {
         className="mx-auto max-w-screen-md bg-base-500"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Register Car</h1>
+        <h1 className="mb-4 text-xl">Registrar Veículo</h1>
         <div className="grid grid-cols-2 gap-5">
           <div className="flex justify-center items-center">
             <input
@@ -83,7 +83,7 @@ const RegisterCar = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="brand">Brand</label>
+          <label htmlFor="brand">Marca</label>
           <input
             type="text"
             {...register('brand')}
@@ -93,7 +93,7 @@ const RegisterCar = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="model">Model</label>
+          <label htmlFor="model">Modelo</label>
           <input
             type="text"
             {...register('model')}
@@ -103,7 +103,7 @@ const RegisterCar = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="fueltype">Fuel Type</label>
+          <label htmlFor="fueltype">Tipo de Combustível</label>
           <input
             type="text"
             {...register('fueltype')}
@@ -113,7 +113,7 @@ const RegisterCar = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="hodometro">Hodometro</label>
+          <label htmlFor="hodometro">Hodômetro</label>
           <input
             type="number"
             {...register('hodometro')}
@@ -123,7 +123,7 @@ const RegisterCar = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="color">Color</label>
+          <label htmlFor="color">Cor</label>
           <input
             type="text"
             {...register('color')}
@@ -133,7 +133,7 @@ const RegisterCar = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="year">Year</label>
+          <label htmlFor="year">Ano</label>
           <input
             type="text"
             {...register('year')}
@@ -163,7 +163,7 @@ const RegisterCar = () => {
         </div>
         <div className="mb-4">
           <button type="submit" className="primary-button">
-            Register Car
+            Registrar
           </button>
         </div>
       </form>

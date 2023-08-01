@@ -100,11 +100,13 @@ const Navbar = ({ onThemeChange }) => {
               <p>AutoMaster</p>
             </a>
           </div>
-          <Theme onThemeChange={onThemeChange} />
+          <div className="hidden">
+            <Theme onThemeChange={onThemeChange} />
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal z-10 gap-5 text-xl px-1">
-            {navLinks.map((link, index) => (
+            {!session?.user ? (navLinks.map((link, index) => (
               <li key={index}>
                 {link.parent ? (
                   <details>
@@ -125,7 +127,33 @@ const Navbar = ({ onThemeChange }) => {
                   </Link>
                 )}
               </li>
-            ))}
+            ))) : (
+              <>
+                <li>
+                  <Link className="hover:btn-primary" href="/User/ViewCars">
+                    Meus Veículos
+                  </Link>
+                </li>
+                <li>
+                  <Link className="hover:btn-primary" href="/User/ViewSchedules">
+                    Agendamentos
+                  </Link>
+                </li>
+                <li>
+                  <Link className="hover:btn-primary" href="/User/ViewReports">
+                    Relatórios
+                  </Link>
+                </li>
+                {session?.user?.isAdmin? (
+                  <li>
+                   <Link className="hover:btn-primary" href="/Admin/Dashboard">
+                     Dashboard
+                   </Link>
+                 </li>
+                ) : ""}
+              </>
+
+            )}
           </ul>
         </div>
         <div className="navbar-end">
@@ -154,11 +182,6 @@ const Navbar = ({ onThemeChange }) => {
                   <li>
                     <Link className="hover:btn-primary" href="/User/Profile">
                       Perfil
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="hover:btn-primary" href="/User/ViewCars">
-                      Veículos
                     </Link>
                   </li>
                   <li>

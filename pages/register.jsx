@@ -123,10 +123,14 @@ const RegisterScreen = () => {
             type="password"
             {...register('password', {
               required: 'Por favor, digite a senha',
-              minLength: { value: 6, message: 'A senha deve ter 6 ou mais caracteres' },
+              minLength: {
+                value: 6,
+                message: 'A senha deve ter 6 ou mais caracteres',
+              },
               pattern: {
                 value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
-                message: 'A senha deve ter um caractere maiúsculo, um minúsculo e um número.',
+                message:
+                  'A senha deve ter um caractere maiúsculo, um minúsculo e um número.',
               },
             })}
             className="w-full"

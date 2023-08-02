@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -19,7 +18,7 @@ const ViewCars = () => {
     setLoading(true);
     setError('');
     try {
-      const userDataResponse = await axios.get('/api/admin/user');
+      const userDataResponse = await axios.get(`/api/admin/user?pag=${page}`);
       const userData = await userDataResponse.data.users;
       const pages = await userDataResponse.data.pages;
       setUserData(userData);

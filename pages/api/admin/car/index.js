@@ -46,6 +46,8 @@ const getHandler = async (req, res) => {
     res.send({ cars, pages });
   } else {
     cars = await CarData.find({});
+    const cars2 = await CarData.find({}).distinct('brand');
+    await console.log(cars2);
   }
 
   await db.disconnect();

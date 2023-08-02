@@ -1,7 +1,7 @@
 'use client';
 
 /* eslint-disable no-shadow */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import axios from 'axios';
@@ -9,32 +9,41 @@ import { BsInfoCircle } from 'react-icons/bs';
 import AdminLayout from './components/AdminLayout';
 import { getError } from '@/utils/error';
 
+function reducer(state, action) {
+  switch (action.type) {
+    case 'FETCH_REQUEST':
+      return { ...state, loading: true, error: '' };
+    case 'FETCH_SUCCESS':
+      return { ...state, loading: false, users: action.payload, error: '' };
+    case 'FETCH_ERROR':
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+
 const ViewCars = () => {
+  const [{ loading, error, users }, dispatch] = useReducer(reducer, {
+    loading: true,
+    users: [],
+    error: '',
+  });
   const { status, data: session } = useSession();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [userData, setUserData] = useState([]);
   const [pages, setPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const fetchData = async (page) => {
-    setLoading(true);
-    setError('');
-    try {
-      const userDataResponse = await axios.get(`/api/admin/user?pag=${page}`);
-      const userData = await userDataResponse.data.users;
-      const pages = await userDataResponse.data.pages;
-      setUserData(userData);
-      setLoading(false);
-      setPages(pages);
-    } catch (err) {
-      setError(getError(err));
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchData(0);
+    const fetchData = async () => {
+      try {
+        dispatch({ type: 'FETCH_REQUEST' });
+        const { data } = await axios.get('/api/admin/user');
+        dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        setPages(pages);
+      } catch (err) {
+        dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
+      }
+    };
+    fetchData();
   }, []);
 
   const formatDate = (dateString) => {
@@ -71,7 +80,7 @@ const ViewCars = () => {
                     </tr>
                   </thead>
                   <tbody className="max-h-96 overflow-y-scroll">
-                    {userData.map((usuario, key) => (
+                    {users.map((user, key) => (
                       <tr
                         key={key}
                         className="hover:bg-base-200 transition-all hover:-translate-y-1 hover:shadow-sm"
@@ -80,21 +89,21 @@ const ViewCars = () => {
                           <div className="flex items-center space-x-3">
                             <div>
                               <div className="font-bold">
-                                {usuario.name} {usuario.lastName}
+                                {user.name} {user.lastName}
                               </div>
                               <div className="text-sm opacity-50">
-                                {usuario.email}
+                                {user.email}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td>
-                          Criada: {formatDate(usuario.createdAt)}
+                          Criada: {formatDate(user.createdAt)}
                           <br />
-                          Atualizada: {formatDate(usuario.updatedAt)}
+                          Atualizada: {formatDate(user.updatedAt)}
                         </td>
                         <td>
-                          {usuario.isAdmin ? (
+                          {user.isAdmin ? (
                             <span className="badge badge-error badge-sm">
                               Admin
                             </span>
@@ -105,7 +114,7 @@ const ViewCars = () => {
                           )}
                         </td>
                         <th className="flex justify-center">
-                          <Link href={`/Admin/User/EditUser?userId=${usuario._id}`}>
+                          <Link href={`/Admin/User/EditUser?userId=${user._id}`}>
                             <button
                               type="button"
                               className="text-info rounded-full !p-2"
@@ -120,7 +129,7 @@ const ViewCars = () => {
                 </table>
                 <div className="flex justify-center items-center">
                   <div className="join">
-                    {Array.from(
+                    {/* Array.from(
                       { length: 5 },
                       (_, index) => currentPage - 2 + index,
                     ).map(
@@ -140,7 +149,11 @@ const ViewCars = () => {
                             {page + 1}
                           </button>
                       ),
-                    )}
+                    ) */
+                    }
+
+                    <button type="button" onClick={() => { setCurrentPage(5); }}>a</button>
+                    <button type="button" onClick={() => { setCurrentPage(2); }}>{currentPage}</button>
                   </div>
                 </div>
               </div>

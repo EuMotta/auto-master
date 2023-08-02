@@ -4,21 +4,14 @@ import User from '@/models/User';
 import db from '@/utils/db';
 
 const getHandler = async (req, res) => {
-  try {
-    const session = await getSession({ req });
-    if (!session) {
-      return res.status(401).send('Realize o cadastro');
-    }
-    const { pag } = req.query;
-    await db.connect();
-    let pages = await User.countDocuments({}) / 20;
-    pages = Math.ceil(pages);
-    const users = await User.find({}).skip(20 * pag).limit(20);
-    await db.disconnect();
-    res.send({ users, pages });
-  } catch (err) {
-    res.send(err.toString());
+  const session = await getSession({ req });
+  if (!session || (session && !session.user.isAdmin)) {
+    return res.status(401).send('Acesso negado');
   }
+  await db.connect();
+  const users = await User.find({});
+  await db.disconnect();
+  res.send(users.reverse());
 };
 
 const handler = async (req, res) => {

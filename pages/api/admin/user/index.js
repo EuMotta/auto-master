@@ -4,19 +4,21 @@ import User from '@/models/User';
 import db from '@/utils/db';
 
 const getHandler = async (req, res) => {
-  const session = await getSession({ req });
-  if (!session) {
-    return res.status(401).send('Realize o cadastro');
+  try {
+    const session = await getSession({ req });
+    if (!session) {
+      return res.status(401).send('Realize o cadastro');
+    }
+    const { pag } = req.query;
+    let pages = await User.countDocuments({}) / 20;
+    pages = Math.ceil(pages);
+    await db.connect();
+    const users = await User.find({}).skip(20 * pag).limit(20);
+    await db.disconnect();
+    res.send({ users, pages });
+  } catch (err) {
+    res.send(err.toString());
   }
-
-  const { pag } = req.query;
-  let pages = await User.countDocuments({}) / 20;
-  pages = Math.ceil(pages);
-  await db.connect();
-
-  const users = await User.find({}).skip(20 * pag).limit(20);
-  await db.disconnect();
-  res.send({ users, pages });
 };
 
 const handler = async (req, res) => {

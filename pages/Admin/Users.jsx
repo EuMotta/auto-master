@@ -2,7 +2,6 @@
 
 /* eslint-disable no-shadow */
 import React, { useEffect, useReducer, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import axios from 'axios';
 import { BsInfoCircle } from 'react-icons/bs';
@@ -28,9 +27,7 @@ const ViewCars = () => {
     users: [],
     error: '',
   });
-  const { status, data: session } = useSession();
   const [pages, setPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,16 +48,12 @@ const ViewCars = () => {
     const day = date.getDate() + 1;
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    return `${day < 10 ? '0' : ''}${day}/${
-      month < 10 ? '0' : ''
-    }${month}/${year}`;
+    return `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
   };
   return (
     <div className="">
-      {session.user?.isAdmin ? (
-        status === 'loading' ? (
-          <span className="loading loading-bars loading-xs" />
-        ) : loading ? (
+      {
+        loading ? (
           <div className="flex justify-center items-center">
             <span className="loading loading-bars loading-lg" />
           </div>
@@ -151,18 +144,13 @@ const ViewCars = () => {
                       ),
                     ) */
                     }
-
-                    <button type="button" onClick={() => { setCurrentPage(5); }}>a</button>
-                    <button type="button" onClick={() => { setCurrentPage(2); }}>{currentPage}</button>
                   </div>
                 </div>
               </div>
             </div>
           </AdminLayout>
         )
-      ) : (
-        ''
-      )}
+      }
     </div>
   );
 };

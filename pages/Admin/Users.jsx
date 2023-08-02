@@ -35,13 +35,13 @@ const Users = () => {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get('/api/admin/user');
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
-        setPages(pages);
+        setPages(Math.ceil(data.length / 10));
       } catch (err) {
         dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
       }
     };
     fetchData();
-  }, []);
+  }, [pages]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);

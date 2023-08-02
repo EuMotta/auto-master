@@ -10,8 +10,7 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        mytheme: {
-
+        sun: {
           primary: '#FFC300',
 
           secondary: '#232325',
@@ -25,6 +24,26 @@ module.exports = {
           info: '#42b6f5',
 
           success: '#92E3A9',
+
+          warning: '#ecc518',
+
+          error: '#ea1f4b',
+        },
+        moon: {
+
+          primary: '#000',
+
+          secondary: '#fff',
+
+          accent: '#fff',
+
+          neutral: '#fff',
+
+          'base-100': '#fff  ',
+
+          info: '#fff',
+
+          success: '#fff',
 
           warning: '#ecc518',
 

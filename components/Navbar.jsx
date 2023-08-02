@@ -5,13 +5,14 @@ import { FiLogIn } from 'react-icons/fi';
 import { FcUp } from 'react-icons/fc';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { BsCart } from 'react-icons/bs';
+import { BsCart, BsMoon, BsSun } from 'react-icons/bs';
 import Cookies from 'js-cookie';
 import { navLinks } from '../constants';
-import Theme from './Theme';
 import { Store } from '@/utils/Store';
 
-const Navbar = ({ onThemeChange }) => {
+const themes = ['sun', 'moon'];
+
+const Navbar = () => {
   const homeRef = useRef(null);
   const navRef = useRef(null);
   const rocketRef = useRef(null);
@@ -50,8 +51,32 @@ const Navbar = ({ onThemeChange }) => {
     dispatch({ type: 'CART_RESET' });
     signOut({ callbackUrl: '/login' });
   };
+
+  const [theme, setTheme] = useState(
+    typeof window !== 'undefined' && localStorage.getItem('theme')
+      ? localStorage.getItem('theme')
+      : 'sun',
+  );
+  const toggleTheme = () => {
+    const newTheme = theme === 'sun' ? 'moon' : 'sun';
+    setTheme(newTheme);
+  };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', theme);
+      const localTheme = localStorage.getItem('theme');
+      document.querySelector('html').setAttribute('data-theme', localTheme);
+    }
+  }, [theme]);
+
   return (
     <header ref={homeRef} className="fixed bg-secondary text-base-100 w-full ">
+      <label className="swap swap-rotate">
+        <input type="checkbox" onClick={toggleTheme} />
+        <BsSun className="swap-on fill-current text-2xl text-primary" />
+        <BsMoon className="swap-off fill-current text-2xl text-primary" />
+      </label>
       <nav ref={navRef} className="w-full z-50 container !h-10  navbar mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -99,9 +124,6 @@ const Navbar = ({ onThemeChange }) => {
               <AiFillCar />
               <p>AutoMaster</p>
             </a>
-          </div>
-          <div className="hidden">
-            <Theme onThemeChange={onThemeChange} />
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">

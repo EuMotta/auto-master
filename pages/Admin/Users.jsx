@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';

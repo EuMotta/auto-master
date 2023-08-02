@@ -4,8 +4,40 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import axios from 'axios';
 import { BsInfoCircle } from 'react-icons/bs';
+import Cookies from 'js-cookie';
 import AdminLayout from './components/AdminLayout';
 import { getError } from '@/utils/error';
+import db from '@/utils/db';
+import User from '@/models/User';
+
+export async function getStaticPaths() {
+  await db.connect();
+  const users = await User.find({});
+  await db.disconnect();
+  Cookies.remove('session');
+  console.log(Cookies);
+  const paths = users.map((user) => ({
+    params: { id: user._id.toString() },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  await db.connect();
+  const user = await User.findById(params.id);
+  await db.disconnect();
+
+  return {
+    props: {
+      car: JSON.parse(JSON.stringify(user)),
+    },
+    revalidate: 1,
+  };
+}
 
 const ViewCars = () => {
   const { status, data: session } = useSession();

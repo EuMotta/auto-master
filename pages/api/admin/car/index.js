@@ -40,9 +40,7 @@ const getHandler = async (req, res) => {
   } else if (pag) {
     let pages = await CarData.countDocuments({}) / 20;
     pages = Math.ceil(pages);
-    await db.connect();
     cars = await CarData.find({}).skip(20 * pag).limit(20);
-    await db.disconnect();
     res.send({ cars, pages });
   } else {
     cars = await CarData.find({});

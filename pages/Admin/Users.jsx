@@ -48,81 +48,79 @@ const ViewCars = () => {
     const day = date.getDate() + 1;
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    return `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
+    return `${day < 10 ? '0' : ''}${day}/${
+      month < 10 ? '0' : ''
+    }${month}/${year}`;
   };
   return (
-    <div className="">
-      {
-        loading ? (
-          <div className="flex justify-center items-center">
-            <span className="loading loading-bars loading-lg" />
-          </div>
-        ) : error ? (
-          <div className="text-lg text-red-600">{error}</div>
-        ) : (
-          <AdminLayout>
-            <div className="container yPaddings mx-auto">
-              <div>
-                <table className="table ">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Data</th>
-                      <th>Tipo</th>
-                      <th className="flex justify-center">Detalhes</th>
-                    </tr>
-                  </thead>
-                  <tbody className="max-h-96 overflow-y-scroll">
-                    {users.map((user, key) => (
-                      <tr
-                        key={key}
-                        className="hover:bg-base-200 transition-all hover:-translate-y-1 hover:shadow-sm"
-                      >
-                        <td>
-                          <div className="flex items-center space-x-3">
-                            <div>
-                              <div className="font-bold">
-                                {user.name} {user.lastName}
-                              </div>
-                              <div className="text-sm opacity-50">
-                                {user.email}
-                              </div>
-                            </div>
+    <AdminLayout>
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <span className="loading loading-bars loading-lg" />
+        </div>
+      ) : error ? (
+        <div className="text-lg text-red-600">{error}</div>
+      ) : (
+        <div className="container yPaddings mx-auto">
+          <div>
+            <table className="table ">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Data</th>
+                  <th>Tipo</th>
+                  <th className="flex justify-center">Detalhes</th>
+                </tr>
+              </thead>
+              <tbody className="max-h-96 overflow-y-scroll">
+                {users.map((user, key) => (
+                  <tr
+                    key={key}
+                    className="hover:bg-base-200 transition-all hover:-translate-y-1 hover:shadow-sm"
+                  >
+                    <td>
+                      <div className="flex items-center space-x-3">
+                        <div>
+                          <div className="font-bold">
+                            {user.name} {user.lastName}
                           </div>
-                        </td>
-                        <td>
-                          Criada: {formatDate(user.createdAt)}
-                          <br />
-                          Atualizada: {formatDate(user.updatedAt)}
-                        </td>
-                        <td>
-                          {user.isAdmin ? (
-                            <span className="badge badge-error badge-sm">
-                              Admin
-                            </span>
-                          ) : (
-                            <span className="badge badge-success badge-sm">
-                              Usuário
-                            </span>
-                          )}
-                        </td>
-                        <th className="flex justify-center">
-                          <Link href={`/Admin/User/EditUser?userId=${user._id}`}>
-                            <button
-                              type="button"
-                              className="text-info rounded-full !p-2"
-                            >
-                              <BsInfoCircle className="text-3xl" />
-                            </button>
-                          </Link>
-                        </th>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div className="flex justify-center items-center">
-                  <div className="join">
-                    {/* Array.from(
+                          <div className="text-sm opacity-50">{user.email}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      Criada: {formatDate(user.createdAt)}
+                      <br />
+                      Atualizada: {formatDate(user.updatedAt)}
+                    </td>
+                    <td>
+                      {user.isAdmin ? (
+                        <span className="badge badge-error badge-sm">
+                          Admin
+                        </span>
+                      ) : (
+                        <span className="badge badge-success badge-sm">
+                          Usuário
+                        </span>
+                      )}
+                    </td>
+                    <th className="flex justify-center">
+                      <Link href={`/Admin/User/EditUser?userId=${user._id}`}>
+                        <button
+                          type="button"
+                          className="text-info rounded-full !p-2"
+                        >
+                          <BsInfoCircle className="text-3xl" />
+                        </button>
+                      </Link>
+                    </th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="flex justify-center items-center">
+              <div className="join">
+                {/* Array.from(
                       { length: 5 },
                       (_, index) => currentPage - 2 + index,
                     ).map(
@@ -142,16 +140,13 @@ const ViewCars = () => {
                             {page + 1}
                           </button>
                       ),
-                    ) */
-                    }
-                  </div>
-                </div>
+                    ) */}
               </div>
             </div>
-          </AdminLayout>
-        )
-      }
-    </div>
+          </div>
+        </div>
+      )}
+    </AdminLayout>
   );
 };
 

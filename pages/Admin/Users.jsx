@@ -21,7 +21,7 @@ function reducer(state, action) {
   }
 }
 
-const ViewCars = () => {
+const Users = () => {
   const [{ loading, error, users }, dispatch] = useReducer(reducer, {
     loading: true,
     users: [],
@@ -150,5 +150,5 @@ const ViewCars = () => {
   );
 };
 
-ViewCars.auth = { adminOnly: true };
-export default ViewCars;
+Users.auth = { adminOnly: true };
+export default Users;

@@ -19,7 +19,7 @@ const ViewCars = () => {
     setLoading(true);
     setError('');
     try {
-      const userDataResponse = await axios.get(`/api/admin/user?pag=${0}`);
+      const userDataResponse = await axios.get('/api/admin/user');
       const userData = await userDataResponse.data.users;
       const pages = await userDataResponse.data.pages;
       setUserData(userData);

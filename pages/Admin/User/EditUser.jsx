@@ -30,7 +30,7 @@ function reducer(state, action) {
       return state;
   }
 }
-const ViewCars = () => {
+const EditUser = () => {
   const { status, data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -137,5 +137,5 @@ const ViewCars = () => {
   );
 };
 
-ViewCars.auth = { adminOnly: true };
-export default ViewCars;
+EditUser.auth = { adminOnly: true };
+export default EditUser;

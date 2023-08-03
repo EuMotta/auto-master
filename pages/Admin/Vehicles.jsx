@@ -9,7 +9,7 @@ import { RiMotorbikeLine } from 'react-icons/ri';
 import AdminLayout from './components/AdminLayout';
 import { getError } from '@/utils/error';
 
-const ViewCars = () => {
+const Vehicles = () => {
   const { status, data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -158,5 +158,5 @@ const ViewCars = () => {
   );
 };
 
-ViewCars.auth = { adminOnly: true };
-export default ViewCars;
+Vehicles.auth = { adminOnly: true };
+export default Vehicles;

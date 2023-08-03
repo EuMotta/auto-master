@@ -7,7 +7,7 @@ import AdminLayout from './components/AdminLayout';
 import { getError } from '@/utils/error';
 import Graph1 from './components/Graphics';
 
-const ViewCars = () => {
+const Dashboard = () => {
   const { status, data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -133,5 +133,5 @@ const ViewCars = () => {
   );
 };
 
-ViewCars.auth = { adminOnly: true };
-export default ViewCars;
+Dashboard.auth = { adminOnly: true };
+export default Dashboard;

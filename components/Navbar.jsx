@@ -10,7 +10,7 @@ import Cookies from 'js-cookie';
 import { navLinks } from '../constants';
 import { Store } from '@/utils/Store';
 
-const themes = ['sun', 'moon'];
+// const themes = ['sun', 'moon'];
 
 const Navbar = () => {
   const homeRef = useRef(null);

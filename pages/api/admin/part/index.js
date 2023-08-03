@@ -8,24 +8,10 @@ const getHandler = async (req, res) => {
   if (!session) {
     return res.status(401).send('Realize o cadastro');
   }
-
-  const { name } = req.query;
-
   await db.connect();
-  let parts;
-  const { pag } = req.query;
-  if (name) {
-    parts = await PartData.find({ name }).select('name');
-  } else {
-    let pages = await PartData.countDocuments({}) / 20;
-    pages = Math.ceil(pages);
-    await db.connect();
-    parts = await PartData.find({}).skip(20 * pag).limit(20);
-    await db.disconnect();
-    res.send({ parts, pages });
-  }
-
+  const parts = await PartData.find({});
   await db.disconnect();
+  res.send(parts);
 };
 
 const handler = async (req, res) => {

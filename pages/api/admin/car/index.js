@@ -29,25 +29,14 @@ const getHandler = async (req, res) => {
   if (!session) {
     return res.status(401).send('Realize o cadastro');
   }
-
   const { brand } = req.query;
-
   await db.connect();
   let cars;
-  const { pag } = req.query;
   if (brand) {
     cars = await CarData.find({ brand }).select('brand');
-  } else if (pag) {
-    let pages = await CarData.countDocuments({}) / 20;
-    pages = Math.ceil(pages);
-    cars = await CarData.find({}).skip(20 * pag).limit(20);
-    res.send({ cars, pages });
   } else {
     cars = await CarData.find({});
-    const cars2 = await CarData.find({}).distinct('brand');
-    await console.log(cars2);
   }
-
   await db.disconnect();
   res.send(cars);
 };

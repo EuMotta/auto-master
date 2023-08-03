@@ -11,46 +11,6 @@ import { getError } from '../utils/error';
 const RegisterScreen = () => {
   const { data: session } = useSession();
 
-  const router = useRouter();
-  const { redirect } = router.query;
-
-  useEffect(() => {
-    if (session?.user) {
-      router.push(redirect || '/');
-    }
-  }, [router, session, redirect]);
-
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
-  const submitHandler = async ({ name, lastName, email, password }) => {
-    try {
-      await axios.post('/api/auth/signup', {
-        name,
-        lastName,
-        email,
-        password,
-      });
-
-      const result = await signIn('credentials', {
-        redirect: false,
-        lastName,
-        email,
-        password,
-      });
-
-      if (result.error) {
-        toast.error(result.error);
-      }
-    } catch (err) {
-      toast.error(getError(err));
-    }
-  };
-
-  const [tip, setTip] = useState('');
-
   return (
     <Layout title="Register">
       <div className="bg-register py-20">

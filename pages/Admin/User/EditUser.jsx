@@ -34,7 +34,8 @@ const EditUser = () => {
   const [error, setError] = useState('');
   const router = useRouter();
   const { userId } = router.query;
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [userCars, setUserCars] = useState([]);
   const [loading, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -45,12 +46,12 @@ const EditUser = () => {
     const fetchData = async () => {
       console.log(userId);
       try {
-        dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/admin/user/${userId}`);
-        const { data: carList } = await axios.get('/api/admin/car');
-        const filteredCarList = carList.filter((car) => car.owner === userId);
-        console.log('Car List:', filteredCarList);
+        const userCars = (await axios.get(`/api/car/?externalUserId=${userId}`)).data;
+        dispatch({ type: 'FETCH_REQUEST' });
+        console.log(data);
         setFormData(data[0]);
+        setUserCars(userCars);
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
@@ -176,6 +177,12 @@ const EditUser = () => {
                 </button>
               </div>
             </form>
+
+            <div className="car-list">
+              {userCars.map((car, key) => (
+                <h1 key={key}>{car.licensePlate}</h1>
+              ))}
+            </div>
           </div>
         </AdminLayout>
       )}

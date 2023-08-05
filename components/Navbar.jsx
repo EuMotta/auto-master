@@ -201,7 +201,7 @@ const Navbar = () => {
             <div className="">
               <div className="dropdown dropdown-bottom dropdown-end">
                 <label tabIndex={0}>
-                  <button type="button" className="p-5 hover:btn-primary">
+                  <button type="button" className="p-5 btn-primary hover:btn-primary">
                     {session.user.name}
                   </button>
                 </label>

@@ -1,6 +1,5 @@
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import axios from 'axios';
 import AdminLayout from './components/AdminLayout';
@@ -8,7 +7,6 @@ import { getError } from '@/utils/error';
 import Graph1 from './components/Graphics';
 
 const Dashboard = () => {
-  const { status, data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [carData, setCarData] = useState([]);
@@ -82,52 +80,46 @@ const Dashboard = () => {
   ];
   return (
     <div className="">
-      {session.user?.isAdmin ? (
-        status === 'loading' ? (
-          <span className="loading loading-bars loading-xs" />
-        ) : loading ? (
-          <div className="flex justify-center items-center">
-            <span className="loading loading-bars loading-lg" />
-          </div>
-        ) : error ? (
-          <div className="text-lg text-red-600">{error}</div>
-        ) : (
-          <AdminLayout>
-            <div className="container mx-auto">
-              <div className="grid grid-cols-4 yPaddings gap-5">
-                {cardmap.map((item, index) => (
-                  <div
-                    key={index}
-                    className="card w-full  !rounded-sm flex justify-center items-center bg-base-100 shadow-xl"
-                  >
-                    <div className="card-body">
-                      <h2 className="card-title">{item.title}</h2>
-                      <p>{item.value}</p>
-                      <div className="card-actions justify-end">
-                        <Link href="/" className="">
-                          Ver todos
-                        </Link>
-                      </div>
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <span className="loading loading-bars loading-lg" />
+        </div>
+      ) : error ? (
+        <div className="text-lg text-red-600">{error}</div>
+      ) : (
+        <AdminLayout>
+          <div className="container mx-auto">
+            <div className="grid grid-cols-4 yPaddings gap-5">
+              {cardmap.map((item, index) => (
+                <div
+                  key={index}
+                  className="card w-full  !rounded-sm flex justify-center items-center bg-base-100 shadow-xl"
+                >
+                  <div className="card-body">
+                    <h2 className="card-title">{item.title}</h2>
+                    <p>{item.value}</p>
+                    <div className="card-actions justify-end">
+                      <Link href="/" className="">
+                        Ver todos
+                      </Link>
                     </div>
                   </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-3">
-                <div className="card w-96 bg-base-100 shadow-xl">
-                  <div className="card-body">
-                    <h2 className="card-title">Carros por marca</h2>
-                    <p>Quantidade de carros de acordo com a sua marca</p>
-                  </div>
-                  <figure>
-                    <Graph1 data={carData} />
-                  </figure>
                 </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-3">
+              <div className="card w-96 bg-base-100 shadow-xl">
+                <div className="card-body">
+                  <h2 className="card-title">Carros por marca</h2>
+                  <p>Quantidade de carros de acordo com a sua marca</p>
+                </div>
+                <figure>
+                  <Graph1 data={carData} />
+                </figure>
               </div>
             </div>
-          </AdminLayout>
-        )
-      ) : (
-        ''
+          </div>
+        </AdminLayout>
       )}
     </div>
   );

@@ -31,13 +31,11 @@ function reducer(state, action) {
   }
 }
 const EditUser = () => {
-  const { status, data: session } = useSession();
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const router = useRouter();
   const { userId } = router.query;
   const [formData, setFormData] = useState(null);
-  const [state, dispatch] = useReducer(reducer, {
+  const [loading, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
   });
@@ -49,12 +47,13 @@ const EditUser = () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/admin/user/${userId}`);
+        const { data: carList } = await axios.get('/api/admin/car');
+        const filteredCarList = carList.filter((car) => car.owner === userId);
+        console.log('Car List:', filteredCarList);
         setFormData(data[0]);
-        setLoading(false);
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
-        setLoading(false);
         setError(getError(err));
       }
     };
@@ -70,20 +69,69 @@ const EditUser = () => {
       toast.error(getError(err));
     }
   };
-
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate() + 1;
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${day < 10 ? '0' : ''}${day}/${
+      month < 10 ? '0' : ''
+    }${month}/${year} as ${hours}:${minutes}`;
+  };
   return (
     <div className="">
-      {session.user?.isAdmin ? (
-        status === 'loading' ? (
-          <span className="loading loading-bars loading-xs" />
-        ) : loading ? (
-          <div className="flex justify-center items-center">
-            <span className="loading loading-bars loading-lg" />
-          </div>
-        ) : error ? (
-          <div className="text-lg text-red-600">{error}</div>
-        ) : (
-          <AdminLayout>
+      {!loading ? (
+        <div className="flex justify-center items-center">
+          <span className="loading loading-bars loading-lg" />
+        </div>
+      ) : error ? (
+        <div className="text-lg text-red-600">{error}</div>
+      ) : (
+        <AdminLayout>
+          <div className="grid grid-cols-2">
+            <div className="prose md:prose-lg">
+              <div className="card shadow-lg compact side bg-base-200">
+                <div className="grid grid-cols-2">
+                  <div className="">
+                    <div className="flex-row items-center space-x-4 card-body">
+                      <div>
+                        <h2 className="card-title">
+                          {formData.name} {formData.lastName}
+                        </h2>
+                        <p>{formData.email}</p>
+                        <div className="badge badge-secondary mt-2">
+                          {formData.isAdmin ? 'Admin' : 'User'}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-body">
+                      <p>
+                        <strong>Nome:</strong> {formData.name}
+                      </p>
+                      <p>
+                        <strong>Sobrenome:</strong> {formData.lastName}
+                      </p>
+                      <p>
+                        <strong>email:</strong> {formData.email}
+                      </p>
+                      <p>
+                        <strong>id:</strong> {formData._id}
+                      </p>
+                      <p>
+                        <strong>Criada:</strong>{' '}
+                        {formatDate(formData.createdAt)}
+                      </p>
+                      <p>
+                        <strong>Atualizada:</strong>{' '}
+                        {formatDate(formData.updatedAt)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <form
               className="mx-auto max-w-screen-md bg-base-500"
               onSubmit={handleSubmit(submitHandler)}
@@ -128,10 +176,8 @@ const EditUser = () => {
                 </button>
               </div>
             </form>
-          </AdminLayout>
-        )
-      ) : (
-        ''
+          </div>
+        </AdminLayout>
       )}
     </div>
   );

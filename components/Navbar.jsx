@@ -72,11 +72,6 @@ const Navbar = () => {
 
   return (
     <header ref={homeRef} className="fixed bg-secondary text-base-100 w-full ">
-      <label className="swap swap-rotate">
-        <input type="checkbox" onClick={toggleTheme} />
-        <BsSun className="swap-on fill-current text-2xl text-primary" />
-        <BsMoon className="swap-off fill-current text-2xl text-primary" />
-      </label>
       <nav ref={navRef} className="w-full z-50 container !h-10  navbar mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -133,7 +128,7 @@ const Navbar = () => {
                 <li key={index}>
                   {link.parent ? (
                     <details>
-                      <summary className="hover:btn-primary">
+                      <summary className="!btn-primary !text-primary focus:!btn-primary hover:!text-primary !btn-outline">
                         {link.name}
                       </summary>
                       <ul className="p-2 bg-secondary">
@@ -147,7 +142,10 @@ const Navbar = () => {
                       </ul>
                     </details>
                   ) : (
-                    <Link className="hover:btn-primary" href={link.url}>
+                    <Link
+                      className="btn-primary focus:btn-primary btn-outline"
+                      href={link.url}
+                    >
                       {link.name}
                     </Link>
                   )}
@@ -186,7 +184,7 @@ const Navbar = () => {
             )}
           </ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end gap-6">
           <Link href="/cart" className=" hover:btn-primary rounded-full">
             <div className="indicator">
               <span className="indicator-item bg-primary text-secondary badge badge-secondary">
@@ -201,7 +199,10 @@ const Navbar = () => {
             <div className="">
               <div className="dropdown dropdown-bottom dropdown-end">
                 <label tabIndex={0}>
-                  <button type="button" className="p-5 btn-primary hover:btn-primary">
+                  <button
+                    type="button"
+                    className="p-5 btn-primary hover:btn-primary"
+                  >
                     {session.user.name}
                   </button>
                 </label>
@@ -227,11 +228,20 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link href="/login" className="btn flex btn-outline">
+            <Link href="/login" className="btn btn-primary flex btn-outline">
               <FiLogIn />
               <p>Entrar</p>
             </Link>
           )}
+          <label className="swap swap-rotate ">
+            <input
+              type="checkbox"
+              className="bg-transparent focus:bg-transparent border-none focus:shadow-none h-full"
+              onClick={toggleTheme}
+            />
+            <BsSun className="swap-on fill-current text-2xl text-primary" />
+            <BsMoon className="swap-off fill-current text-2xl text-primary" />
+          </label>
         </div>
       </nav>
       <button

@@ -90,17 +90,19 @@ const CarScreen = () => {
     const fetchCar = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/car/${carId}`);
+        const carRequest = axios.get(`/api/car/${carId}`);
         const partsRequest = axios.get(`/api/car/${carId}/parts`);
         const refuelsRequest = axios.get(`/api/car/${carId}/refuels`);
         const maintenancesRequest = axios.get(`/api/car/${carId}/maintenances`);
         const reviewsRequest = axios.get(`/api/car/${carId}/reviews`);
-        const [parts, refuels, maintenances, reviews] = await Promise.all([
+        const [car, parts, refuels, maintenances, reviews] = await Promise.all([
+          carRequest,
           partsRequest,
           refuelsRequest,
           maintenancesRequest,
           reviewsRequest,
         ]);
+        const { data } = car;
         data.parts = parts.data;
         data.refuels = refuels.data;
         data.maintenances = maintenances.data;

@@ -91,16 +91,21 @@ const CarScreen = () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/car/${carId}`);
-        data.parts = await axios.get(`/api/car/${carId}/parts`);
-        data.refuels = await axios.get(`/api/car/${carId}/refuels`);
-        data.maintenances = await axios.get(`/api/car/${carId}/maintenances`);
-        data.reviews = await axios.get(`/api/car/${carId}/reviews`);
-        data.parts = data.parts.data;
-        data.refuels = data.refuels.data;
-        data.maintenances = data.maintenances.data;
-        data.reviews = data.reviews.data;
-
-        data.maintenances = data.maintenances.map((maintenance) => ({
+        const partsRequest = axios.get(`/api/car/${carId}/parts`);
+        const refuelsRequest = axios.get(`/api/car/${carId}/refuels`);
+        const maintenancesRequest = axios.get(`/api/car/${carId}/maintenances`);
+        const reviewsRequest = axios.get(`/api/car/${carId}/reviews`);
+        const [parts, refuels, maintenances, reviews] = await Promise.all([
+          partsRequest,
+          refuelsRequest,
+          maintenancesRequest,
+          reviewsRequest,
+        ]);
+        data.parts = parts.data;
+        data.refuels = refuels.data;
+        data.maintenances = maintenances.data;
+        data.reviews = reviews.data;
+        data.maintenances = await data.maintenances.map((maintenance) => ({
           ...maintenance,
           partTitle:
             data.parts.find((part) => part._id === maintenance.partId)?.title ||

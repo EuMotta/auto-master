@@ -7,7 +7,7 @@
 
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { React, useReducer, useEffect } from 'react';
+import { React, useReducer, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
@@ -23,6 +23,7 @@ import ShowPart from '@/pages/sections/User/car/index/ShowPart';
 import ShowMaintenance from '@/pages/sections/User/car/index/ShowMaintenance';
 import ShowReview from '@/pages/sections/User/car/index/ShowReview';
 import ShowRefuel from '@/pages/sections/User/car/index/ShowRefuel';
+import ShowSchedule from '@/pages/sections/User/car/index/ShowSchedule';
 
 export async function getStaticPaths() {
   await db.connect();
@@ -79,7 +80,7 @@ const CarScreen = () => {
   const carId = query.id;
   const router = useRouter();
   const { data: session } = useSession();
-
+  const [modal, setModal] = useState(1);
   const [{ loading, error, car }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -213,7 +214,7 @@ const CarScreen = () => {
   return (
     <Layout title="Exibindo Carro">
       {loading ? (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center h-screen justify-center">
           <span className="loading loading-bars loading-xl" />
         </div>
       ) : session?.user?._id === car?.owner ? (
@@ -227,57 +228,52 @@ const CarScreen = () => {
               <div>
                 <div className="bg-primary py-40">
                   <div className="container mx-auto lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <figure className="flex justify-center">
-                        {car.image ? (
-                          <Image
-                            src={car.image}
-                            width={500}
-                            height={113}
-                            className="object-contain"
-                          />
-                        ) : (
-                          <div>
-                            {car.type === 1 && (
-                              <AiFillCar className="text-8xl" />
-                            )}
-                            {car.type === 2 && (
-                              <RiMotorbikeLine className="text-8xl" />
-                            )}
-                            {car.type === 3 && <BsTruck className="text-8xl" />}
-                          </div>
-                        )}
-                      </figure>
+                    <div className="grid grid-cols-2">
+                      <div>
+                        <figure className="flex justify-center">
+                          {car.image ? (
+                            <Image
+                              src={car.image}
+                              width={500}
+                              height={113}
+                              className="object-contain rounded-3xl"
+                            />
+                          ) : (
+                            <div>
+                              {car.type === 1 && (
+                                <AiFillCar className="text-8xl" />
+                              )}
+                              {car.type === 2 && (
+                                <RiMotorbikeLine className="text-8xl" />
+                              )}
+                              {car.type === 3 && (
+                                <BsTruck className="text-8xl" />
+                              )}
+                            </div>
+                          )}
+                        </figure>
+                      </div>
+                      <div className="prose md:prose-xl items-center mx-auto flex-col my-auto">
+                        <h2 className="text-center block !mb-0">
+                          {car.brand} {car.model}
+                        </h2>
+                        <h4>Placa: {car.licensePlate}</h4>
+                        <h4>Cor: {car.color}</h4>
+                        <h4>
+                          Tipo:{' '}
+                          {car.type === 1
+                            ? 'Carro'
+                            : car.type === 2
+                              ? 'Moto'
+                              : 'Caminhão'}
+                        </h4>
+                      </div>
                     </div>
-                    <div className="prose md:prose-xl items-center mx-auto flex-col my-auto">
-                      <h2 className="text-center block !mb-0">
-                        {car.licensePlate}
-                      </h2>
-                      <h5 className="text-center text-yellow-300">
-                        {car.model}
-                      </h5>
-                      <hr className="!my-0" />
-                      <hr className="!m-2" />
-                    </div>
-                  </div>
-                </div>
-                <div className="h-96">
-                  <div
-                    className="container bg-white mx-auto p-20 rounded-box mt-[-6rem]"
-                    id="containerCarro"
-                  >
-                    <p className="text-black">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Eius nihil reprehenderit dolorum exercitationem, inventore
-                      excepturi quis iure cumque suscipit expedita nostrum quae
-                      veritatis, in necessitatibus repellendus? Voluptas porro
-                      facere adipisci?
-                    </p>
                   </div>
                 </div>
               </div>
-              <div className="grid container mx-auto grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="card grid prose  md:prose-xl grid-cols-2 gap-10 flex-col bg-base-300 p-5">
+              <div className="flex flex-col mt-[-4rem] bg-white container mx-auto p-5 rounded-3xl gap-10 justify-center w-3/4 items-center">
+                {/* <div className="card grid prose  md:prose-xl grid-cols-2 gap-10 flex-col bg-base-300 p-5">
                   <h2 className=" text-center !m-0 col-span-2">
                     Informações do Veículo
                   </h2>
@@ -314,30 +310,59 @@ const CarScreen = () => {
                       </div>{' '}
                     </div>
                   </div>
+                </div> */}
+                <div className=" flex gap-5">
+                  <button type="button" className="btn btn-primary" onClick={() => setModal(1)}>
+                    Partes
+                  </button>
+                  <button type="button" className="btn btn-primary" onClick={() => setModal(2)}>
+                    Manutenções
+                  </button>
+                  <button type="button" className="btn btn-primary" onClick={() => setModal(3)}>
+                    Revisões
+                  </button>
+                  <button type="button" className="btn btn-primary" onClick={() => setModal(4)}>
+                    Abastecimentos
+                  </button>
+                  <button type="button" className="btn btn-primary" onClick={() => setModal(5)}>
+                    Agendamentos
+                  </button>
                 </div>
-                <ShowPart
-                  data={car}
-                  carId={carId}
-                  deletePartHandler={deletePartHandler}
-                />
-                <ShowMaintenance
-                  data={car}
-                  carId={carId}
-                  deleteMaintenanceHandler={deleteMaintenanceHandler}
-                  formatDate={formatDate}
-                />
-                <ShowReview
-                  data={car}
-                  carId={carId}
-                  deleteReviewHandler={deleteReviewHandler}
-                  formatDate={formatDate}
-                />
-                <ShowRefuel
-                  data={car}
-                  carId={carId}
-                  deleteRefuelHandler={deleteRefuelHandler}
-                  formatDate={formatDate}
-                />
+                {modal === 1 ? (
+                  <ShowPart
+                    data={car}
+                    carId={carId}
+                    deletePartHandler={deletePartHandler}
+                  />
+                ) : modal === 2 ? (
+                  <ShowMaintenance
+                    data={car}
+                    carId={carId}
+                    deleteMaintenanceHandler={deleteMaintenanceHandler}
+                    formatDate={formatDate}
+                  />
+                ) : modal === 3 ? (
+                  <ShowReview
+                    data={car}
+                    carId={carId}
+                    deleteReviewHandler={deleteReviewHandler}
+                    formatDate={formatDate}
+                  />
+                ) : modal === 4 ? (
+                  <ShowRefuel
+                    data={car}
+                    carId={carId}
+                    deleteRefuelHandler={deleteRefuelHandler}
+                    formatDate={formatDate}
+                  />
+                ) : (
+                  <ShowSchedule
+                    data={car}
+                    carId={carId}
+                    deleteRefuelHandler={deleteRefuelHandler}
+                    formatDate={formatDate}
+                  />
+                )}
               </div>
               <button type="button" onClick={deleteCarHandler}>
                 Deletar Veículo

@@ -18,15 +18,12 @@ const RegisterPart = () => {
     register,
     formState: { errors },
   } = useForm();
-  console.log(errors);
   const submitHandler = async (formData) => {
     try {
       formData.owner = session?.user?._id;
       formData.carId = query.id;
-      console.log(formData);
-      const result = await axios.post('/api/Part', formData);
+      await axios.post('/api/Part', formData);
       toast.success('Parte criada com sucesso');
-      console.log(result);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       router.push(`/User/car/${query.id}`);
     } catch (err) {
@@ -44,51 +41,87 @@ const RegisterPart = () => {
       >
         <h1 className="mb-4 text-xl">Registrar Parte</h1>
         <div className="mb-4">
-          <label htmlFor="title">Nome</label>
+          <label htmlFor="title">
+            Nome <span className="text-red-500"> *</span>
+          </label>
           <input
             type="text"
-            {...register('title')}
-            className="w-full"
+            {...register('title', { required: 'Nome é obrigatório' })}
+            className={`w-full ${errors.title ? 'border-red-500' : ''}`}
             id="title"
-            value="Câmbio"
           />
+          {errors.title && (
+            <p className="text-red-500">{errors.title.message}</p>
+          )}
         </div>
         <div className="mb-4">
-          <label htmlFor="price">Preço</label>
+          <label htmlFor="price">
+            Preço <span className="text-red-500"> *</span>
+          </label>
           <input
             type="number"
-            {...register('price')}
-            className="w-full"
+            {...register('price', { required: 'Preço é obrigatório' })}
+            className={`w-full ${errors.price ? 'border-red-500' : ''}`}
             id="price"
-            value={150}
           />
+          {errors.price && (
+            <p className="text-red-500">{errors.price.message}</p>
+          )}
         </div>
 
         {optionQuant.map((_, key) => (
           <div key={key}>
             <div className="mb-4">
               <label htmlFor={`optionTitle[${key}].value`}>
-                Título da Opção
+                Título da Opção {key + 1} <span className="text-red-500"> *</span>
               </label>
               <input
                 type="text"
-                {...register(`optionTitle[${key}].value`)}
+                {...register(`optionTitle[${key}].value`, {
+                  required: 'Preencha o campo',
+                })}
                 id={`optionTitle[${key}].value`}
-                className="w-full"
-                value="5 marchas"
+                className={`w-full ${
+                  errors.optionTitle &&
+                  errors.optionTitle[key] &&
+                  errors.optionTitle[key].value
+                    ? 'border-red-500'
+                    : ''
+                }`}
               />
+              {errors.optionTitle &&
+                errors.optionTitle[key] &&
+                errors.optionTitle[key].value && (
+                  <p className="text-red-500">
+                    {errors.optionTitle[key].value.message}
+                  </p>
+              )}
             </div>
             <div className="mb-4">
               <label htmlFor={`optionValue[${key}].value`}>
-                Valor da Opção
+                Valor da Opção {key + 1} <span className="text-red-500"> *</span>
               </label>
               <input
                 type="text"
-                {...register(`optionValue[${key}].value`)}
+                {...register(`optionValue[${key}].value`, {
+                  required: 'Preencha o campo',
+                })}
                 id={`optionValue[${key}].value`}
-                className="w-full"
-                value="Novo"
+                className={`w-full ${
+                  errors.optionValue &&
+                  errors.optionValue[key] &&
+                  errors.optionValue[key].value
+                    ? 'border-red-500'
+                    : ''
+                }`}
               />
+              {errors.optionValue &&
+                errors.optionValue[key] &&
+                errors.optionValue[key].value && (
+                  <p className="text-red-500">
+                    {errors.optionValue[key].value.message}
+                  </p>
+              )}
             </div>
           </div>
         ))}

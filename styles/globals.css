@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;1,300;1,400;1,700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 html {
   scroll-behavior: smooth;
 }
@@ -12,12 +12,12 @@ html {
   @apply sm:py-16 py-12;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-blue-300;
+  @apply bg-primary;
   border-radius: 40px;
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 16px;
 }
 
 .primary-button {
@@ -88,7 +88,7 @@ html {
 
 h1{
   @apply !m-0;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 h2, h3, h4, h5{
   @apply !m-0; 
@@ -96,7 +96,7 @@ h2, h3, h4, h5{
 
 p{
   @apply !m-0; 
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 .card{
   @apply !rounded-md !border-indigo-300
@@ -120,7 +120,7 @@ p{
 }
 
 input {
-  @apply focus:text-white focus:shadow-md focus:shadow-slate-500 focus:bg-secondary focus:border-blue-600  block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:outline-none;
+  @apply focus:text-white focus:shadow-sm focus:shadow-slate-500 focus:bg-secondary focus:border-primary  block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:outline-none;
 }
 
 #password:focus ~ #senha-tip {
@@ -205,3 +205,11 @@ input {
 /*-----------------------*/
 /* Pagina inicial Start */
 /*-----------------------*/
+.bg-gray {
+  background-color: #D9D9D9;
+}
+
+.paddings{
+  padding-left: 10%;
+  padding-right: 10%;
+}

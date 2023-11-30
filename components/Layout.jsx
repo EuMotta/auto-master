@@ -22,11 +22,11 @@ const Layout = ({ children, title }) => (
       <link rel="icon" href="/next.svg" />
     </Head>
     <ToastContainer position="top-center" limit={1} />
-    <div className="flex min-h-screen flex-col justify-between">
+    <div className="flex min-h-screen flex-col">
       <header className="mb-16">
         <Navbar />
       </header>
-      <main>{children}</main>
+      <main className="min-h-screen">{children}</main>
       <footer>
         <Footer />
       </footer>

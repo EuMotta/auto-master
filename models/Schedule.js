@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const maintenanceSchema = new mongoose.Schema(
+const scheduleSchema = new mongoose.Schema(
   {
     carId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -13,16 +13,17 @@ const maintenanceSchema = new mongoose.Schema(
       required: true,
     },
     title: { type: String, required: true },
-    description: { type: String },
     date: { type: Date, required: true },
-    price: { type: Number, required: true },
+    description: { type: String, required: false },
+    price: { type: Number, required: false },
+    isReocurrent: { type: Boolean, required: true },
+    status: { type: Boolean, required: true, default: true },
   },
   {
     timestamps: true,
   },
 );
 
-const Maintenance = mongoose.models.Maintenance
-  || mongoose.model('Maintenance', maintenanceSchema);
+const Schedule = mongoose.models.Schedule || mongoose.model('Schedule', scheduleSchema);
 
-export default Maintenance;
+export default Schedule;

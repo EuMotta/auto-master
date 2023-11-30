@@ -36,6 +36,7 @@ const RegisterMaintenance = () => {
   const {
     handleSubmit,
     register,
+    formState: { errors },
   } = useForm();
 
   const [{ car }, dispatch] = useReducer(reducer, {
@@ -87,33 +88,26 @@ const RegisterMaintenance = () => {
           {carId}
           <h1 className="mb-4 text-xl">Registrar Manutenção</h1>
           <div className="mb-4">
-            <label htmlFor="title">Título</label>
+            <label htmlFor="title">Título<span className="text-red-500"> *</span></label>
             <input
               type="text"
-              {...register('title')}
-              className="w-full"
+              {...register('title', { required: 'Preencha o campo' })}
+              className={`w-full ${errors.title ? 'border-red-500' : ''}`}
               id="title"
-              value="Trocar câmbio"
             />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="subtitle">Subtitulo</label>
-            <input
-              type="text"
-              {...register('subtitle')}
-              className="w-full"
-              id="subtitle"
-              value="Folga muito grande"
-            />
+            {errors.title && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
           </div>
           {car.parts && (
             <div className="mb-4">
-              <label htmlFor="partId">Selecione a Parte</label>
+              <label htmlFor="partId">Selecione a Parte<span className="text-red-500"> *</span></label>
               <select
                 id="partId"
                 value={selectedPartId}
-                {...register('partId')}
+                {...register('partId', { required: 'Selecione a parte' })}
                 onChange={(e) => setSelectedPartId(e.target.value)}
+                className={`w-full ${errors.PartId ? 'border-red-500' : ''}`}
               >
                 <option value="">Parte</option>
                 {car.parts.map((part) => (
@@ -124,34 +118,44 @@ const RegisterMaintenance = () => {
               </select>
             </div>
           )}
+          {errors.partId && (
+            <p className="text-red-500">{errors.partId.message}</p>
+          )}
           <div className="mb-4">
             <label htmlFor="description">Descrição</label>
             <textarea
               {...register('description')}
               className="w-full"
               id="description"
-              value="O câmbio apresenta uma folga muito grande, necessitando a troca."
             />
+            {errors.description && (
+              <p className="text-red-500">{errors.description.message}</p>
+            )}
           </div>
 
           <div className="mb-4">
-            <label htmlFor="date">Data</label>
+            <label htmlFor="date">Data<span className="text-red-500"> *</span></label>
             <input
               type="Date"
-              {...register('date')}
-              className="w-full"
+              {...register('date', { required: 'Adicione uma data' })}
+              className={`w-full ${errors.date ? 'border-red-500' : ''}`}
               id="date"
             />
+            {errors.date && (
+              <p className="text-red-500">{errors.date.message}</p>
+            )}
           </div>
           <div className="mb-4">
-            <label htmlFor="price">Preço</label>
+            <label htmlFor="price">Preço<span className="text-red-500"> *</span></label>
             <input
               type="Number"
-              {...register('price')}
-              className="w-full"
+              {...register('price', { required: 'Preço é obrigatório' })}
+              className={`w-full ${errors.price ? 'border-red-500' : ''}`}
               id="price"
-              value={100}
             />
+            {errors.price && (
+              <p className="text-red-500">{errors.price.message}</p>
+            )}
           </div>
 
           <div className="mb-4">

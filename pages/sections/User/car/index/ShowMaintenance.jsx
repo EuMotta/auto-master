@@ -38,7 +38,7 @@ const ShowMaintenance = ({
               data.maintenances.map((maintenance, index) => (
                 <div
                   key={index}
-                  className="collapse  rounded-xl collapse-arrow shadow-lg shadow-base-300 rounded-lg bg-base-100"
+                  className="collapse collapse-arrow shadow-lg shadow-base-300 rounded-lg bg-base-100"
                 >
                   <input type="radio" name="my-accordion-2" defaultChecked />
                   <div className="collapse-title !p-0 grid grid-cols-4 text-center justify-center items-center font-medium">

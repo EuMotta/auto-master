@@ -12,7 +12,7 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
-import { AiFillCar } from 'react-icons/ai';
+import { AiFillCar, AiFillDelete } from 'react-icons/ai';
 import { RiMotorbikeLine } from 'react-icons/ri';
 import { BsTruck } from 'react-icons/bs';
 import { getError } from '@/utils/error';
@@ -227,7 +227,7 @@ const CarScreen = () => {
             <div>
               <div>
                 <div className="bg-primary py-40">
-                  <div className="container mx-auto lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="container mx-auto lg:px-20  grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="grid grid-cols-2">
                       <div>
                         <figure className="flex justify-center">
@@ -253,7 +253,7 @@ const CarScreen = () => {
                           )}
                         </figure>
                       </div>
-                      <div className="prose md:prose-xl items-center mx-auto flex-col my-auto">
+                      <div className="prose md:prose-xl items-center justify-between mx-auto flex-col my-auto">
                         <h2 className="text-center block !mb-0">
                           {car.brand} {car.model}
                         </h2>
@@ -269,10 +269,19 @@ const CarScreen = () => {
                         </h4>
                       </div>
                     </div>
+                    <div className="flex justify-end items-center">
+                      <button
+                        type="button"
+                        className="btn !p-2 z-10 btn-error"
+                        onClick={deleteCarHandler}
+                      >
+                        <AiFillDelete className="md:text-2xl" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col mt-[-4rem] bg-white container mx-auto p-5 rounded-3xl gap-10 justify-center w-3/4 items-center">
+              <div className="flex flex-col mt-[-4rem] mb-10 bg-white container mx-auto p-5 rounded-3xl gap-10 justify-center w-3/4 items-center">
                 {/* <div className="card grid prose  md:prose-xl grid-cols-2 gap-10 flex-col bg-base-300 p-5">
                   <h2 className=" text-center !m-0 col-span-2">
                     Informações do Veículo
@@ -312,19 +321,39 @@ const CarScreen = () => {
                   </div>
                 </div> */}
                 <div className=" flex gap-5">
-                  <button type="button" className="btn btn-primary" onClick={() => setModal(1)}>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => setModal(1)}
+                  >
                     Partes
                   </button>
-                  <button type="button" className="btn btn-primary" onClick={() => setModal(2)}>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => setModal(2)}
+                  >
                     Manutenções
                   </button>
-                  <button type="button" className="btn btn-primary" onClick={() => setModal(3)}>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => setModal(3)}
+                  >
                     Revisões
                   </button>
-                  <button type="button" className="btn btn-primary" onClick={() => setModal(4)}>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => setModal(4)}
+                  >
                     Abastecimentos
                   </button>
-                  <button type="button" className="btn btn-primary" onClick={() => setModal(5)}>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => setModal(5)}
+                  >
                     Agendamentos
                   </button>
                 </div>
@@ -364,9 +393,6 @@ const CarScreen = () => {
                   />
                 )}
               </div>
-              <button type="button" onClick={deleteCarHandler}>
-                Deletar Veículo
-              </button>
             </div>
           )}
         </div>

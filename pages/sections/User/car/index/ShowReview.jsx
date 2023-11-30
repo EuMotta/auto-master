@@ -2,32 +2,32 @@
 import Link from 'next/link';
 import React from 'react';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import { BsPlus } from 'react-icons/bs';
+import { BsPlus, BsSearch } from 'react-icons/bs';
 
 const ShowReview = ({ data, carId, deleteReviewHandler, formatDate }) => (
-  <div className="card prose h-96 overflow-scroll md:prose-xl flex-col bg-base-200 p-5">
-    <div className="grid grid-cols-2">
-      <h2 className=" text-center !m-0">Revisões</h2>
-      <div className="flex justify-center">
-        <Link
-          href={`${carId}/RegisterReview`}
-          className="text-xl btn btn-primary hover:shadow-md transition-all font-mono !p-2"
-        >
-          Adicionar Revisão <BsPlus className="text-3xl" />
-        </Link>
+  <div className="card  h-96 overflow-scroll md:prose-xl flex-col gap-5 w-full p-5">
+    <div className=" w-30 top-0  p-3 grid grid-cols-5 gap-5 items-center rounded">
+      <div className="flex w-full justify-center col-span-4 ">
+        <input type="text" className="w-full" />
+        <button type="button" className="btn-secondary rounded-l-none btn">
+          {' '}
+          <BsSearch className="text-4xl" />
+        </button>
+      </div>
+      <div className="flex justify-end gap-3 items-center">
+        <div className="flex justify-center">
+          <Link
+            href={`${carId}/RegisterReview`}
+            className=" btn btn-primary hover:shadow-md transition-all font-mono !p-2"
+          >
+            <BsPlus className="text-3xl" />
+          </Link>
+        </div>
       </div>
     </div>
     <div className="items-end" />
     <div className="overflow-x-auto">
-      <div className="table prose  md:prose-lg">
-        <div>
-          <div className="grid text-center grid-cols-4">
-            <div>Nome</div>
-            <div>Data</div>
-            <div>Preço</div>
-            <div>Opções</div>
-          </div>
-        </div>
+      <div className="">
         <div>
           <div className="flex flex-col gap-5 ">
             {data && data.reviews ? (
@@ -59,7 +59,7 @@ const ShowReview = ({ data, carId, deleteReviewHandler, formatDate }) => (
                     </div>
                   </div>
 
-                  <div className="collapse-content !p-0 flex flex-col gap-2">
+                  <div className="collapse-content mx-10  !p-0 flex flex-col gap-2">
                     <div className="table border w-full">
                       <div className="table-row-group">
                         <div className="table-row">
@@ -85,9 +85,6 @@ const ShowReview = ({ data, carId, deleteReviewHandler, formatDate }) => (
                       </div>
                     </div>
                   </div>
-                  <button type="button" onClick={deleteReviewHandler}>
-                    Deletar essa maçã
-                  </button>
                 </div>
               ))
             ) : (

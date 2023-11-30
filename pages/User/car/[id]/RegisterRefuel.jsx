@@ -70,9 +70,8 @@ const RegisterRefuel = () => {
       formData.partId = selectedPartId;
       formData.carId = carId;
       console.log(formData);
-      const result = await axios.post('/api/Refuel', formData);
+      await axios.post('/api/Refuel', formData);
       toast.success('Abastecimento criado com sucesso');
-      console.log(result);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       router.push(`/User/car/${query.id}`);
       /*       router.push(`/User/car/${query.id}`); */
@@ -96,42 +95,59 @@ const RegisterRefuel = () => {
           {carId}
           <h1 className="mb-4 text-xl">Registrar Abastecimento</h1>
           <div className="mb-4">
-            <label htmlFor="title">Título</label>
+            <label htmlFor="title">
+              Título <span className="text-red-500"> *</span>
+            </label>
             <input
               type="text"
-              {...register('title')}
-              className="w-full"
+              {...register('title', { required: 'Título é obrigatório' })}
+              className={`w-full ${errors.title ? 'border-red-500' : ''}`}
               id="title"
-              value="Abastecido para viagem"
             />
+            {errors.title && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
           </div>
           <div className="mb-4">
-            <label htmlFor="description">Descrição</label>
+            <label htmlFor="description">
+              Descrição <span className="text-red-500"> *</span>
+            </label>
             <textarea
-              {...register('description')}
-              className="w-full"
+              {...register('description', {
+                required: 'Descrição é obrigatória',
+              })}
+              className={`w-full ${errors.description ? 'border-red-500' : ''}`}
               id="description"
-              value="abastecimento"
             />
+            {errors.description && (
+              <p className="text-red-500">{errors.description.message}</p>
+            )}
           </div>
           <div className="mb-4">
-            <label htmlFor="type">Tipo</label>
+            <label htmlFor="type">
+              Tipo <span className="text-red-500"> *</span>
+            </label>
             <input
               type="text"
-              {...register('type')}
-              className="w-full"
+              {...register('type', { required: 'Tipo é obrigatório' })}
+              className={`w-full ${errors.type ? 'border-red-500' : ''}`}
               id="type"
-              value="Gasolina"
             />
+            {errors.type && (
+              <p className="text-red-500">{errors.type.message}</p>
+            )}
           </div>
           <div className="mb-4">
             <label htmlFor="distance">Distância percorrida</label>
             <input
               type="text"
-              {...register('distance')}
-              className="w-full"
+              {...register('distance', { required: 'Distância é obrigatória' })}
+              className={`w-full ${errors.distance ? 'border-red-500' : ''}`}
               id="distance"
             />
+            {errors.distance && (
+              <p className="text-red-500">{errors.distance.message}</p>
+            )}
           </div>
           <div className="mb-4">
             <label htmlFor="local">Local</label>
@@ -140,38 +156,51 @@ const RegisterRefuel = () => {
               {...register('local')}
               className="w-full"
               id="local"
-              value="Posto Ipiranga"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="date">Data</label>
+            <label htmlFor="date">
+              Data <span className="text-red-500"> *</span>
+            </label>
             <input
               type="Date"
-              {...register('date')}
-              className="w-full"
+              {...register('date', { required: 'Data é obrigatória' })}
+              className={`w-full ${errors.date ? 'border-red-500' : ''}`}
               id="date"
-              defaultValue={currentDate}
             />
+            {errors.date && (
+              <p className="text-red-500">{errors.date.message}</p>
+            )}
           </div>
           <div className="mb-4">
-            <label htmlFor="quantity">Quantidade</label>
+            <label htmlFor="quantity">
+              Quantidade <span className="text-red-500"> *</span>
+            </label>
             <input
               type="Number"
-              {...register('quantity')}
-              className="w-full"
+              {...register('quantity', { required: 'Data é obrigatória' })}
+              className={`w-full ${errors.quantity ? 'border-red-500' : ''}`}
               id="quantity"
               defaultValue={100}
             />
+            {errors.quantity && (
+              <p className="text-red-500">{errors.quantity.message}</p>
+            )}
           </div>
           <div className="mb-4">
-            <label htmlFor="price">Preço</label>
+            <label htmlFor="price">
+              Preço <span className="text-red-500"> *</span>
+            </label>
             <input
               type="Number"
-              {...register('price')}
-              className="w-full"
+              {...register('price', { required: 'Data é obrigatória' })}
+              className={`w-full ${errors.price ? 'border-red-500' : ''}`}
               id="price"
               defaultValue={100}
             />
+            {errors.price && (
+              <p className="text-red-500">{errors.price.message}</p>
+            )}
           </div>
 
           <div className="mb-4">

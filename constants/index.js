@@ -80,7 +80,7 @@ export const navLinks = [
     url: '/',
   },
   {
-    name: 'Serviços',
+    name: 'Preços',
     url: '/',
     parent: [
       {

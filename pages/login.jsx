@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import { getError } from '../utils/error';
-import carSVG from '@/public/images/loginSVG.svg';
+import carSVG from '@/public/images/carro.svg';
 
 const LoginScreen = () => {
   const { data: session } = useSession();
@@ -18,7 +18,9 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (session?.user) {
-      session.user.isAdmin ? router.push(redirect || '/Admin/Dashboard') : router.push(redirect || '/User/ViewCars');
+      session.user.isAdmin
+        ? router.push(redirect || '/Admin/Dashboard')
+        : router.push(redirect || '/User/ViewCars');
     }
   }, [router, session, redirect]);
 
@@ -43,16 +45,16 @@ const LoginScreen = () => {
   };
   return (
     <Layout title="Login">
-      <div className="bg-login py-20">
-        <div className="bg-white rounded grid md:grid-cols-2 sm:max-w-xs md:max-w-5xl mx-auto my-10">
-          <div className="rounded-lg illustration hidden md:flex bg-gradient-to-l from-yellow-300 to-yellow-100 min-h-[32rem] align-middle justify-center">
-            <Image src={carSVG} width={400} height={400} />
-          </div>
+      <div className="">
+        <div className="bg-white grid grid-cols-2">
           <form
-            className="max-w-screen prose md:prose-lg mx-auto md:mx-[40px] max-w-[200px] sm:max-w-[400px] md:max-w-full my-auto"
+            className="max-w-screen my-auto paddings col-span-2 md:col-span-1"
             onSubmit={handleSubmit(submitHandler)}
+            style={{
+              flex: 1,
+            }}
           >
-            <h3 className="!mb-5">Login</h3>
+            <h3 className="!mb-5 !text-center !text-3xl">Login</h3>
             <div className="mb-4">
               <label htmlFor="email">E-mail</label>
               <input
@@ -77,7 +79,10 @@ const LoginScreen = () => {
                 type="password"
                 {...register('password', {
                   required: 'Por favor, digite a senha',
-                  minLength: { value: 3, message: 'A senha precisa ter 5 ou mais caracteres' },
+                  minLength: {
+                    value: 3,
+                    message: 'A senha precisa ter 5 ou mais caracteres',
+                  },
                 })}
                 id="password"
                 autoFocus
@@ -86,23 +91,27 @@ const LoginScreen = () => {
                 <div className="text-red-500 ">{errors.password.message}</div>
               )}
             </div>
-            <div className="mb-4 ">
+            <div className="mb-4 text-center">
               <button type="submit" className="btn btn-primary">
                 Login
               </button>
             </div>
-            <div className="mb-4 ">
-              Não tem uma conta? &nbsp;
-              <Link href="register">Cadastre-se</Link>
+            <div className="mb-4 text-base text-center text-black">
+              <Link href="register">Ainda não tem conta?</Link>
             </div>
-            <div className="mb-4 ">
-              Esqueceu sua senha? &nbsp;
+            <div className="mb-4 text-base text-center text-black">
               <Link href="forgotPassword">Recuperar Senha</Link>
             </div>
           </form>
+          <div className="illustration p-6 hidden md:flex bg-gray min-h-[620px] align-middle justify-center">
+            <div className="text-center p-9 flex-column">
+              <Image src={carSVG} width={500} height={500} />
+
+              <p className="text-base font-medium  text-xl p-3">O controle do seu veículo de forma prática</p>
+            </div>
+          </div>
         </div>
       </div>
-
     </Layout>
   );
 };

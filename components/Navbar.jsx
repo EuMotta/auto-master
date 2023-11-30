@@ -5,7 +5,7 @@ import { FiLogIn } from 'react-icons/fi';
 import { FcUp } from 'react-icons/fc';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { BsCart, BsMoon, BsSun } from 'react-icons/bs';
+import { BsMoon, BsSun } from 'react-icons/bs';
 import Cookies from 'js-cookie';
 import { navLinks } from '../constants';
 import { Store } from '@/utils/Store';
@@ -16,14 +16,8 @@ const Navbar = () => {
   const homeRef = useRef(null);
   const navRef = useRef(null);
   const rocketRef = useRef(null);
-  const { state, dispatch } = useContext(Store);
-  const { cart } = state;
-  const [cartItemsCount, setCartItemsCount] = useState(0);
+  const { dispatch } = useContext(Store);
   const { status, data: session } = useSession();
-
-  useEffect(() => {
-    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
-  }, [cart.cartItems]);
 
   const homeFunc = () => {
     if (
@@ -93,7 +87,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 w-52"
             >
               {navLinks.map((link, index) => (
                 <li key={index}>
@@ -131,7 +125,7 @@ const Navbar = () => {
                       <summary className="!btn-primary !text-primary focus:!btn-primary hover:!text-primary !btn-outline">
                         {link.name}
                       </summary>
-                      <ul className="p-2 bg-secondary">
+                      <ul className="p-2 ">
                         {link.parent.map((sublink, subindex) => (
                           <li key={subindex}>
                             <a className="hover:btn-primary" href={sublink.url}>
@@ -185,14 +179,14 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end gap-6">
-          <Link href="/cart" className=" hover:btn-primary rounded-full">
+          {/* <Link href="/cart" className=" hover:btn-primary rounded-full">
             <div className="indicator">
               <span className="indicator-item bg-primary text-secondary badge badge-secondary">
                 {cartItemsCount}
               </span>
               <BsCart className="m-3 " />
             </div>
-          </Link>
+          </Link> */}
           {status === 'loading' ? (
             <span className="loading loading-bars loading-xs" />
           ) : session?.user ? (

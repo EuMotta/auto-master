@@ -93,70 +93,93 @@ const RegisterReview = () => {
             <label htmlFor="title">Título</label>
             <input
               type="text"
-              {...register('title')}
-              className="w-full"
+              {...register('title', { required: 'Título é obrigatório' })}
+              className={`w-full ${errors.title ? 'border-red-500' : ''}`}
               id="title"
             />
+            {errors.title && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
           </div>
           <div className="mb-4">
             <label htmlFor="subtitle">Subtitulo</label>
             <input
               type="text"
-              {...register('subtitle')}
-              className="w-full"
+              {...register('subtitle', { required: 'Subtitulo é obrigatório' })}
+              className={`w-full ${errors.subtitle ? 'border-red-500' : ''}`}
               id="subtitle"
             />
+            {errors.subtitle && (
+              <p className="text-red-500">{errors.subtitle.message}</p>
+            )}
           </div>
           {car.parts && (
-            <div className="mb-4">
+            <div className="mb-4 h-36 overflow-scroll">
               <label>Partes</label>
-              {car.parts.map((part) => (
-                <div key={part._id} className="mb-2">
-                  <input
-                    type="checkbox"
-                    value={part._id}
-                    checked={selectedPartId.includes(part._id)}
-                    onChange={(e) => {
-                      const partId = e.target.value;
-                      setSelectedPartId((prevIds) => {
-                        if (prevIds.includes(partId)) {
-                          return prevIds.filter((id) => id !== partId);
-                        }
-                        return [...prevIds, partId];
-                      });
-                    }}
-                  />
-                  <label>{part.title}</label>
-                </div>
-              ))}
+              <div className="grid grid-cols-4">
+                {car.parts.map((part) => (
+                  <div key={part._id} className="mb-2 flex items-center">
+                    <input
+                      type="checkbox"
+                      id={part._id}
+                      value={part._id}
+                      checked={selectedPartId.includes(part._id)}
+                      onChange={(e) => {
+                        const partId = e.target.value;
+                        setSelectedPartId((prevIds) => {
+                          if (prevIds.includes(partId)) {
+                            return prevIds.filter((id) => id !== partId);
+                          }
+                          return [...prevIds, partId];
+                        });
+                      }}
+                      className="form-checkbox h-5 w-5"
+                    />
+                    <label htmlFor={part._id} className="ml-2 text-gray-700">
+                      {part.title}
+                    </label>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
           <div className="mb-4">
             <label htmlFor="description">Descrição</label>
             <textarea
-              {...register('description')}
-              className="w-full"
+              {...register('description', {
+                required: 'Descrição é obrigatória',
+              })}
+              className={`w-full ${errors.description ? 'border-red-500' : ''}`}
               id="description"
             />
+            {errors.description && (
+              <p className="text-red-500">{errors.description.message}</p>
+            )}
           </div>
 
           <div className="mb-4">
             <label htmlFor="date">Data</label>
             <input
               type="Date"
-              {...register('date')}
-              className="w-full"
+              {...register('date', { required: 'Data é obrigatória' })}
+              className={`w-full ${errors.date ? 'border-red-500' : ''}`}
               id="date"
             />
+            {errors.date && (
+              <p className="text-red-500">{errors.date.message}</p>
+            )}
           </div>
           <div className="mb-4">
             <label htmlFor="price">Preço</label>
             <input
               type="Number"
-              {...register('price')}
-              className="w-full"
+              {...register('price', { required: 'Preço é obrigatório' })}
+              className={`w-full ${errors.price ? 'border-red-500' : ''}`}
               id="price"
             />
+            {errors.price && (
+              <p className="text-red-500">{errors.price.message}</p>
+            )}
           </div>
 
           <div className="mb-4">

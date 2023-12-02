@@ -7,19 +7,28 @@ const putHandler = async (req, res) => {
   const { id } = req.query;
   console.log(`ID DO USUARIO: ${id}`);
   try {
-    await User.updateOne({ _id: id }, {
-      name: req.body.name,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      createdAt: req.body.createdAt,
-      updatedAt: req.body.updatedAt,
-    });
+    const alteredUser = {};
+
+    if (req.body.name) {
+      alteredUser.name = req.body.name;
+    }
+
+    if (req.body.lastName) {
+      alteredUser.lastName = req.body.lastName;
+    }
+
+    if (req.body.email) {
+      alteredUser.email = req.body.email;
+    }
+
+    await User.updateOne({ _id: id }, alteredUser);
 
     await db.disconnect();
     res.send({ message: 'Usuario editado.' });
   } catch (e) {
     await db.disconnect();
-    res.status(404).send({ message: 'Usuario não encontrado.' });
+
+    res.status(404).send({ message: 'Erro ao atualizar o usuario' });
   }
 };
 

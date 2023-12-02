@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Layout from '@/components/Layout';
 import { getError } from '@/utils/error';
 
@@ -71,7 +71,9 @@ const Profile = () => {
       await axios.put(`/api/User/${userId}`, formData);
       dispatch({ type: 'UPDATE_SUCCESS' });
       toast.success('Informações Atualizadas.');
-      router.push('/User/ViewCars');
+      router.push('/').then(() => {
+        signOut();
+      });
     } catch (err) {
       dispatch({ type: 'UPDATE_FAIL', payload: getError(err) });
       toast.error(getError(err));
